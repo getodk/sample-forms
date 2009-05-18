@@ -1,0 +1,165 @@
+<h:html xmlns:h="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.w3.org/2002/xforms"
+      xmlns:ev="http://www.w3.org/2001/xml-events"
+      xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+      xmlns:jr="http://openrosa.org/javarosa">
+<h:head>
+    <h:title>CCPTZ Demo</h:title>
+    <model>
+    <instance>
+        <data>
+          <Subject>
+            <Picture />
+            <Age />
+            <Gender />
+            <Homearea />
+          </Subject>
+          <Mobile>
+            <Brand />
+            <Model />
+            <Payment />
+        <Services />
+      </Mobile>
+          <DataCapture>
+        <EnteredBy />
+          </DataCapture>
+        </data>
+    </instance>
+      <bind id="Picture" nodeset="/data/Subject/Picture" type="xsd:anyURI" />
+      <bind id="Age" nodeset="/data/Subject/Age" type="xsd:string" />
+      <bind id="Gender" nodeset="/data/Subject/Gender" type="xsd:string" />
+      <bind id="Homearea" nodeset="/data/Subject/Homearea" type="xsd:string" />
+      <bind id="Brand" nodeset="/data/Mobile/Brand" type="xsd:string" />
+      <bind id="Model" nodeset="/data/Mobile/Model" type="xsd:string" />
+      <bind id="Payment" nodeset="/data/Mobile/Payment" type="xsd:string" />
+      <bind id="Services" nodeset="/data/Mobile/Services" type="xsd:string" />
+      <bind id="EnteredBy" nodeset="/data/DataCapture/EnteredBy" type="xsd:string" />
+    </model>
+</h:head>           
+<h:body>
+     <upload bind="Picture" mediatype="image/*">
+      <label>Take a Picture:</label>
+      <hint>This will take a picture.</hint>
+      <filename ref="@filename" />
+      <mediatype ref="@mediatype" />
+    </upload>
+    <select1 bind="Age">
+      <label>How old are you?</label>
+      <hint>Select your relevent age group</hint>
+      <item>
+        <label>Under 15</label>
+        <value>-15</value>
+      </item>
+      <item>
+        <label>15-20</label>
+        <value>15-20</value>
+      </item>
+      <item>
+        <label>21-30</label>
+        <value>21-30</value>
+      </item>
+      <item>
+        <label>31-45</label>
+        <value>31-45</value>
+      </item>
+      <item>
+        <label>46-59</label>
+        <value>46-59</value>
+      </item>
+      <item>
+        <label>60 and over</label>
+        <value>60+</value>
+      </item>
+    </select1>
+    <select1 bind="Gender">
+      <label>Are you male or female?</label>
+      <hint>Select 1...</hint>
+      <item>
+        <label>Female</label>
+        <value>Female</value>
+      </item>
+      <item>
+        <label>Male</label>
+        <value>Male</value>
+      </item>
+    </select1>
+    <input bind="Homearea">
+      <label>Where do you live?</label>
+    </input>
+    <select1 bind="Brand" selection="closed" appearance="full">
+      <label>What brand is your phone?</label>
+      <hint>Please select from list...</hint>
+      <item>
+        <label>Nokia</label>
+        <value>Nokia</value>
+      </item>
+      <item>
+        <label>Sony Ericsson</label>
+        <value>Sony Ericsson</value>
+      </item>
+      <item>
+        <label>Motorola</label>
+        <value>Motorola</value>
+      </item>
+      <item>
+        <label>Samsung</label>
+        <value>Samsung</value>
+      </item>
+      <item>
+        <label>LG</label>
+        <value>LG</value>
+      </item>
+    </select1>
+    <input bind="Model">
+      <label>What model is it?</label>
+      <hint>leave blank if unsure...</hint>
+    </input>
+    <select1 bind="Payment" selection="closed" appearance="full">
+      <label>Are you contract or pre-paid?</label>
+      <item>
+        <label>Contract</label>
+        <value>Contract</value>
+      </item>
+      <item>
+        <label>Pre-paid</label>
+        <value>Pre-paid</value>
+      </item>
+    </select1>
+    <select bind="Services" selection="closed" appearance="full">
+      <label>Which of these have you used on your phone?</label>
+      <hint>more than one option can be selected...</hint>
+      <item>
+        <label>SMS</label>
+        <value>SMS</value>
+      </item>
+      <item>
+        <label>MMS</label>
+        <value>MMS</value>
+      </item>
+      <item>
+        <label>Email</label>
+        <value>Email</value>
+      </item>
+      <item>
+        <label>The Internet</label>
+        <value>Internet</value>
+      </item>
+      <item>
+        <label>Mxit</label>
+        <value>Mxit</value>
+      </item>
+      <item>
+        <label>Games</label>
+        <value>Games</value>
+      </item>
+      <item>
+        <label>Download new games</label>
+        <value>Dnewgames</value>
+      </item>
+    </select>
+    <input bind="EnteredBy">
+      <label>Please enter name of data capturer:</label>
+      <hint>... Cell-Life username ...</hint>
+    </input>
+  </h:body>
+</h:html>

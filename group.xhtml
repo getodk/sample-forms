@@ -1,0 +1,39 @@
+<xf:html xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:xf="http://www.w3.org/2002/xforms">
+	<head>
+		<title>Group</title>
+		<xf:model>
+			<xf:instance>
+				<data>
+					<name1 />
+					<name2 />
+					<name3 />
+					<name4 />
+				</data>
+			</xf:instance>
+		</xf:model>
+	</head>
+	<body>
+		<xf:group>
+			<xf:label>Group 1</xf:label>
+			<xf:input ref="name1">
+				<xf:label>Name 1 (Group 1)</xf:label>
+			</xf:input>
+			<xf:group>
+				<xf:label>Group 2</xf:label>
+				<xf:input ref="name2">
+					<xf:label>Name 2 (Group 2)</xf:label>
+				</xf:input>
+			</xf:group>
+			<xf:input ref="name4">
+				<xf:label>Name 4 (Group 1)</xf:label>
+			</xf:input>
+		</xf:group>
+		<xf:group>
+			<xf:label>Group 3</xf:label>
+			<xf:input ref="name3">
+				<xf:label>Name 3 (Group 3)</xf:label>
+			</xf:input>
+		</xf:group>
+	</body>
+</xf:html>

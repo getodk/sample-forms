@@ -1,0 +1,1417 @@
+<xf:html xmlns:xf="http://www.w3.org/2002/xforms"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:ev="http://www.w3.org/2001/xml-events"
+	xmlns:jr="http://openrosa.org/javarosa"> 
+
+  <head>
+    <title>HCT Household Survey</title>
+    
+    <!-- XForm Data Model -->
+    <xf:model id="HCTHousehold">
+      <xf:instance id="MainInstance">
+        <data>
+          <householdInfo>
+			<household_id />
+			<provider_id />
+			<team_id />
+			<village />
+			<location />
+			<sublocation />
+			<visit_date />
+			<household_adults />
+			<children_under13 />
+			<total_household />
+			<allowed_in />
+			<return_date_group />
+			<conduct_survey />
+			<return_date />
+			<bed_nets />
+			<bed_nets_group />
+			<number_of_nets />
+			<oldest_net_age />
+			<nets_treated />
+			<last_treatment />
+			<net_voucher />
+		  </householdInfo>
+          <individual>
+			<household />
+			<hct_id />
+			<given_name />
+			<middle_name />
+			<family_name />
+			<gender />
+			<house_status />
+			<relation_to_househead />
+			<marital_status />
+			<age_type />
+			<birth_date />
+			<age_in_years />
+			<age_in_months />
+			<total_age />
+			<pregnancy_status />
+			<attending_anc />
+			<parents_in_household />
+			<mother_died />
+			<mother_hiv_positive />
+			<father_died />
+			<father_hiv_positive />
+			<children_below13 />
+			<children_below5 />
+			<immunization_info />
+			<child_immunized />
+			<immunization_info_source />
+			<bcg_immunization />
+			<bcg_scar />
+			<latest_polio_dose_number />
+			<latest_pentavalent_dose />
+			<measles_immunization />
+			<previous_hiv_test />         		
+			<previous_hiv_test_year />
+			<previous_hiv_test_results />
+			<hiv_tx_program_status />
+			<hiv_tx_program_name />
+			<ampath_id />
+
+			<!-- This will be a hidden field logically
+				decided based on answers above -->
+			<child_needs_hiv_test />
+			
+			<!-- Test consent for children below 13-->
+			<testing_consent_group />
+			<testing_consent />
+			<reasons_for_decline />
+			<other_reasons />
+			
+			<hiv_test_section />
+			<pretest_counseling />
+			<accepted_hiv_testing />
+			<hiv_test_group />
+			<test1_result />
+			<test2_name />
+			<test2_result />
+			<test3_name />
+			<test3_result />
+			<couple_tested_together />
+			<discordant_couple />
+			<current_tb_tx_status />
+			<tb_info />
+			<past_tb_tx_status />
+			<past_tb_tx_year />
+			<completed_8m_tb_tx />
+			<cough_gt_2_wks />
+			<blood_cough_past_year />
+			<fever_gt_3wks />
+			<weight_loss_past_year />
+			<tb_in_household />
+			<failure_to_thrive />
+			<sputum_collected />
+
+			<!-- Time is automatically saved -->
+			<indiv_start_time />
+			<indiv_end_time />
+
+			<test_child_irregardless />
+
+			<!--  FOLLOW-UP DATA -->
+			<follow_up />
+			<phone_number />
+			<reenter_phone_number />
+		  </individual>
+        </data>
+      </xf:instance>
+      
+		<!-- Household Information Bindings -->
+		<xf:bind id="HouseholdID" nodeset="/data/householdInfo/household_id" required="true()"
+					constraint=". != '0'" jr:constraintMsg="Invalid Household ID. Please Re-enter the ID." type="xsd:string" />
+		<xf:bind id="ProviderID" nodeset="/data/householdInfo/provider_id" required="true()" 
+					constraint=". != '0'" jr:constraintMsg="Invalid Provider ID. Please Re-enter your ID." type="xsd:integer" />
+		<xf:bind id="TeamID" nodeset="/data/householdInfo/team_id" required="true()" type="xsd:string" />		
+		<xf:bind id="Village" nodeset="/data/householdInfo/village" type="xsd:string" />
+		<xf:bind id="Location" nodeset="/data/householdInfo/location" type="xsd:string" />
+		<xf:bind id="Sublocation" nodeset="/data/householdInfo/sublocation" type="xsd:string" />
+		<xf:bind id="VisitDate" nodeset="/data/householdInfo/visit_date"
+					constraint=". &lt;= today()" jr:constraintMsg="Visit date can not be in the future." type="xsd:date" />
+		<xf:bind id="HouseholdAdults" nodeset="/data/householdInfo/household_adults" required="true()" type="xsd:integer" />
+		<xf:bind id="ChildrenUnder13" nodeset="/data/householdInfo/children_under13" required="true()" type="xsd:integer" />
+		<xf:bind id="TotalInHousehold" nodeset="/data/householdInfo/total_household" readonly="true()"
+					calculate="../household_adults + ../children_under13" type="xsd:integer" />
+		<xf:bind id="AllowedIn" nodeset="/data/householdInfo/allowed_in" type="xsd:string" />
+		<xf:bind id="ReturnDate" nodeset="/data/householdInfo/return_date"
+					constraint=". &gt; today()" jr:constraintMsg="Return date must be in the future!" type="xsd:date" />
+		<xf:bind id="BedNets" nodeset="/data/householdInfo/bed_nets" type="xsd:string" />
+		<xf:bind id="NumberOfNets" nodeset="/data/householdInfo/number_of_nets" type="xsd:string" />
+		<xf:bind id="OldestNetAge" nodeset="/data/householdInfo/oldest_net_age" type="xsd:string" />
+		<xf:bind id="NetsTreated" nodeset="/data/householdInfo/nets_treated" type="xsd:string" />
+		<xf:bind id="LastTreatment" nodeset="/data/householdInfo/last_treatment" relevant="../nets_treated='Yes'" type="xsd:string" />
+		<xf:bind id="NetVoucher" nodeset="/data/householdInfo/net_voucher" type="xsd:string" />
+
+		<!-- Individual Data Bindings -->
+		<xf:bind id="HouseholdLabel" nodeset="/data/individual/household" readonly="true()" type="xsd:string" />
+		<xf:bind id="HCTID" nodeset="/data/individual/hct_id" required="true()" 
+					constraint=". != '0'" jr:constraintMsg="Invalid HCT ID. Please Re-enter the ID."type="xsd:integer" />
+		<xf:bind id="GivenName" nodeset="/data/individual/given_name" type="xsd:string" />
+		<xf:bind id="MiddleName" nodeset="/data/individual/middle_name" type="xsd:string" />
+		<xf:bind id="FamilyName" nodeset="/data/individual/family_name" type="xsd:string" />
+		<xf:bind id="Gender" nodeset="/data/individual/gender" required="true()" type="xsd:string" />
+		<xf:bind id="HouseStatus" nodeset="/data/individual/house_status" type="xsd:string" />
+		<xf:bind id="RelationToHousehead" nodeset="/data/individual/relation_to_househead" type="xsd:string" />
+		<xf:bind id="MaritalStatus" nodeset="/data/individual/marital_status" relevant="../total_age &gt;= 13" type="xsd:string" />
+		<xf:bind id="AgeType" nodeset="/data/individual/age_type"  required="true()" type="xsd:string" />
+		<xf:bind id="BirthDate" nodeset="/data/individual/birth_date" relevant="../age_type='Birth_date'" 
+					constraint=". &lt;= today()" jr:constraintMsg="Birthdates in the future not allowed" type="xsd:date" />
+		<xf:bind id="AgeInYears" nodeset="/data/individual/age_in_years" constraint=". &gt;= 0 and . &lt;= 130" 
+					relevant="../age_type='Age_in_Years' or ../age_type='Unknown'"  required="true()" type="xsd:integer" />
+		<xf:bind id="AgeInMonths" nodeset="/data/individual/age_in_months" constraint=". &gt;= 0 and . &lt;= 11"
+					relevant="../age_type='Age_in_Years' or ../age_type='Unknown'"  required="true()" type="xsd:integer" />
+		<xf:bind id="TotalAge" nodeset="/data/individual/total_age" constraint=". &gt; 0" readonly="true()" type="xsd:decimal" />				
+		<xf:bind id="PregnancyStatus" nodeset="/data/individual/pregnancy_status" type="xsd:string"
+					relevant="../gender='Female' and ../total_age &gt;= 13"  />
+		<xf:bind id="AttendingANC" nodeset="/data/individual/attending_anc" relevant="../pregnancy_status='Yes'" type="xsd:string" />
+		<xf:bind id="ParentsInHousehold" nodeset="/data/individual/parents_in_household" type="xsd:string" />
+		<xf:bind id="MotherDied" nodeset="/data/individual/mother_died" type="xsd:string" />
+		<xf:bind id="MotherHivPositive" nodeset="/data/individual/mother_hiv_positive" type="xsd:string" />
+		<xf:bind id="FatherDied" nodeset="/data/individual/father_died" type="xsd:string" />
+		<xf:bind id="FatherHivPositive" nodeset="/data/individual/father_hiv_positive" type="xsd:string" />
+		<xf:bind id="ChildImmunized" nodeset="/data/individual/child_immunized" type="xsd:string" />
+		<xf:bind id="ImmunizationInfoSource" nodeset="/data/individual/immunization_info_source" type="xsd:string" />
+		<xf:bind id="BCGImmunization" nodeset="/data/individual/bcg_immunization" type="xsd:string" />
+		<xf:bind id="BCGScar" nodeset="/data/individual/bcg_scar" type="xsd:string" />
+		<xf:bind id="LatestPolioDoseNum" nodeset="/data/individual/latest_polio_dose_number" type="xsd:string" />
+		<xf:bind id="LatestPentavalentDose" nodeset="/data/individual/latest_pentavalent_dose" type="xsd:string" />
+		<xf:bind id="MeaslesImmunization" nodeset="/data/individual/measles_immunization" type="xsd:string" />
+		<xf:bind id="PreviousHIVTest" nodeset="/data/individual/previous_hiv_test" type="xsd:string" />
+		<xf:bind id="PreviousHIVTestYear" nodeset="/data/individual/previous_hiv_test_year" relevant="../previous_hiv_test='Yes'" type="xsd:string" />
+		<xf:bind id="PreviousHIVTestResults" nodeset="/data/individual/previous_hiv_test_results" relevant="../previous_hiv_test='Yes'" type="xsd:string" />
+		<xf:bind id="HIVTxProgramStatus" nodeset="/data/individual/hiv_tx_program_status" relevant="../previous_hiv_test_results='Positive'" type="xsd:string" />
+		<xf:bind id="HIVTxProgramName" nodeset="/data/individual/hiv_tx_program_name" relevant="../hiv_tx_program_status='Yes'" type="xsd:string" />
+		<xf:bind id="AmpathID" nodeset="/data/individual/ampath_id" relevant="../hiv_tx_program_name='Ampath'" type="xsd:integer" />
+		<xf:bind id="ChildNeedsHIVTest" nodeset="/data/individual/child_needs_hiv_test" type="xsd:string" />
+		
+		<!-- Testing consent for Children below 13 -->
+		<xf:bind id="TestingConsent" nodeset="/data/individual/testing_consent" type="xsd:string" />
+		<xf:bind id="ReasonsForDecline" nodeset="/data/individual/reasons_for_decline" type="xsd:string" 
+					relevant="../testing_consent='No'" />
+		<xf:bind id="OtherReasons" nodeset="/data/individual/other_reasons" type="xsd:string" 
+					relevant="../reasons_for_decline='Other'" />
+		
+		<xf:bind id="PretestCounseling" nodeset="/data/individual/pretest_counseling" type="xsd:string" />
+		<xf:bind id="AcceptedHIVTesting" nodeset="/data/individual/accepted_hiv_testing" type="xsd:string"
+					constraint=". = 'No' or (. ='Yes' and ../pretest_counseling='Yes')" 
+					jr:constraintMsg="You can not test without counselling" />
+		<xf:bind id="Test1Result" nodeset="/data/individual/test1_result" required="true()" type="xsd:string" />
+		<xf:bind id="Test2Name" nodeset="/data/individual/test2_name" required="true()" type="xsd:string" />
+		<xf:bind id="Test2Result" nodeset="/data/individual/test2_result" required="true()" type="xsd:string" />
+		<xf:bind id="Test3Name" nodeset="/data/individual/test3_name" required="true()" type="xsd:string" 
+					relevant="../test2_result != ../test1_result" 
+					constraint=". != ../test2_name" jr:constraintMsg="This test MUST be diffent from Test 2!" />
+		<xf:bind id="Test3Result" nodeset="/data/individual/test3_result" required="true()" type="xsd:string"
+					relevant="../test2_result != ../test1_result" />
+		<xf:bind id="CoupleTestedTogether" nodeset="/data/individual/couple_tested_together" 
+					relevant="../marital_status='Married'" type="xsd:string" />
+		<xf:bind id="DiscordantCouple" nodeset="/data/individual/discordant_couple" 
+					relevant="../marital_status='Married'" type="xsd:string" />
+		<xf:bind id="CurrentTBTreatment" nodeset="/data/individual/current_tb_tx_status" type="xsd:string" />
+		<xf:bind id="PastTBTreatment" nodeset="/data/individual/past_tb_tx_status" type="xsd:string" />
+		<xf:bind id="PastTBTreatmentYear" nodeset="/data/individual/past_tb_tx_year" relevant="../past_tb_tx_status='Yes'" type="xsd:string" />
+		<xf:bind id="Completed8mTBTreatment" nodeset="/data/individual/completed_8m_tb_tx" relevant="../past_tb_tx_status='Yes'" type="xsd:string" />
+		<xf:bind id="CoughGtTwoWks" nodeset="/data/individual/cough_gt_2_wks" type="xsd:string" />
+		<xf:bind id="BloodCoughPastYr" nodeset="/data/individual/blood_cough_past_year" type="xsd:string" />
+		<xf:bind id="FeverGtThreeWks" nodeset="/data/individual/fever_gt_3wks" type="xsd:string" />
+		<xf:bind id="WeightLossPastYr" nodeset="/data/individual/weight_loss_past_year" type="xsd:string" />
+		<xf:bind id="TBinHousehold" nodeset="/data/individual/tb_in_household" type="xsd:string" />
+		<xf:bind id="FailureToThrive" nodeset="/data/individual/failure_to_thrive" type="xsd:string" />
+		<xf:bind id="SputumCollected" nodeset="/data/individual/sputum_collected" type="xsd:string" />
+		<xf:bind id="TestChild" nodeset="/data/individual/test_child_irregardless" type="xsd:string" />
+		<xf:bind id="FollowUp" nodeset="/data/individual/follow_up" type="xsd:string" />
+		<xf:bind id="PhoneNumber" nodeset="/data/individual/phone_number" type="xsd:string" constraint=". != 07"
+					jr:constraintMsg="Enter phone number in the format 07xx xxxxxx or leave blank." />
+		<xf:bind id="RePhoneNumber" nodeset="/data/individual/reenter_phone_number" type="xsd:string"
+					relevant="../phone_number !=''" required="true()" constraint=". = ../phone_number"
+					jr:constraintMsg="Phone numbers do match. Can swipe back and confirm" />
+
+		<!-- Group Bindings -->
+		<xf:bind id="ReturnDateGroup" nodeset="/data/householdInfo/return_date_group" 
+					relevant="../allowed_in='LaterDate' or ../allowed_in='NotHome'" />
+		<xf:bind id="ConductSurvey" nodeset="/data/householdInfo/conduct_survey" relevant="../allowed_in='Accepted'" type="xsd:string" />		
+		<xf:bind id="BedNetsGroup" nodeset="/data/householdInfo/bed_nets_group" relevant="../bed_nets='Yes'" type="xsd:string" />		
+
+		<xf:bind id="ChildrenBelow13" nodeset="/data/individual/children_below13" relevant="../total_age &lt; 13" />
+		<xf:bind id="ChildrenBelow5" nodeset="/data/individual/children_below5" relevant="../total_age &lt; 5" />
+		<xf:bind id="ImmunizationInfo" nodeset="/data/individual/immunization_info" relevant="../child_immunized='Yes'" />
+
+		<xf:bind id="TestingConsentGroup" nodeset="/data/individual/testing_consent_group" 
+					relevant="../total_age &lt; 13 and (../mother_died='Yes' or ../mother_hiv_positive='Yes')" />
+		<xf:bind id="HIVTestSection" nodeset="/data/individual/hiv_test_section" 
+					relevant="../total_age &gt;= 13 or (../testing_consent='Yes' and ../total_age &gt;= 1.5)" />
+		<xf:bind id="HIVTestGroup" nodeset="/data/individual/hiv_test_group" relevant="../accepted_hiv_testing='Yes'" />
+		
+		<xf:bind id="TBInfoGroup" nodeset="/data/individual/tb_info" relevant="../current_tb_tx_status='No'" />
+
+    </xf:model>
+  </head>
+  
+  <!-- XForm User Interface -->
+  <body>
+  	
+  	<!-- Household -->
+  	<xf:group>
+  		<xf:label>Household Information</xf:label>
+		<xf:input bind="HouseholdID">
+			<xf:label>Household ID:</xf:label>
+		</xf:input>
+		<xf:input bind="ProviderID">
+			<xf:label>Provider ID:</xf:label>
+		</xf:input>
+		<xf:select1 bind="TeamID">
+			<xf:label>Team ID:</xf:label>
+			<xf:item>
+				<xf:label>Team 1</xf:label>
+				<xf:value>Team1</xf:value>
+			</xf:item>
+			<xf:item>
+				<xf:label>Team 2</xf:label>
+				<xf:value>Team2</xf:value>
+			</xf:item>
+			<xf:item>
+				<xf:label>Team 3</xf:label>
+				<xf:value>Team3</xf:value>
+			</xf:item>
+			<xf:item>
+				<xf:label>Team 4</xf:label>
+				<xf:value>Team4</xf:value>
+			</xf:item>
+			<xf:item>
+				<xf:label>Team 5</xf:label>
+				<xf:value>Team5</xf:value>
+			</xf:item>
+		</xf:select1>
+		<xf:input bind="Village">
+			<xf:label>Village:</xf:label>
+		</xf:input>
+		<xf:input bind="Location">
+			<xf:label>Location:</xf:label>
+		</xf:input>   
+		<xf:input bind="Sublocation">
+			<xf:label>Sub-Location:</xf:label>
+		</xf:input>    
+		<xf:input bind="VisitDate">
+			<xf:label>Date of Visit:</xf:label>
+		</xf:input> 
+		<xf:group>
+			<xf:label>Best Consensus Information</xf:label>
+			<xf:input bind="HouseholdAdults">
+				<xf:label>No of household Adults:</xf:label>
+			</xf:input>    
+			<xf:input bind="ChildrenUnder13">
+				<xf:label>Number of Children below 13yrs:</xf:label>
+			</xf:input>  
+			<xf:input bind="TotalInHousehold">
+				<xf:label>Number of All members:</xf:label>
+			</xf:input> 
+		</xf:group>
+		<xf:select1 bind="AllowedIn" appearance="compact">
+			<xf:label>Allowed In?:</xf:label>
+			  <xf:item>
+				<xf:label>Accepted</xf:label>
+				<xf:value>Accepted</xf:value>
+			  </xf:item>
+			  <xf:item>
+				<xf:label>Declined</xf:label>
+				<xf:value>Declined</xf:value>
+			  </xf:item>
+			  <xf:item>
+				<xf:label>Not Home</xf:label>
+				<xf:value>NotHome</xf:value>
+			  </xf:item>
+			  <xf:item>
+				<xf:label>Requested later date</xf:label>
+				<xf:value>LaterDate</xf:value>
+			  </xf:item>
+		</xf:select1> 
+ 	</xf:group>
+ 	
+	<!-- AFTER HERE EITHER END SURVEY, CONTINUE, OR END AND TAKE A RETURN DATE -->
+	
+	<!-- IF declined -There is nothing to do -->
+	
+	<!-- Not Home or Requested Later Date-->
+	<xf:group bind="ReturnDateGroup">
+		<xf:label>Not Home or Requested Later Date</xf:label>
+		<xf:input bind="ReturnDate">
+			<xf:label>Enter Return Date:</xf:label>
+		</xf:input>
+	</xf:group>
+	    
+	<!-- ALLOWED IN CONDUCT SURVEY -->
+	<xf:group bind="ConductSurvey">
+		<xf:label>Household Survey</xf:label>
+		<!-- BED NETS -->
+		<xf:select1 bind="BedNets">
+			<xf:label>Do you have bed nets?</xf:label>
+			<xf:item>
+				<xf:label>Yes</xf:label>
+				<xf:value>Yes</xf:value>
+			</xf:item>
+			<xf:item>
+				<xf:label>No</xf:label>
+				<xf:value>No</xf:value>
+			</xf:item>
+		</xf:select1>
+		<xf:group bind="BedNetsGroup">
+			<xf:label>Bed Nets Info</xf:label>
+			<xf:input bind="NumberOfNets">
+				<xf:label>How Many?</xf:label>
+			</xf:input>
+			<xf:select1 bind="OldestNetAge">
+				<xf:label>How old is the oldest net?</xf:label>
+				<xf:item>
+					<xf:label>Less than a year</xf:label>
+					<xf:value>LessThanYear</xf:value>
+				</xf:item>
+				<xf:item>
+					<xf:label>1 - 3 years</xf:label>
+					<xf:value>1to3years</xf:value>
+				</xf:item>
+				<xf:item>
+					<xf:label>More than 3 years</xf:label>
+					<xf:value>moreThan3years</xf:value>
+				</xf:item>				
+			</xf:select1>
+			<xf:select1 bind="NetsTreated">
+				<xf:label>Bed nets treated?</xf:label>
+				<xf:item>
+					<xf:label>Yes</xf:label>
+					<xf:value>Yes</xf:value>
+				</xf:item>
+				<xf:item>
+					<xf:label>No</xf:label>
+					<xf:value>No</xf:value>
+				</xf:item>
+			</xf:select1>
+			<xf:select1 bind="LastTreatment">
+				<xf:label>How long ago?</xf:label>
+				<xf:item>
+					<xf:label>0 - 12 months</xf:label>
+					<xf:value>yearOrLess</xf:value>
+				</xf:item>
+				<xf:item>
+					<xf:label>1 - 3 years</xf:label>
+					<xf:value>1to3years</xf:value>
+				</xf:item>
+				<xf:item>
+					<xf:label>4 - 10 years</xf:label>
+					<xf:value>4to10years</xf:value>
+				</xf:item>				
+				<xf:item>
+					<xf:label>More than 10 years</xf:label>
+					<xf:value>moreThan10years</xf:value>
+				</xf:item>				
+			</xf:select1>			
+			<xf:input bind="NetVoucher">
+				<xf:label>Voucher number of provided bed net:</xf:label>
+			</xf:input>
+		</xf:group>
+		<!-- End of Bed Nets -->
+		
+		<!-- Separate household members from visitors -->
+
+		<!-- Household Individual -->
+		<xf:group>
+			<xf:label>Individual Info</xf:label>
+			<xf:repeat nodeset="/data/individual">
+				<xf:input bind="HouseholdLabel">
+					<xf:label>Household Label:</xf:label>
+				</xf:input> 
+				<xf:input bind="HCTID">
+					<xf:label>HCT ID:</xf:label>
+				</xf:input> 
+				<xf:input bind="GivenName">
+					<xf:label>Given Name:</xf:label>
+				</xf:input> 
+				<xf:input bind="MiddleName">
+					<xf:label>Middle Name:</xf:label>
+				</xf:input> 
+				<xf:input bind="FamilyName">
+					<xf:label>Family Name:</xf:label>
+				</xf:input> 
+				<xf:select1 bind="Gender" selection="closed" appearance="full">
+					<xf:label>Gender:</xf:label>
+					<xf:item>
+						<xf:label>Male</xf:label>
+						<xf:value>Male</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>Female</xf:label>
+						<xf:value>Female</xf:value>
+					</xf:item>
+				</xf:select1> 
+				
+				<!--Individual Age-->
+				<xf:select1 bind="AgeType" selection="closed" appearance="full">
+					<xf:label>Age Entry Mode:</xf:label>
+					<xf:item>
+						<xf:label>Enter Birthdate</xf:label>
+						<xf:value>Birth_date</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>Age in years / months</xf:label>
+						<xf:value>Age_in_Years</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>Unknown (Estimated Age)</xf:label>
+						<xf:value>Unknown</xf:value>
+					</xf:item>
+				</xf:select1> 
+
+				<!-- If enter birthdate -->
+				<xf:input bind="BirthDate">
+					<xf:label>Select Birthdate</xf:label>
+				</xf:input>
+
+				<!-- If age in years -->
+				<xf:input bind="AgeInYears">
+					<xf:label>Years:</xf:label>
+				</xf:input>
+				<xf:input bind="AgeInMonths">
+					<xf:label>Months:</xf:label>
+				</xf:input>
+
+				<!--Display Effective Age -->
+				<xf:input bind="TotalAge">
+					<xf:label>The Age is:</xf:label>
+				</xf:input>
+
+				<xf:select1 bind="HouseStatus" selection="closed" appearance="full">
+					<xf:label>House Status:</xf:label>
+					<xf:item>
+						<xf:label>Household Resident</xf:label>
+						<xf:value>HouseholdResident</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>Visitor FROM Webuye</xf:label>
+						<xf:value>VisitorFROMWebuye</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>Visitor NOT FROM Webuye</xf:label>
+						<xf:value>VisitorNOTFROMWebuye</xf:value>
+					</xf:item>
+				</xf:select1> 
+				<xf:select1 bind="RelationToHousehead" selection="open" appearance="minimal">
+					<xf:label>Relation to Head of Home Status:</xf:label>
+					<xf:item>
+						<xf:label>Self</xf:label>
+						<xf:value>Self</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>Spouse</xf:label>
+						<xf:value>Spouse</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>Child</xf:label>
+						<xf:value>Child</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>Parent</xf:label>
+						<xf:value>Parent</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>Sibling</xf:label>
+						<xf:value>Sibling</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>Grand Parent</xf:label>
+						<xf:value>GrandParent</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>Grand Child</xf:label>
+						<xf:value>GrandChild</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>Parent in Law</xf:label>
+						<xf:value>parent_in_law</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>Step Parent</xf:label>
+						<xf:value>StepParent</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>Step Child</xf:label>
+						<xf:value>StepChild</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>Aunt/Uncle</xf:label>
+						<xf:value>AuntORuncle</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>Niece/Nephew</xf:label>
+						<xf:value>NieceORnephew</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>Cousin</xf:label>
+						<xf:value>Cousin</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>Foster Child</xf:label>
+						<xf:value>FosterChild</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>Friend</xf:label>
+						<xf:value>Friend</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>House Help</xf:label>
+						<xf:value>HouseHelp</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>Employee</xf:label>
+						<xf:value>Employee</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>Tenant / Renter</xf:label>
+						<xf:value>TenantORrenter</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>Other</xf:label>
+						<xf:value>Other</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>Unknown</xf:label>
+						<xf:value>Unknown</xf:value>
+					</xf:item>
+				</xf:select1> 
+				<xf:select1 bind="MaritalStatus" selection="closed" appearance="full">
+					<xf:label>Marital Status:</xf:label>
+					<xf:item>
+						<xf:label>Single</xf:label>
+						<xf:value>Single</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>Married</xf:label>
+						<xf:value>Married</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>Divorced</xf:label>
+						<xf:value>Divorced</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>Separated</xf:label>
+						<xf:value>Separated</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>Widowed</xf:label>
+						<xf:value>Widowed</xf:value>
+					</xf:item>
+				</xf:select1> 
+				<xf:select1 bind="PregnancyStatus" >
+					<xf:label>Pregnant?</xf:label>
+					<xf:item>
+						<xf:label>Yes</xf:label>
+						<xf:value>Yes</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>No</xf:label>
+						<xf:value>No</xf:value>
+					</xf:item>		
+				</xf:select1>
+				<xf:select1 bind="AttendingANC" >
+					<xf:label>Attending Antenatal Clinic?</xf:label>
+					<xf:item>
+						<xf:label>Yes</xf:label>
+						<xf:value>Yes</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>No</xf:label>
+						<xf:value>No</xf:value>
+					</xf:item>		
+				</xf:select1>
+
+				<!-- Start -For Children < 13 years -->
+				<xf:group bind="ChildrenBelow13">
+					<xf:label>For Children Below 13 Years</xf:label>
+					<xf:select1 bind="ParentsInHousehold" >
+						<xf:label>Birth parents in household?</xf:label>
+						<xf:item>
+							<xf:label>Yes</xf:label>
+							<xf:value>Yes</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>No</xf:label>
+							<xf:value>No</xf:value>
+						</xf:item>		
+					</xf:select1>
+					<xf:select1 bind="MotherDied" selection="closed" appearance="full">
+						<xf:label>Mother Died?</xf:label>
+						<xf:item>
+							<xf:label>Yes</xf:label>
+							<xf:value>Yes</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>No</xf:label>
+							<xf:value>No</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>Unknown</xf:label>
+							<xf:value>Unknown</xf:value>
+						</xf:item>
+					</xf:select1>
+					<xf:select1 bind="MotherHivPositive" selection="closed" appearance="full">
+						<xf:label>Mother HIV+?</xf:label>
+						<xf:item>
+							<xf:label>Yes</xf:label>
+							<xf:value>Yes</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>No</xf:label>
+							<xf:value>No</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>Unknown</xf:label>
+							<xf:value>Unknown</xf:value>
+						</xf:item>
+					</xf:select1>
+					<xf:select1 bind="FatherDied" selection="closed" appearance="full">
+						<xf:label>Father Died?</xf:label>
+						<xf:item>
+							<xf:label>Yes</xf:label>
+							<xf:value>Yes</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>No</xf:label>
+							<xf:value>No</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>Unknown</xf:label>
+							<xf:value>Unknown</xf:value>
+						</xf:item>
+					</xf:select1>
+					<xf:select1 bind="FatherHivPositive" selection="closed" appearance="full">
+						<xf:label>Father HIV+?</xf:label>
+						<xf:item>
+							<xf:label>Yes</xf:label>
+							<xf:value>Yes</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>No</xf:label>
+							<xf:value>No</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>Unknown</xf:label>
+							<xf:value>Unknown</xf:value>
+						</xf:item>
+					</xf:select1>	
+				</xf:group>
+				<!-- End -For Children < 13 years -->	
+
+				<!-- Start -For Children < 5 years -->
+				<xf:group bind="ChildrenBelow5">
+					<xf:label>For Children Below 5 Years</xf:label>
+					<xf:select1 bind="ChildImmunized" selection="closed" appearance="full">
+						<xf:label>Child Immunized?</xf:label>
+						<xf:item>
+							<xf:label>Yes</xf:label>
+							<xf:value>Yes</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>No</xf:label>
+							<xf:value>No</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>Unknown</xf:label>
+							<xf:value>Unknown</xf:value>
+						</xf:item>
+					</xf:select1>
+					<xf:group bind="ImmunizationInfo">
+						<xf:label>Immunization Data</xf:label>
+						<xf:select1 bind="ImmunizationInfoSource" selection="closed" appearance="full">
+							<xf:label>Source of Immunization Information</xf:label>
+							<xf:item>
+								<xf:label>Documentation</xf:label>
+								<xf:value>Documentation</xf:value>
+							</xf:item>
+							<xf:item>
+								<xf:label>Caretaker</xf:label>
+								<xf:value>Caretaker</xf:value>
+							</xf:item>
+						</xf:select1>
+						<xf:select1 bind="BCGImmunization" selection="closed" appearance="full">
+							<xf:label>BCG</xf:label>
+							<xf:item>
+								<xf:label>Yes</xf:label>
+								<xf:value>Yes</xf:value>
+							</xf:item>
+							<xf:item>
+								<xf:label>No</xf:label>
+								<xf:value>No</xf:value>
+							</xf:item>
+							<xf:item>
+								<xf:label>Unknown</xf:label>
+								<xf:value>Unknown</xf:value>
+							</xf:item>
+						</xf:select1>
+						<xf:select1 bind="BCGScar" >
+							<xf:label>BCG Scar?</xf:label>
+							<xf:item>
+								<xf:label>Yes</xf:label>
+								<xf:value>Yes</xf:value>
+							</xf:item>
+							<xf:item>
+								<xf:label>No</xf:label>
+								<xf:value>No</xf:value>
+							</xf:item>		
+						</xf:select1>
+						<xf:select1 bind="LatestPolioDoseNum" selection="closed" appearance="full">
+							<xf:label>Latest Polio Dose Number:</xf:label>
+							<xf:item>
+								<xf:label>1</xf:label>
+								<xf:value>1</xf:value>
+							</xf:item>
+							<xf:item>
+								<xf:label>2</xf:label>
+								<xf:value>2</xf:value>
+							</xf:item>
+							<xf:item>
+								<xf:label>3</xf:label>
+								<xf:value>3</xf:value>
+							</xf:item>
+							<xf:item>
+								<xf:label>4</xf:label>
+								<xf:value>4</xf:value>
+							</xf:item>
+							<xf:item>
+								<xf:label>None</xf:label>
+								<xf:value>None</xf:value>
+							</xf:item>
+							<xf:item>
+								<xf:label>Unknown</xf:label>
+								<xf:value>Unknown</xf:value>
+							</xf:item>
+						</xf:select1>
+						<xf:select1 bind="LatestPentavalentDose" selection="closed" appearance="full">
+							<xf:label>Pentavalent Dose:</xf:label>
+							<xf:item>
+								<xf:label>1</xf:label>
+								<xf:value>1</xf:value>
+							</xf:item>
+							<xf:item>
+								<xf:label>2</xf:label>
+								<xf:value>2</xf:value>
+							</xf:item>
+							<xf:item>
+								<xf:label>3</xf:label>
+								<xf:value>3</xf:value>
+							</xf:item>
+							<xf:item>
+								<xf:label>None</xf:label>
+								<xf:value>None</xf:value>
+							</xf:item>
+							<xf:item>
+								<xf:label>Unknown</xf:label>
+								<xf:value>Unknown</xf:value>
+							</xf:item>
+						</xf:select1>
+						<xf:select1 bind="MeaslesImmunization" selection="closed" appearance="full">
+							<xf:label>Measles:</xf:label>
+							<xf:item>
+								<xf:label>Yes</xf:label>
+								<xf:value>Tes</xf:value>
+							</xf:item>
+							<xf:item>
+								<xf:label>No</xf:label>
+								<xf:value>No</xf:value>
+							</xf:item>
+							<xf:item>
+								<xf:label>Unknown</xf:label>
+								<xf:value>Unknown</xf:value>
+							</xf:item>
+						</xf:select1>
+					</xf:group>
+				</xf:group>
+				<!-- End For Children < 5 years -->
+
+				<!-- HIV Testing History -->
+				<xf:select1 bind="PreviousHIVTest" >
+					<xf:label>Previous HIV testing?</xf:label>
+					<xf:item>
+						<xf:label>Yes</xf:label>
+						<xf:value>Yes</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>No</xf:label>
+						<xf:value>No</xf:value>
+					</xf:item>		
+				</xf:select1>
+				<xf:select1 bind="PreviousHIVTestYear" selection="open" appearance="minimal">
+					<xf:label>Year of Previous Testing:</xf:label>
+					<xf:item>
+						<xf:label>2008</xf:label>
+						<xf:value>2008</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>2007</xf:label>
+						<xf:value>2007</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>2006</xf:label>
+						<xf:value>2006</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>2005</xf:label>
+						<xf:value>2005</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>2004</xf:label>
+						<xf:value>2004</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>2003</xf:label>
+						<xf:value>2003</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>2002</xf:label>
+						<xf:value>2002</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>2001</xf:label>
+						<xf:value>2001</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>2000</xf:label>
+						<xf:value>2000</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>1999</xf:label>
+						<xf:value>1999</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>1998</xf:label>
+						<xf:value>1998</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>1997</xf:label>
+						<xf:value>1997</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>1996</xf:label>
+						<xf:value>1996</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>1995</xf:label>
+						<xf:value>1995</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>1994</xf:label>
+						<xf:value>1994</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>1993</xf:label>
+						<xf:value>1993</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>1992</xf:label>
+						<xf:value>1992</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>1991</xf:label>
+						<xf:value>1991</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>1990</xf:label>
+						<xf:value>1990</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>Before 1990</xf:label>
+						<xf:value>Before1990</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>Unknown</xf:label>
+						<xf:value>Unknown</xf:value>
+					</xf:item>	
+				</xf:select1>
+				<xf:select1 bind="PreviousHIVTestResults" appearance="full">
+					<xf:label>Previous Test Results:</xf:label>
+					<xf:item>
+						<xf:label>Positive</xf:label>
+						<xf:value>Positive</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>Negative</xf:label>
+						<xf:value>Negative</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>Indeterminate</xf:label>
+						<xf:value>Indeterminate</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>Unknown</xf:label>
+						<xf:value>Unknown</xf:value>
+					</xf:item>
+				</xf:select1>
+				<xf:select1 bind="HIVTxProgramStatus" >
+					<xf:label>In Treatment Program?</xf:label>
+					<xf:item>
+						<xf:label>Yes</xf:label>
+						<xf:value>Yes</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>No</xf:label>
+						<xf:value>No</xf:value>
+					</xf:item>		
+				</xf:select1>
+				<xf:input bind="HIVTxProgramName">	
+					<xf:label>Program Name:</xf:label>
+				</xf:input>
+				<xf:input bind="AmpathID">	
+					<xf:label>AMPATH ID Number:</xf:label>
+				</xf:input>
+
+				<!-- Based on above results decide need for 
+					HIV testing and save as a YES/NO answer -->
+
+				<!--xf:value bind="ChildNeedsHIVTest"/-->
+				
+				<!--Test Consent for Children -->
+				<xf:group bind="TestingConsentGroup">
+					<xf:label>Testing Consent: For Children below 13 yrs</xf:label>
+					<xf:select1 bind="TestingConsent" >
+						<xf:label>Parent/guardian given testing consent?</xf:label>
+						<xf:item>
+							<xf:label>Yes</xf:label>
+							<xf:value>Yes</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>No</xf:label>
+							<xf:value>No</xf:value>
+						</xf:item>		
+					</xf:select1>
+					<xf:select bind="ReasonsForDecline" >
+						<xf:label>Reasons for declining - at least 3</xf:label>
+						<xf:item>
+							<xf:label>No Right to consent</xf:label>
+							<xf:value>NoRighttoConsent</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>Afraid of Stigma</xf:label>
+							<xf:value>AfraidOfStigma</xf:value>
+						</xf:item>		
+						<xf:item>
+							<xf:label>Don't want children know parent status</xf:label>
+							<xf:value>DontWantChildrenKnowParentStatus</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>Children in School</xf:label>
+							<xf:value>ChildrenInSchool</xf:value>
+						</xf:item>		
+						<xf:item>
+							<xf:label>Parent coping with their status stress</xf:label>
+							<xf:value>ParentCopingWithStress</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>Difficult to test this child and not others</xf:label>
+							<xf:value>DifficulttoTestThisChild</xf:value>
+						</xf:item>		
+						<xf:item>
+							<xf:label>Don't believe child is HIV</xf:label>
+							<xf:value>DontBelieveChildIsHIV</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>Other</xf:label>
+							<xf:value>Other</xf:value>
+						</xf:item>		
+					</xf:select>
+					<xf:input bind="OtherReasons">
+						<xf:label>Enter other reasons for declining.</xf:label>
+					</xf:input>
+				</xf:group>
+				
+				<!-- Current HIV Testing Section -->
+				<xf:group  bind="HIVTestSection">
+					<xf:label>HIV Test Section</xf:label>
+					<xf:select1 bind="PretestCounseling" >
+						<xf:label>Counseled?</xf:label>
+						<xf:item>
+							<xf:label>Yes</xf:label>
+							<xf:value>Yes</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>No</xf:label>
+							<xf:value>No</xf:value>
+						</xf:item>		
+					</xf:select1>
+					<xf:select1 bind="AcceptedHIVTesting" >
+						<xf:label>Accepted HIV Testing?</xf:label>
+						<xf:item>
+							<xf:label>Yes</xf:label>
+							<xf:value>Yes</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>No</xf:label>
+							<xf:value>No</xf:value>
+						</xf:item>		
+					</xf:select1>
+					<xf:group bind="HIVTestGroup">
+						<xf:label>Test Procedure and Results</xf:label>
+						<xf:select1 bind="Test1Result" selection="closed" appearance="full">
+							<xf:label>Test 1 Result:</xf:label>
+							<xf:item>
+								<xf:label>Reactive</xf:label>
+								<xf:value>Reactive</xf:value>
+							</xf:item>
+							<xf:item>
+								<xf:label>Non-Reactive</xf:label>
+								<xf:value>NonReactive</xf:value>
+							</xf:item>
+							<xf:item>
+								<xf:label>Equivocal</xf:label>
+								<xf:value>Equivocal</xf:value>
+							</xf:item>
+						</xf:select1>
+						<xf:select1 bind="Test2Name" selection="closed" appearance="full">
+							<xf:label>Test 2 Name:</xf:label>
+							<xf:item>
+								<xf:label>Bioline</xf:label>
+								<xf:value>Bioline</xf:value>
+							</xf:item>
+							<xf:item>
+								<xf:label>Unigold</xf:label>
+								<xf:value>Unigold</xf:value>
+							</xf:item>
+						</xf:select1>
+						<xf:select1 bind="Test2Result" selection="closed" appearance="full">
+							<xf:label>Test 2 Result:</xf:label>
+							<xf:item>
+								<xf:label>Reactive</xf:label>
+								<xf:value>Reactive</xf:value>
+							</xf:item>
+							<xf:item>
+								<xf:label>Non-Reactive</xf:label>
+								<xf:value>NonReactive</xf:value>
+							</xf:item>
+							<xf:item>
+								<xf:label>Equivocal</xf:label>
+								<xf:value>Equivocal</xf:value>
+							</xf:item>
+						</xf:select1>
+						<xf:select1 bind="Test3Name" selection="closed" appearance="full">
+							<xf:label>Test 3 Name:</xf:label>
+							<xf:item>
+								<xf:label>Bioline</xf:label>
+								<xf:value>Bioline</xf:value>
+							</xf:item>
+							<xf:item>
+								<xf:label>Unigold</xf:label>
+								<xf:value>Unigold</xf:value>
+							</xf:item>
+						</xf:select1>
+						<xf:select1 bind="Test3Result" selection="closed" appearance="full">
+							<xf:label>Test 3 Result:</xf:label>
+							<xf:item>
+								<xf:label>Reactive</xf:label>
+								<xf:value>Reactive</xf:value>
+							</xf:item>
+							<xf:item>
+								<xf:label>Non-Reactive</xf:label>
+								<xf:value>NonReactive</xf:value>
+							</xf:item>
+							<xf:item>
+								<xf:label>Equivocal</xf:label>
+								<xf:value>Equivocal</xf:value>
+							</xf:item>
+						</xf:select1>
+						<xf:select1 bind="CoupleTestedTogether" selection="closed" appearance="full">
+							<xf:label>Couple Tested Together?</xf:label>
+							<xf:item>
+								<xf:label>Yes</xf:label>
+								<xf:value>Yes</xf:value>
+							</xf:item>
+							<xf:item>
+								<xf:label>No</xf:label>
+								<xf:value>No</xf:value>
+							</xf:item>
+							<xf:item>
+								<xf:label>Not Applicable</xf:label>
+								<xf:value>NotApplicable</xf:value>
+							</xf:item>
+						</xf:select1>
+						<xf:select1 bind="DiscordantCouple" selection="closed" appearance="full">
+							<xf:label>Discordant Couple?</xf:label>
+							<xf:item>
+								<xf:label>Yes</xf:label>
+								<xf:value>Yes</xf:value>
+							</xf:item>
+							<xf:item>
+								<xf:label>No</xf:label>
+								<xf:value>No</xf:value>
+							</xf:item>
+							<xf:item>
+								<xf:label>Unknown</xf:label>
+								<xf:value>Unknown</xf:value>
+							</xf:item>
+							<xf:item>
+								<xf:label>Not Applicable</xf:label>
+								<xf:value>NotApplicable</xf:value>
+							</xf:item>
+						</xf:select1>
+					</xf:group>
+				</xf:group>
+
+				<!-- TB Screening -->
+				<xf:select1 bind="CurrentTBTreatment" >
+					<xf:label>Currently on TB Treatment?</xf:label>
+					<xf:item>
+						<xf:label>Yes</xf:label>
+						<xf:value>Yes</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>No</xf:label>
+						<xf:value>No</xf:value>
+					</xf:item>		
+				</xf:select1>
+				<xf:group bind="TBInfoGroup">
+					<xf:label>TB Treatment History</xf:label>
+					<xf:select1 bind="PastTBTreatment" >
+						<xf:label>Past TB Treatment?</xf:label>
+						<xf:item>
+							<xf:label>Yes</xf:label>
+							<xf:value>Yes</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>No</xf:label>
+							<xf:value>No</xf:value>
+						</xf:item>		
+					</xf:select1>
+					<xf:select1 bind="PastTBTreatmentYear" selection="open" appearance="minimal">
+						<xf:label>Year of past treatment:</xf:label>
+						<xf:item>
+							<xf:label>2008</xf:label>
+							<xf:value>2008</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>2007</xf:label>
+							<xf:value>2007</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>2006</xf:label>
+							<xf:value>2006</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>2005</xf:label>
+							<xf:value>2005</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>2004</xf:label>
+							<xf:value>2004</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>2003</xf:label>
+							<xf:value>2003</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>2002</xf:label>
+							<xf:value>2002</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>2001</xf:label>
+							<xf:value>2001</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>2000</xf:label>
+							<xf:value>2000</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>1999</xf:label>
+							<xf:value>1999</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>1998</xf:label>
+							<xf:value>1998</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>1997</xf:label>
+							<xf:value>1997</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>1996</xf:label>
+							<xf:value>1996</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>1995</xf:label>
+							<xf:value>1995</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>1994</xf:label>
+							<xf:value>1994</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>1993</xf:label>
+							<xf:value>1993</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>1992</xf:label>
+							<xf:value>1992</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>1991</xf:label>
+							<xf:value>1991</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>1990</xf:label>
+							<xf:value>1990</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>Before 1990</xf:label>
+							<xf:value>Before1990</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>Unknown</xf:label>
+							<xf:value>Unknown</xf:value>
+						</xf:item>	
+					</xf:select1>
+					<xf:select1 bind="Completed8mTBTreatment" selection="closed" appearance="full">
+						<xf:label>Completed 8 Months Treatment?</xf:label>
+						<xf:item>
+							<xf:label>Yes</xf:label>
+							<xf:value>Yes</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>No</xf:label>
+							<xf:value>No</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>Unknown</xf:label>
+							<xf:value>Unknown</xf:value>
+						</xf:item>
+					</xf:select1>
+					<xf:select1 bind="CoughGtTwoWks" >
+						<xf:label>Cough > 2 weeks?</xf:label>
+						<xf:item>
+							<xf:label>Yes</xf:label>
+							<xf:value>Yes</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>No</xf:label>
+							<xf:value>No</xf:value>
+						</xf:item>		
+					</xf:select1>
+					<xf:select1 bind="BloodCoughPastYr" >
+						<xf:label>Bloody Cough past year?</xf:label>
+						<xf:item>
+							<xf:label>Yes</xf:label>
+							<xf:value>Yes</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>No</xf:label>
+							<xf:value>No</xf:value>
+						</xf:item>		
+					</xf:select1>
+					<xf:select1 bind="FeverGtThreeWks" >
+						<xf:label>Fever > 3 weeks?</xf:label>
+						<xf:item>
+							<xf:label>Yes</xf:label>
+							<xf:value>Yes</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>No</xf:label>
+							<xf:value>No</xf:value>
+						</xf:item>		
+					</xf:select1>
+					<xf:select1 bind="WeightLossPastYr" >
+						<xf:label>Weight loss in past year?</xf:label>
+						<xf:item>
+							<xf:label>Yes</xf:label>
+							<xf:value>Yes</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>No</xf:label>
+							<xf:value>No</xf:value>
+						</xf:item>		
+					</xf:select1>
+					<xf:select1 bind="TBinHousehold" >
+						<xf:label>TB in Household?</xf:label>
+						<xf:item>
+							<xf:label>Yes</xf:label>
+							<xf:value>Yes</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>No</xf:label>
+							<xf:value>No</xf:value>
+						</xf:item>		
+					</xf:select1>
+					<xf:select1 bind="FailureToThrive" >
+						<xf:label>Failure to thrive?</xf:label>
+						<xf:item>
+							<xf:label>Yes</xf:label>
+							<xf:value>Yes</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>No</xf:label>
+							<xf:value>No</xf:value>
+						</xf:item>		
+					</xf:select1>
+					<xf:select1 bind="SputumCollected" selection="closed" appearance="full">
+						<xf:label>Spot 1 sputum collected?</xf:label>
+						<xf:item>
+							<xf:label>Yes</xf:label>
+							<xf:value>Yes</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>No</xf:label>
+							<xf:value>No</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>Unable to collect sputum</xf:label>
+							<xf:value>Unable</xf:value>
+						</xf:item>
+						<xf:item>
+							<xf:label>Under 5 yrs, no sample needed</xf:label>
+							<xf:value>NoNeed</xf:value>
+						</xf:item>
+					</xf:select1>
+					<xf:input bind="TestChild">
+						<xf:label>Test Child irregardless?</xf:label>
+					</xf:input>
+				</xf:group>
+
+				<!-- FOLLOW UP -->
+				<xf:select bind="FollowUp" selection="closed" appearance="full">
+					<xf:label>Follow up</xf:label>
+					<xf:item>
+						<xf:label>Repeat testing 3 - 6 months</xf:label>
+						<xf:value>Repeat</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>+ve test, HIV Clinic Referral</xf:label>
+						<xf:value>PositiveTest</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>Indeterminate test, Health C</xf:label>
+						<xf:value>Indeterminate</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>Child below 18 months, Health Ctr R</xf:label>
+						<xf:value>Below18</xf:value>
+					</xf:item>	
+					<xf:item>
+						<xf:label>ANC Referral</xf:label>
+						<xf:value>ANCReferral</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>Health Ctr Referral for other </xf:label>
+						<xf:value>HealthCtrReferral</xf:value>
+					</xf:item>
+					<xf:item>
+						<xf:label>Return to Home with Sputum Results</xf:label>
+						<xf:value>SputumResults</xf:value>
+					</xf:item>
+				</xf:select>
+				<xf:input bind="PhoneNumber">
+					<xf:label>Enter phone Number:</xf:label>
+				</xf:input>
+				<xf:input bind="RePhoneNumber">
+					<xf:label>Re-enter phone Number:</xf:label>
+				</xf:input>
+			</xf:repeat>
+		</xf:group> <!--end of individual survey-->
+	</xf:group>
+	<!-- END OF CONDUCT SURVEY -->
+  </body>
+</xf:html>
