@@ -1,38 +1,43 @@
 <?xml version="1.0"?>
-<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:jr="http://openrosa.org/javarosa">
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:jr="http://openrosa.org/javarosa">
 	<h:head>
 		<h:title>Sample Form</h:title>
 		<model>
 			<instance>
-<!-- the XML inside here is what gets filled out and submitted when you complete the form -->
+				<!--
+					the XML inside here is what gets filled out and submitted when you
+					complete the form
+				-->
 				<data xmlns="testsubmit">
-					<location/>  
-					<name/>
-					<picture/>
-                                        <birthday/>
+					<location />
+					<name />
+					<picture />
+					<birthday />
 				</data>
 			</instance>
-			
-			<bind id="location" nodeset="location" type="geopoint"/>
-			<bind id="picture" nodeset="picture" type="xsd:anyURI" required="true()"/>
-                        <bind id="name" nodeset="name" type="xsd:string"/>
-	                <bind id="birthday" nodeset="birthday" type="date"/>
+
+			<bind id="location" nodeset="location" type="geopoint" />
+			<bind id="picture" nodeset="picture" type="xsd:anyURI" required="true()" />
+			<bind id="name" nodeset="name" type="xsd:string" />
+			<bind id="birthday" nodeset="birthday" type="date" />
 		</model>
 	</h:head>
 	<h:body>
 		<input bind="name">
 			<label>Please enter your name:</label>
-                </input>
-                <input bind="birthday">
-                        <label>When is your birthday?</label>
-                </input>
+		</input>
+		<input bind="birthday">
+			<label>When is your birthday?</label>
+		</input>
 		<input bind="location">
 			<label>Where are you?</label>
 		</input>
 		<upload bind="picture" mediatype="image/*">
 			<label>Please take a picture of your surroundings:</label>
-			<filename ref="@filename"/>
-			<mediatype ref="@mediatype"/>
+			<filename ref="@filename" />
+			<mediatype ref="@mediatype" />
 		</upload>
 	</h:body>
 </h:html>
