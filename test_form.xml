@@ -5,9 +5,6 @@
 		<model>
 			<itext>
 				<translation lang="English">
-					<text id="survey_taker">
-						<value>What is your name?</value>
-					</text>
 					<text id="red">
 						<value>Red</value>
 					</text>
@@ -50,9 +47,6 @@
 					</text>
 				</translation>
 				<translation lang="French">
-					<text id="survey_taker">
-						<value>Comment t'appelles-tu?</value>
-					</text>
 					<text id="red">
 						<value>Rouge</value>
 					</text>
@@ -68,7 +62,7 @@
 				</translation>
 			</itext>
 			<instance>
-				<household xlmns="e7b509f7b8ed96fe93929bf9b59e235a">
+				<household>
 					<survey_taker>John Smith</survey_taker>
 					<survey_device/>
 					<household_address/>
@@ -92,7 +86,7 @@
 			<bind nodeset="household_zipcode" relevant="selected(../survey_device, 'n')" constraint=". &gt;= 00210 and . &lt;= 99950" jr:constraintMsg="Zipcodes must less than 99951 and greater than 00209!" required="true()" type="integer"/>
 			<bind nodeset="household_features" relevant="selected(../survey_device, 'n')"/>
 			<bind nodeset="household_image" relevant="selected(../survey_device, 'y')"/>
-			<bind nodeset="household_location" relevant="selected(../survey_device, 'y')" required="true()" type="geopoint"/>
+			<bind nodeset="household_location" relevant="selected(../survey_device, 'y')" type="geopoint"/>
 			<bind nodeset="household_count"/>
 			<bind nodeset="/household/household_people/person/person_name" required="true()"/>
 			<bind nodeset="/household/household_people/person/person_age" constraint=". &lt;= today()" jr:constraintMsg="Birthdays cannot be in the future!" type="date"/>
@@ -101,7 +95,7 @@
 	</h:head>
 	<h:body>
 		<input ref="survey_taker">
-			<label ref="jr:itext('survey_taker')"/>
+			<label>What is your name?</label>
 		</input>
 		<select1 ref="survey_device">
 			<label>Are you using the fancy T-Mobile G1 phone?</label>
