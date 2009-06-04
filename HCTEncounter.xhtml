@@ -129,15 +129,15 @@
       
 		<!-- Household Information Bindings -->
 		<xf:bind id="HouseholdID" nodeset="/data/householdInfo/household_id" required="false()"
-					constraint="regex(., '^\w+[-]?\d{1}')" jr:constraintMsg="Invalid ID. Please Re-enter the ID." type="string" />
-		<xf:bind id="SurveyHouseholdID" nodeset="/data/householdInfo/survey_household_id" required="false()"					constraint=". != '0'" jr:constraintMsg="Invalid ID. Please Re-enter the ID." type="string" />
+					constraint="regex(., '^\w+[-]?\d{1}') and (checkdigit(.))" jr:constraintMsg="Invalid ID format and/or Check. Please Re-enter the ID." type="string" />
+		<xf:bind id="SurveyHouseholdID" nodeset="/data/householdInfo/survey_household_id" required="false()" type="integer" />
 		<xf:bind id="GPSLocation" nodeset="/data/householdInfo/gps_location" required="false()" type="geopoint" />
 		
 		<xf:bind nodeset="/data/householdInfo/start_time" jr:preload="timestamp" jr:preloadParams="start" type="dateTime" />
 		<xf:bind nodeset="/data/householdInfo/end_time" jr:preload="timestamp" jr:preloadParams="end" type="dateTime" />
 		
 		<xf:bind id="ProviderID" nodeset="/data/householdInfo/provider_id" required="false()" 
-					constraint="regex(., '^\w+[-]?\d{1}')" jr:constraintMsg="Invalid ID. Please Re-enter your ID." type="integer" />
+					constraint="regex(., '^\w+[-]?\d{1}') and (checkdigit(.))" jr:constraintMsg="Invalid ID format and/or Check. Please Re-enter your ID." type="integer" />
 		<xf:bind id="TeamID" nodeset="/data/householdInfo/team_id" required="false()" type="string" />		
 		<xf:bind id="Village" nodeset="/data/householdInfo/village" required="false()" type="string" />
 		<xf:bind id="Location" nodeset="/data/householdInfo/location" required="false()" type="string" />
@@ -165,8 +165,8 @@
 
 		<!-- Individual Data Bindings -->
 		<xf:bind id="HouseholdLabel" nodeset="/data/individual/household" readonly="true()" type="string" />
-		<xf:bind id="HCTID" nodeset="/data/individual/hct_id" required="false()" constraint="regex(., '^\w+[-]?\d{1}')" 
-					jr:constraintMsg="Invalid ID. Please Re-enter the ID." type="string" />
+		<xf:bind id="HCTID" nodeset="/data/individual/hct_id" required="false()" constraint="regex(., '^\w+[-]?\d{1}') and (checkdigit(.))" 
+					jr:constraintMsg="Invalid ID format and/or Check. Please Re-enter the ID." type="string" />
 		<xf:bind id="SurveyIndivID" nodeset="/data/individual/survey_individual_id" required="false()" type="integer" />
 		<xf:bind id="GivenName" nodeset="/data/individual/given_name" required="false()" type="string" />
 		<xf:bind id="MiddleName" nodeset="/data/individual/middle_name" type="string" />
@@ -179,7 +179,9 @@
 					relevant="../age_type='Age_in_Years' or ../age_type='Unknown'"  required="false()" type="integer" />
 		<xf:bind id="AgeInMonths" nodeset="/data/individual/age_in_months" constraint=". &gt;= 0 and . &lt;= 11"
 					relevant="(../age_type='Age_in_Years' or ../age_type='Unknown') and ../age_in_years &lt; 5"  required="false()" type="integer" />
-		<xf:bind id="TotalAge" nodeset="/data/individual/total_age" type="integer" />	
+		<xf:bind id="TotalAge" nodeset="/data/individual/total_age" type="integer"
+					calculate="if(../age_type='Birth_date', ((now()-../birth_date) div 30), 
+							(if(../age_in_months &gt;0, ((../age_in_years * 12)+../age_in_months), (../age_in_years * 12))))"  />
 		<xf:bind id="MaritalStatus" nodeset="/data/individual/marital_status" required="false()" relevant="../total_age &gt;= 156" type="string" />
 		<xf:bind id="HouseStatus" nodeset="/data/individual/house_status" type="string" />
 		<xf:bind id="RelationToHousehead" nodeset="/data/individual/relation_to_househead" required="false()" type="string" />
@@ -234,7 +236,7 @@
 		<xf:bind id="FeverGtThreeWks" nodeset="/data/individual/fever_gt_3wks" type="string" />
 		<xf:bind id="WeightLossPastYr" nodeset="/data/individual/weight_loss_past_year" type="string" />
 		<xf:bind id="TBinHousehold" nodeset="/data/individual/tb_in_household" required="false()" type="string" />
-		<xf:bind id="FailureToThrive" nodeset="/data/individual/failure_to_thrive" type="string" />
+		<xf:bind id="FailureToThrive" nodeset="/data/individual/failure_to_thrive" relevant="../total_age &lt; 156" type="string" />
 		<xf:bind id="SputumCollected" nodeset="/data/individual/sputum_collected" required="false()" type="string" />
 		<xf:bind id="FollowUp" nodeset="/data/individual/follow_up" type="string" />
 		<xf:bind id="PhoneNumber" nodeset="/data/individual/phone_number" required="true()" constraint=". = '1111' or regex(., '^0\d+')" 
@@ -493,7 +495,7 @@ Here you will collect individual information for the Household with ID:
 					<xf:label>Select Birthdate</xf:label>
 				</xf:input>
 
-				<!-- If age in years -->
+				<!-- If age in years or Unknown -->
 				<xf:input bind="AgeInYears">
 					<xf:label>Years:</xf:label>
 				</xf:input>
@@ -501,10 +503,6 @@ Here you will collect individual information for the Household with ID:
 					<xf:label>Months:</xf:label>
 				</xf:input>
 
-				<!--Display Effective Age -->
-				<xf:input bind="TotalAge">
-					<xf:label>The Age is:</xf:label>
-				</xf:input>
 				<xf:select1 bind="MaritalStatus" selection="closed" appearance="full">
 					<xf:label>Marital Status:</xf:label>
 					<xf:item>
