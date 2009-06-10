@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:jr="http://openrosa.org/javarosa">
+	<h:head>
+		<h:title>Widgets Form</h:title>
+		<model>
+			<!-- instance gets filled out and submitted when you complete the form -->
+			<instance>
+				<widgets>
+					<start />
+					<end />  
+					<now />
+					<today />				  
+					<deviceid />
+					<subscriberid />
+					<simid />
+					<phonenumber />
+					<string />
+					<int />
+					<decimal />
+					<date />
+					<select />
+					<select1 />
+					<geopoint />
+					<barcode />
+					<image />
+					<audio />
+					<video />
+				</widgets>
+			</instance>
+			
+			<!-- binds allow us to add properties to the questions, like data types, skip logic, etc.-->     
+			<bind nodeset="start" type="time" jr:preload="timestamp" jr:preloadParams="start" /> 
+			<bind nodeset="end" type="time" jr:preload="timestamp" jr:preloadParams="end" /> 	
+			<bind nodeset="now" type="time" jr:preload="timestamp" jr:preloadParams="now" />	
+				
+			<bind nodeset="today" type="date" jr:preload="date" jr:preloadParams="today" />			
+			
+			<bind nodeset="deviceid" type="string" jr:preload="property" jr:preloadParams="deviceid" />
+			<bind nodeset="subscriberid" type="string" jr:preload="property" jr:preloadParams="subscriberid" />
+			<bind nodeset="simid" type="string" jr:preload="property" jr:preloadParams="simserial" />
+			<bind nodeset="phonenumber" type="string" jr:preload="property" jr:preloadParams="phonenumber" />
+			
+			<bind nodeset="string" type="string" />
+			<bind nodeset="int" type="int" />
+			<bind nodeset="decimal" type="decimal" />
+			<bind nodeset="date" type="date"/>
+			<bind nodeset="select" type="select" />
+			<bind nodeset="select1" type="select1" />
+   			
+   			<bind nodeset="geopoint" type="geopoint" />
+   			<bind nodeset="barcode" type="barcode" />
+			
+			<bind nodeset="image" type="anyURI" />
+			<bind nodeset="audio" type="anyURI" />
+			<bind nodeset="video" type="anyURI" />	
+		</model>
+	</h:head>
+	<h:body> 
+		<!-- text of the question definitions -->
+		<input ref="string">
+			<label>string question</label>
+		</input>
+		<input ref="int">
+			<label>integer question</label>
+		</input>
+		<input ref="decimal">
+			<label>decimal question</label>
+		</input>
+		<input ref="date">
+			<label>date question</label>
+		</input>
+		<select ref="select">
+      	<label>select multiple question</label>
+			<item>
+        		<label>option a</label>
+        		<value>a</value>
+      		</item>
+      		<item>
+        		<label>option b</label>
+        		<value>b</value>
+      		</item>
+      		<item>
+        		<label>option c</label>
+        		<value>c</value>
+      		</item>
+     	</select>
+     	<select1 ref="select1">
+      	<label>select one question</label>
+			<item>
+        		<label>option 1</label>
+        		<value>1</value>
+      		</item>
+      		<item>
+        		<label>option 2</label>
+        		<value>2</value>
+      		</item>
+      		<item>
+        		<label>option 3</label>
+        		<value>3</value>
+      		</item>
+     	</select1>
+		<input ref="geopoint">
+			<label>geopoint question</label>
+		</input>
+		<input ref="barcode">
+			<label>barcode question</label>
+		</input>	
+		<upload ref="image" mediatype="image/*">
+			<label>image question</label>
+		</upload>
+		<upload ref="audio" mediatype="audio/*">
+			<label>audio question</label>
+		</upload>
+		<upload ref="video" mediatype="video/*">
+			<label>video question</label>
+		</upload>
+		
+	</h:body>
+</h:html>
