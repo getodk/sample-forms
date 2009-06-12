@@ -6,114 +6,212 @@
 			<!-- instance gets filled out and submitted when you complete the form -->
 			<instance>
 				<widgets>
-					<start />
-					<end />  
-					<now />
-					<today />				  
-					<deviceid />
-					<subscriberid />
-					<simid />
-					<phonenumber />
-					<string />
-					<int />
-					<decimal />
-					<date />
-					<select />
-					<select1 />
-					<geopoint />
-					<barcode />
-					<image />
-					<audio />
-					<video />
+					<prefs/>
+					<start/>
+					<end/>
+					<now/>
+					<today/>
+					<deviceid/>
+					<subscriberid/>
+					<simid/>
+					<phonenumber/>
+					
+					<rw_string/>
+					<rw_int/>
+					<rw_decimal/>
+					<rw_date/>
+					<rw_select/>
+					<rw_select1/>
+					<rw_geopoint/>
+					<rw_barcode/>
+					<rw_image/>
+					<rw_audio/>
+					<rw_video/>
+					
+					<ro_string/>
+					<ro_int/>
+					<ro_decimal/>
+					<ro_date/>
+					<ro_select/>
+					<ro_select1/>
+					<ro_geopoint/>
+					<ro_barcode/>
+					<ro_image/>
+					<ro_audio/>
+					<ro_video/>
 				</widgets>
 			</instance>
 			
-			<!-- binds allow us to add properties to the questions, like data types, skip logic, etc.-->     
-			<bind nodeset="start" type="time" jr:preload="timestamp" jr:preloadParams="start" /> 
-			<bind nodeset="end" type="time" jr:preload="timestamp" jr:preloadParams="end" /> 	
-			<bind nodeset="now" type="time" jr:preload="timestamp" jr:preloadParams="now" />	
-				
-			<bind nodeset="today" type="date" jr:preload="date" jr:preloadParams="today" />			
+			<!-- binds allow us to add properties to the questions, like data types, skip logic, etc.-->
+			<bind nodeset="prefs" required="true()"/>
+			 
+			<!-- hidden fields -->
+			<bind nodeset="start" type="time" jr:preload="timestamp" jr:preloadParams="start"/>
+			<bind nodeset="end" type="time" jr:preload="timestamp" jr:preloadParams="end"/>
+			<bind nodeset="now" type="time" jr:preload="timestamp" jr:preloadParams="now"/>
+			<bind nodeset="today" type="date" jr:preload="date" jr:preloadParams="today"/>
+			<bind nodeset="deviceid" type="string" jr:preload="property" jr:preloadParams="deviceid"/>
+			<bind nodeset="subscriberid" type="string" jr:preload="property" jr:preloadParams="subscriberid"/>
+			<bind nodeset="simid" type="string" jr:preload="property" jr:preloadParams="simserial"/>
+			<bind nodeset="phonenumber" type="string" jr:preload="property" jr:preloadParams="phonenumber"/>
 			
-			<bind nodeset="deviceid" type="string" jr:preload="property" jr:preloadParams="deviceid" />
-			<bind nodeset="subscriberid" type="string" jr:preload="property" jr:preloadParams="subscriberid" />
-			<bind nodeset="simid" type="string" jr:preload="property" jr:preloadParams="simserial" />
-			<bind nodeset="phonenumber" type="string" jr:preload="property" jr:preloadParams="phonenumber" />
+			<!-- read write -->
+			<bind nodeset="rw_string" type="string" relevant="../prefs='rw'" />
+			<bind nodeset="rw_int" type="int" relevant="../prefs='rw'" />
+			<bind nodeset="rw_decimal" type="decimal" relevant="../prefs='rw'" />
+			<bind nodeset="rw_date" type="date" relevant="../prefs='rw'" />
+			<bind nodeset="rw_select" type="select" relevant="../prefs='rw'" />
+			<bind nodeset="rw_select1" type="select1" relevant="../prefs='rw'" />
+			<bind nodeset="rw_geopoint" type="geopoint" relevant="../prefs='rw'" />
+			<bind nodeset="rw_barcode" type="barcode" relevant="../prefs='rw'" />
+			<bind nodeset="rw_image" type="anyURI" relevant="../prefs='rw'" />
+			<bind nodeset="rw_audio" type="anyURI" relevant="../prefs='rw'" />
+			<bind nodeset="rw_video" type="anyURI" relevant="../prefs='rw'" />
 			
-			<bind nodeset="string" type="string" />
-			<bind nodeset="int" type="int" />
-			<bind nodeset="decimal" type="decimal" />
-			<bind nodeset="date" type="date"/>
-			<bind nodeset="select" type="select" />
-			<bind nodeset="select1" type="select1" />
-   			
-   			<bind nodeset="geopoint" type="geopoint" />
-   			<bind nodeset="barcode" type="barcode" />
+			<!-- read only -->
+			<bind nodeset="ro_string" type="string" readonly="true()" relevant="../prefs='ro'" />
+			<bind nodeset="ro_int" type="int" readonly="true()" relevant="../prefs='ro'" />
+			<bind nodeset="ro_decimal" type="decimal" readonly="true()" relevant="../prefs='ro'" />
+			<bind nodeset="ro_date" type="date" readonly="true()" relevant="../prefs='ro'" />
+			<bind nodeset="ro_select" type="select" readonly="true()" relevant="../prefs='ro'" />
+			<bind nodeset="ro_select1" type="select1" readonly="true()" relevant="../prefs='ro'" />
+			<bind nodeset="ro_geopoint" type="geopoint" readonly="true()" relevant="../prefs='ro'" />
+			<bind nodeset="ro_barcode" type="barcode" readonly="true()" relevant="../prefs='ro'" />
+			<bind nodeset="ro_image" type="anyURI" readonly="true()" relevant="../prefs='ro'" />
+			<bind nodeset="ro_audio" type="anyURI" readonly="true()" relevant="../prefs='ro'" />
+			<bind nodeset="ro_video" type="anyURI" readonly="true()" relevant="../prefs='ro'" />
 			
-			<bind nodeset="image" type="anyURI" />
-			<bind nodeset="audio" type="anyURI" />
-			<bind nodeset="video" type="anyURI" />	
 		</model>
 	</h:head>
-	<h:body> 
+	<h:body>
+		
+		<select1 ref="prefs">
+			<label>widget type</label>
+			<item>
+				<label>read write</label>
+				<value>rw</value>
+			</item>
+			<item>
+				<label>read only</label>
+				<value>ro</value>
+			</item>
+		</select1>
+		
 		<!-- text of the question definitions -->
-		<input ref="string">
+		<input ref="rw_string">
 			<label>string question</label>
 		</input>
-		<input ref="int">
+		<input ref="rw_int">
 			<label>integer question</label>
 		</input>
-		<input ref="decimal">
+		<input ref="rw_decimal">
 			<label>decimal question</label>
 		</input>
-		<input ref="date">
+		<input ref="rw_date">
 			<label>date question</label>
 		</input>
-		<select ref="select">
-      	<label>select multiple question</label>
+		<select ref="rw_select">
+			<label>select multiple question</label>
 			<item>
-        		<label>option a</label>
-        		<value>a</value>
-      		</item>
-      		<item>
-        		<label>option b</label>
-        		<value>b</value>
-      		</item>
-      		<item>
-        		<label>option c</label>
-        		<value>c</value>
-      		</item>
-     	</select>
-     	<select1 ref="select1">
-      	<label>select one question</label>
+				<label>option a</label>
+				<value>a</value>
+			</item>
 			<item>
-        		<label>option 1</label>
-        		<value>1</value>
-      		</item>
-      		<item>
-        		<label>option 2</label>
-        		<value>2</value>
-      		</item>
-      		<item>
-        		<label>option 3</label>
-        		<value>3</value>
-      		</item>
-     	</select1>
-		<input ref="geopoint">
+				<label>option b</label>
+				<value>b</value>
+			</item>
+			<item>
+				<label>option c</label>
+				<value>c</value>
+			</item>
+		</select>
+		<select1 ref="rw_select1">
+			<label>select one question</label>
+			<item>
+				<label>option 1</label>
+				<value>1</value>
+			</item>
+			<item>
+				<label>option 2</label>
+				<value>2</value>
+			</item>
+			<item>
+				<label>option 3</label>
+				<value>3</value>
+			</item>
+		</select1>
+		<input ref="rw_geopoint">
 			<label>geopoint question</label>
 		</input>
-		<input ref="barcode">
+		<input ref="rw_barcode">
 			<label>barcode question</label>
-		</input>	
-		<upload ref="image" mediatype="image/*">
+		</input>
+		<upload ref="rw_image" mediatype="image/*">
 			<label>image question</label>
 		</upload>
-		<upload ref="audio" mediatype="audio/*">
+		<upload ref="rw_audio" mediatype="audio/*">
 			<label>audio question</label>
 		</upload>
-		<upload ref="video" mediatype="video/*">
+		<upload ref="rw_video" mediatype="video/*">
 			<label>video question</label>
 		</upload>
 		
+		<input ref="ro_string">
+			<label>string question</label>
+		</input>
+		<input ref="ro_int">
+			<label>integer question</label>
+		</input>
+		<input ref="ro_decimal">
+			<label>decimal question</label>
+		</input>
+		<input ref="ro_date">
+			<label>date question</label>
+		</input>
+		<select ref="ro_select">
+			<label>select multiple question</label>
+			<item>
+				<label>option a</label>
+				<value>a</value>
+			</item>
+			<item>
+				<label>option b</label>
+				<value>b</value>
+			</item>
+			<item>
+				<label>option c</label>
+				<value>c</value>
+			</item>
+		</select>
+		<select1 ref="ro_select1">
+			<label>select one question</label>
+			<item>
+				<label>option 1</label>
+				<value>1</value>
+			</item>
+			<item>
+				<label>option 2</label>
+				<value>2</value>
+			</item>
+			<item>
+				<label>option 3</label>
+				<value>3</value>
+			</item>
+		</select1>
+		<input ref="ro_geopoint">
+			<label>geopoint question</label>
+		</input>
+		<input ref="ro_barcode">
+			<label>barcode question</label>
+		</input>
+		<upload ref="ro_image" mediatype="image/*">
+			<label>image question</label>
+		</upload>
+		<upload ref="ro_audio" mediatype="audio/*">
+			<label>audio question</label>
+		</upload>
+		<upload ref="ro_video" mediatype="video/*">
+			<label>video question</label>
+		</upload>
 	</h:body>
 </h:html>
