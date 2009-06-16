@@ -4,7 +4,7 @@
 
   <head>
     <title>HCT Household Survey</title>
-    
+
     <!-- XForm Data Model -->
     <xf:model id="HCTHousehold">
       <xf:instance id="MainInstance">
@@ -47,6 +47,7 @@
 		<start_time />
 		<end_time />
 	  </householdInfo>
+
           <individual>
 		<household />
 		<hct_id />
@@ -69,7 +70,7 @@
 		<hours_in_housework />
 		<clinic_visits />
 		<cost_of_medication />
-		<!-- Indiv Economics -->
+		<!-- End of Indiv Economics -->
 
 		<pregnancy_status />
 		<attending_anc />
@@ -94,7 +95,6 @@
 		<hiv_tx_program_status />
 		<hiv_tx_program_name />
 		<ampath_id />
-
 		<hiv_test_section />
 		<pretest_counseling />
 		<accepted_hiv_testing />
@@ -126,16 +126,14 @@
 	  </individual>
         </data>
       </xf:instance>
-      
+
 		<!-- Household Information Bindings -->
 		<xf:bind id="HouseholdID" nodeset="/data/householdInfo/household_id" required="false()"
 					constraint="regex(., '^\w+[-]?\d{1}') and (checkdigit(.))" jr:constraintMsg="Invalid ID format and/or Check. Please Re-enter the ID." type="string" />
 		<xf:bind id="SurveyHouseholdID" nodeset="/data/householdInfo/survey_household_id" required="false()" type="integer" />
 		<xf:bind id="GPSLocation" nodeset="/data/householdInfo/gps_location" required="false()" type="geopoint" />
-		
 		<xf:bind nodeset="/data/householdInfo/start_time" jr:preload="timestamp" jr:preloadParams="start" type="dateTime" />
 		<xf:bind nodeset="/data/householdInfo/end_time" jr:preload="timestamp" jr:preloadParams="end" type="dateTime" />
-		
 		<xf:bind id="ProviderID" nodeset="/data/householdInfo/provider_id" required="false()" 
 					constraint="regex(., '^\w+[-]?\d{1}') and (checkdigit(.))" jr:constraintMsg="Invalid ID format and/or Check. Please Re-enter your ID." type="integer" />
 		<xf:bind id="TeamID" nodeset="/data/householdInfo/team_id" required="false()" type="string" />		
@@ -256,24 +254,19 @@
 		<xf:bind id="ConductSurvey" nodeset="/data/householdInfo/conduct_survey" relevant="../allowed_in='Accepted'" type="string" />		
 		<xf:bind id="EconomicGroup" nodeset="/data/householdInfo/economic_group" type="string" />
 		<xf:bind id="BedNetsGroup" nodeset="/data/householdInfo/bed_nets_group" relevant="../bed_nets='Yes'" type="string" />		
-
 		<xf:bind id="ChildrenBelow18" nodeset="/data/individual/children_below18" relevant="../total_age &lt; 216" />
 		<xf:bind id="ChildrenBelow13" nodeset="/data/individual/children_below13" relevant="../total_age &lt; 156" />
 		<xf:bind id="ChildrenBelow5" nodeset="/data/individual/children_below5" relevant="../total_age &lt; 60" />
 		<xf:bind id="ImmunizationInfo" nodeset="/data/individual/immunization_info" relevant="../child_immunized='Yes'" />
-
 		<xf:bind id="HIVTestSection" nodeset="/data/individual/hiv_test_section" relevant="../total_age &gt;= 216 or (../child_needs_hiv_test='Yes' and ../total_age &gt;= 18)
 						or (../test_child_irregardless='Yes' and ../total_age &gt;= 18)" />
 		<xf:bind id="HIVTestGroup" nodeset="/data/individual/hiv_test_group" relevant="../accepted_hiv_testing='Yes'" />
-		
 		<xf:bind id="TBInfoGroup" nodeset="/data/individual/tb_info" relevant="../current_tb_tx_status='No'" />
-
     </xf:model>
   </head>
-  
+
   <!-- XForm User Interface -->
   <body>
-  	
   	<!-- Household -->
   	<xf:group>
   		<xf:label>Household Information</xf:label>
@@ -315,21 +308,6 @@
 		<xf:input bind="Village">
 			<xf:label>Village:</xf:label>
 		</xf:input>
-		<xf:input bind="Location">
-			<xf:label>Location:</xf:label>
-		</xf:input>   
-		<xf:input bind="Sublocation">
-			<xf:label>Sub-Location:</xf:label>
-		</xf:input>
-		<xf:input bind="District">
-			<xf:label>District:</xf:label>
-		</xf:input>   
-		<xf:input bind="Division">
-			<xf:label>Division:</xf:label>
-		</xf:input>    
-		<xf:input bind="VisitDate">
-			<xf:label>Date of Visit:</xf:label>
-		</xf:input> 
 		<xf:group>
 			<xf:label>Best Consensus Information</xf:label>
 			<xf:input bind="HouseholdAdults">
@@ -362,11 +340,11 @@
 			  </xf:item>
 		</xf:select1> 
  	</xf:group>
- 	
+
 	<!-- AFTER HERE EITHER END SURVEY, CONTINUE, OR END AND TAKE A RETURN DATE -->
-	
+
 	<!-- IF declined -There is nothing to do -->
-	
+
 	<!-- Not Home or Requested Later Date-->
 	<xf:group bind="ReturnDateGroup">
 		<xf:label>Not Home or Requested Later Date</xf:label>
@@ -374,7 +352,7 @@
 			<xf:label>Enter Return Date:</xf:label>
 		</xf:input>
 	</xf:group>
-	    
+
 	<!-- ALLOWED IN CONDUCT SURVEY -->
 	<xf:group bind="ConductSurvey">
 		<xf:label>Household Survey</xf:label>
@@ -447,7 +425,6 @@
 			<xf:repeat nodeset="/data/individual">
 				<xf:input bind="HouseholdLabel">
 					<xf:label>
-
 Household Counseling And Testing:
 
 Here you will collect individual information for the Household with ID:
@@ -479,7 +456,7 @@ Here you will collect individual information for the Household with ID:
 						<xf:value>Female</xf:value>
 					</xf:item>
 				</xf:select1> 
-				
+
 				<!--Individual Age-->
 				<xf:select1 bind="AgeType" selection="closed" appearance="full">
 					<xf:label>Age Entry Mode:</xf:label>
@@ -509,7 +486,6 @@ Here you will collect individual information for the Household with ID:
 				<xf:input bind="AgeInMonths">
 					<xf:label>Months:</xf:label>
 				</xf:input>
-
 				<xf:select1 bind="MaritalStatus" selection="closed" appearance="full">
 					<xf:label>Marital Status:</xf:label>
 					<xf:item>
@@ -648,9 +624,8 @@ Here you will collect individual information for the Household with ID:
 				<xf:input bind="CostOfMedication">
 					<xf:label>Amount of Money spent on self medicare in past 4 wks</xf:label>
 				</xf:input> 
-	
 				<!-- End of Indiv Qsts -->
-		 
+
 				<xf:select1 bind="PregnancyStatus" >
 					<xf:label>Pregnant?</xf:label>
 					<xf:item>
@@ -757,7 +732,8 @@ Here you will collect individual information for the Household with ID:
 						<xf:item>
 							<xf:label>No</xf:label>
 							<xf:value>No</xf:value>
-						</xf:item>					</xf:select1>	
+						</xf:item>
+					</xf:select1>	
 				</xf:group>
 				<!-- End -For Children < 18 years -->	
 
@@ -1384,7 +1360,8 @@ Here you will collect individual information for the Household with ID:
 					<xf:label>Re-enter phone Number:</xf:label>
 				</xf:input>
 			</xf:repeat>
-		</xf:group> <!--end of individual survey-->
+		</xf:group> 
+		<!--end of individual survey-->
 	</xf:group>
 	<!-- END OF CONDUCT SURVEY -->
   </body>
