@@ -3,10 +3,44 @@
 	<h:head>
 		<h:title>Widgets Form</h:title>
 		<model>
+<!-- translation text -->
+			<itext>
+				<translation lang="english">
+					<text id="hello">
+						<value>language question</value>
+					</text>
+					<text id="hint">
+						<value>menu button to change languages.</value>
+					</text>
+				</translation>
+				<translation lang="italian">
+					<text id="hello">
+						<value>ci&#xE0;o</value>
+					</text>
+					<text id="hint">
+						<value>"hello" in italian. try another.</value>
+					</text>
+				</translation>
+				<translation lang="japanese">
+					<text id="hello">
+						<value>&#x3053;&#x3093;&#x306B;&#x3061;&#x306F;&#x3002;</value>
+					</text>
+					<text id="hint">
+						<value>"hello" in japanese. try another.</value>
+					</text>
+				</translation>
+				<translation lang="macedonian">
+					<text id="hello">
+						<value>&#x417;&#x434;&#x440;&#x430;&#x432;&#x43E;</value>
+					</text>
+					<text id="hint">
+						<value>"hello" in macedonian. try another.</value>
+					</text>
+				</translation>
+			</itext>
 <!-- instance gets filled out and submitted when you complete the form -->
 			<instance>
 				<widgets>
-					<prefs/>
 					<start/>
 					<end/>
 					<now/>
@@ -15,42 +49,30 @@
 					<subscriberid/>
 					<simid/>
 					<phonenumber/>
-					<rw_string/>
-					<rw_int>15</rw_int>
-					<rw_decimal>18.31</rw_decimal>
-					<rw_date/>
-					<rw_select/>
-					<rw_select1/>
-					<rw_language/>
-					<rw_custom>test@test.com</rw_custom>
-					<rw_group/>
-					<rw_repeat_a jr:template="">
-						<rw_item_a />
-					<!--	<rw_repeat_b jr:template="">
-							<rw_item_b/>
-						</rw_repeat_b> -->
-					</rw_repeat_a>
-					<rw_geopoint/>
-					<rw_barcode/>
-					<rw_image/>
-					<rw_audio/>
-					<rw_video/>
-					<ro_string>lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</ro_string>
-					<ro_int>123456789</ro_int>
-					<ro_decimal>1234567890.1234567890</ro_decimal>
-					<ro_date>1970-06-15</ro_date>
-					<ro_select>a c</ro_select>
-					<ro_select1>5</ro_select1>
-					<ro_group/>
-					<ro_geopoint>12.123091409,-12.0192350019</ro_geopoint>
-					<ro_barcode/>
-					<ro_image/>
-					<ro_audio/>
-					<ro_video/>
+					<string/>
+					<int/>
+					<decimal>18.31</decimal>
+					<date>2010-06-15</date>
+					<select>a c</select>
+					<select1>8</select1>
+					<language/>
+						<!--
+					<repeat_a jr:template="">
+						<item_string>this is a long strong</item_string>
+						<item_int>123456789</item_int>
+					<repeat_b jr:template="">
+							<item_regex>test@test.com</item_regex>
+						</repeat_b> 
+						<item_decimal>1234567890.1234567890</item_decimal>
+					</repeat_a>-->
+					<geopoint/>
+					<barcode/>
+					<image/>
+					<audio/>
+					<video/>
 				</widgets>
 			</instance>
 <!-- binds allow us to add properties to the questions, like data types, skip logic, etc.-->
-			<bind nodeset="prefs" required="true()"/>
 <!-- hidden fields -->
 			<bind nodeset="start" type="time" jr:preload="timestamp" jr:preloadParams="start"/>
 			<bind nodeset="end" type="time" jr:preload="timestamp" jr:preloadParams="end"/>
@@ -60,76 +82,52 @@
 			<bind nodeset="subscriberid" type="string" jr:preload="property" jr:preloadParams="subscriberid"/>
 			<bind nodeset="simid" type="string" jr:preload="property" jr:preloadParams="simserial"/>
 			<bind nodeset="phonenumber" type="string" jr:preload="property" jr:preloadParams="phonenumber"/>
-<!-- read write -->
-			<bind nodeset="rw_string" type="string" relevant="../prefs='rw'"/>
-			<bind nodeset="rw_int" type="int" relevant="../prefs='rw'" constraint=". &lt; 1000" jr:constraintMsg="number cannot be above 1000"/>
-			<bind nodeset="rw_decimal" type="decimal" relevant="../prefs='rw'" constraint=". &gt; 10.51 and . &lt; 18.39" jr:constraintMsg="number must be between 10.51 and 18.39"/>
-			<bind nodeset="rw_date" type="date" relevant="../prefs='rw'" constraint=". &gt;= today()" jr:constraintMsg="only future dates allowed"/>
-			<bind nodeset="rw_select" type="select" relevant="../prefs='rw'" constraint="not(selected(., 'd') and count-selected(.) &gt; 1)" jr:constraintMsg="option d cannot be selected with the others"/>
-			<bind nodeset="rw_select1" type="select1" relevant="../prefs='rw'"/>
+<!-- basic widgets -->
+			<bind nodeset="string" type="string"/>
+			<bind nodeset="int" type="int" constraint=". &lt; 1000" jr:constraintMsg="number cannot be above 1000"/>
+			<bind nodeset="decimal" type="decimal" constraint=". &gt; 10.51 and . &lt; 18.39" jr:constraintMsg="number must be between 10.51 and 18.39"/>
+			<bind nodeset="date" type="date" constraint=". &gt;= today()" jr:constraintMsg="only future dates allowed"/>
+			<bind nodeset="select" type="select" constraint="not(selected(., 'c') and selected(., 'd'))" jr:constraintMsg="option c and d cannot be selected together"/>
+			<bind nodeset="select1" type="select1"/>
+<!-- custom widgets -->
+			<bind nodeset="language" type="string"/>
+<!-- group widgets -->
+<!--
+			<bind nodeset="repeat_a" constraint="count(.) &lt;= 2"/>
+			<bind nodeset="repeat_a/item_string" type="string" readonly="true()"/>
+			<bind nodeset="repeat_a/item_int" type="int"/>
+			<bind nodeset="repeat_a/item_decimal" type="decimal"/>
+			<bind nodeset="repeat_a/repeat_b/item_regex" type="string" required="true()" constraint="regex(., '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,4}')" jr:constraintMsg="this isn't a valid email address"/> -->
 			
-			<bind nodeset="rw_repeat_a" relevant="../prefs='rw'"/>
-			<bind nodeset="rw_repeat_a/rw_item_a" type="string" relevant="../../prefs='rw'"/>
-			
-			<!--<bind nodeset="rw_repeat_a/rw_repeat_b" relevant="../prefs='rw'"/>
-			<bind nodeset="rw_repeat_a/rw_repeat_b/rw_item_b" type="string" relevant="../prefs='rw'"/>
-		-->
-			<bind nodeset="rw_custom" type="string" relevant="../prefs='rw'" required="true()" constraint="regex(., '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,4}')" jr:constraintMsg="this isn't a valid email address"/>
-			<bind nodeset="rw_language" type="string" relevant="../prefs='rw'"/>
-			<bind nodeset="rw_group" type="string" relevant="../prefs='rw'"/>
-			<bind nodeset="rw_geopoint" type="geopoint" relevant="../prefs='rw'"/>
-			<bind nodeset="rw_barcode" type="barcode" relevant="../prefs='rw'"/>
-			<bind nodeset="rw_image" type="anyURI" relevant="../prefs='rw'"/>
-			<bind nodeset="rw_audio" type="anyURI" relevant="../prefs='rw'"/>
-			<bind nodeset="rw_video" type="anyURI" relevant="../prefs='rw'"/>
-<!-- read only -->
-			<bind nodeset="ro_string" type="string" readonly="true()" relevant="../prefs='ro'"/>
-			<bind nodeset="ro_int" type="int" readonly="true()" relevant="../prefs='ro'"/>
-			<bind nodeset="ro_decimal" type="decimal" readonly="true()" relevant="../prefs='ro'"/>
-			<bind nodeset="ro_date" type="date" readonly="true()" relevant="../prefs='ro'"/>
-			<bind nodeset="ro_select" type="select" readonly="true()" relevant="../prefs='ro'"/>
-			<bind nodeset="ro_select1" type="select1" readonly="true()" relevant="../prefs='ro'"/>
-			<bind nodeset="ro_group" type="string" relevant="../prefs='ro'"/>
-			<bind nodeset="ro_geopoint" type="geopoint" readonly="true()" relevant="../prefs='ro'"/>
-			<bind nodeset="ro_barcode" type="barcode" readonly="true()" relevant="../prefs='ro'"/>
-			<bind nodeset="ro_image" type="anyURI" readonly="true()" relevant="../prefs='ro'"/>
-			<bind nodeset="ro_audio" type="anyURI" readonly="true()" relevant="../prefs='ro'"/>
-			<bind nodeset="ro_video" type="anyURI" readonly="true()" relevant="../prefs='ro'"/>
+<!-- sensors widgets-->
+			<bind nodeset="geopoint" type="geopoint"/>
+			<bind nodeset="barcode" type="barcode"/>
+			<bind nodeset="image" type="anyURI"/>
+			<bind nodeset="audio" type="anyURI"/>
+			<bind nodeset="video" type="anyURI"/>
 		</model>
 	</h:head>
 	<h:body>
-		<select1 ref="prefs">
-			<label>widget type</label>
-			<hint>your choice determines your path</hint>
-			<item>
-				<label>read write</label>
-				<value>rw</value>
-			</item>
-			<item>
-				<label>read only</label>
-				<value>ro</value>
-			</item>
-		</select1>
 <!-- text of the question definitions -->
-		<input ref="rw_string">
+		<input ref="string">
 			<label>string question</label>
-			<hint>strings can be as long as you want</hint>
+			<hint>can be short or very long.</hint>
 		</input>
-		<input ref="rw_int">
+		<input ref="int">
 			<label>integer question</label>
-			<hint>try entering a number &gt; 1000</hint>
+			<hint>try entering a number &gt; 1000.</hint>
 		</input>
-		<input ref="rw_decimal">
+		<input ref="decimal">
 			<label>decimal question</label>
-			<hint>only between 10.51 and 18.39</hint>
+			<hint>only numbers &gt; 10.51 and &lt; 18.39.</hint>
 		</input>
-		<input ref="rw_date">
+		<input ref="date">
 			<label>date question</label>
-			<hint>only future dates allowed here</hint>
+			<hint>only future dates allowed.</hint>
 		</input>
-		<select ref="rw_select">
+		<select ref="select">
 			<label>select multiple question</label>
-			<hint>d can only be selected by itself</hint>
+			<hint>don't pick c and d together.</hint>
 			<item>
 				<label>option a</label>
 				<value>a</value>
@@ -147,9 +145,9 @@
 				<value>d</value>
 			</item>
 		</select>
-		<select1 ref="rw_select1">
+		<select1 ref="select1">
 			<label>select one question</label>
-			<hint>scroll down to see more options</hint>
+			<hint>scroll down to see default selection.</hint>
 			<item>
 				<label>option 1</label>
 				<value>1</value>
@@ -182,213 +180,71 @@
 				<label>option 8</label>
 				<value>8</value>
 			</item>
-			<item>
-				<label>option 9</label>
-				<value>9</value>
-			</item>
-			<item>
-				<label>option 10</label>
-				<value>10</value>
-			</item>
-			<item>
-				<label>option 11</label>
-				<value>11</value>
-			</item>
-			<item>
-				<label>option 12</label>
-				<value>12</value>
-			</item>
-			<item>
-				<label>option 13</label>
-				<value>13</value>
-			</item>
-			<item>
-				<label>option 14</label>
-				<value>14</value>
-			</item>
-			<item>
-				<label>option 15</label>
-				<value>15</value>
-			</item>
 		</select1>
-		<input ref="rw_custom">
-			<label>custom question</label>
-			<hint>complex email validator</hint>
-		</input>
+		
+		<!--
 		<group>
 			<label>group a</label>
 			<group>
 				<label>group b</label>
 				<group>
 					<label>group c</label>
-					<input ref="rw_group">
-						<label>group question</label>
-						<hint>question is inside three groups</hint>
+					<input ref="language">
+						<label ref="jr:itext('hello')"/>
+						<hint ref="jr:itext('hint')"/>
 					</input>
+					<group>
+						<label>group d</label>
+						<group>
+							<label>group e</label>
+							
+						</group>
+					</group>
 				</group>
 			</group>
 		</group>
 		<group>
-			<label>repeat group a</label>
-			<repeat nodeset="rw_repeat_a">
-				<input ref="rw_item_a">
-					<label>repeat question a</label>
+			<label>repeat group ra</label>
+			<repeat nodeset="repeat_a">
+				<input ref="item_string">
+					<label>ra string question</label>
+					<hint>readonly and long string</hint>
 				</input>
-				<!--
+				<input ref="item_int">
+					<label>ra integer question</label>
+					<hint>largest integer (9 places).</hint>
+				</input>
 				<group>
-					<label>repeat group b</label>
-					<repeat nodeset="rw_repeat_b">
-						<input ref="rw_item_b">
-							<label>repeat question b</label>
+					<label>repeat group rb</label>
+					<repeat nodeset="repeat_b">
+						<input ref="item_regex">
+							<label>regex question</label>
+							<hint>custom email validator</hint>
 						</input>
 					</repeat>
-				</group> -->
+				</group> 
+				<input ref="item_decimal">
+					<label>group ra, decimal question</label>
+					<hint>largest decimal (16 places).</hint>
+				</input>
 			</repeat>
-		</group>
-		<input ref="rw_geopoint">
+		</group> -->
+		<input ref="geopoint">
 			<label>geopoint question</label>
-			<hint>this will get gps location</hint>
+			<hint>this will get gps location.</hint>
 		</input>
-		<input ref="rw_barcode">
+		<input ref="barcode">
 			<label>barcode question</label>
 		</input>
-		<upload ref="rw_image" mediatype="image/*">
-			<hint>this will launch the camera</hint>
+		<upload ref="image" mediatype="image/*">
+			<hint>this will launch the camera.</hint>
 			<label>image question</label>
 		</upload>
-		<upload ref="rw_audio" mediatype="audio/*">
-			<hint>this will launch the audio recorder</hint>
+		<upload ref="audio" mediatype="audio/*">
+			<hint>this will launch the audio recorder.</hint>
 			<label>audio question</label>
 		</upload>
-		<upload ref="rw_video" mediatype="video/*">
-			<label>video question</label>
-		</upload>
-		<input ref="ro_string">
-			<label>string question</label>
-			<hint>string is pulled from the form.</hint>
-		</input>
-		<input ref="ro_int">
-			<label>integer question</label>
-			<hint>widget only allows numbers less than 9 places</hint>
-		</input>
-		<input ref="ro_decimal">
-			<label>decimal question</label>
-			<hint>widget only allows decimals less than 16 places</hint>
-		</input>
-		<input ref="ro_date">
-			<label>date question</label>
-			<hint>date should be june 15, 1970</hint>
-		</input>
-		<select ref="ro_select">
-			<label>select multiple question</label>
-			<hint>a and c should be selected</hint>
-			<item>
-				<label>option a</label>
-				<value>a</value>
-			</item>
-			<item>
-				<label>option b</label>
-				<value>b</value>
-			</item>
-			<item>
-				<label>option c</label>
-				<value>c</value>
-			</item>
-			<item>
-				<label>option d</label>
-				<value>d</value>
-			</item>
-		</select>
-		<select1 ref="ro_select1">
-			<label>select one question</label>
-			<hint>5 should be selected</hint>
-			<item>
-				<label>option 1</label>
-				<value>1</value>
-			</item>
-			<item>
-				<label>option 2</label>
-				<value>2</value>
-			</item>
-			<item>
-				<label>option 3</label>
-				<value>3</value>
-			</item>
-			<item>
-				<label>option 4</label>
-				<value>4</value>
-			</item>
-			<item>
-				<label>option 5</label>
-				<value>5</value>
-			</item>
-			<item>
-				<label>option 6</label>
-				<value>6</value>
-			</item>
-			<item>
-				<label>option 7</label>
-				<value>7</value>
-			</item>
-			<item>
-				<label>option 8</label>
-				<value>8</value>
-			</item>
-			<item>
-				<label>option 9</label>
-				<value>9</value>
-			</item>
-			<item>
-				<label>option 10</label>
-				<value>10</value>
-			</item>
-			<item>
-				<label>option 11</label>
-				<value>11</value>
-			</item>
-			<item>
-				<label>option 12</label>
-				<value>12</value>
-			</item>
-			<item>
-				<label>option 13</label>
-				<value>13</value>
-			</item>
-			<item>
-				<label>option 14</label>
-				<value>14</value>
-			</item>
-			<item>
-				<label>option 15</label>
-				<value>15</value>
-			</item>
-		</select1>
-		<group>
-			<label>group really long name a</label>
-			<group>
-				<label>group really long name b</label>
-				<group>
-					<label>group really long name c</label>
-					<input ref="ro_group">
-						<label>group question</label>
-						<hint>question is inside three groups</hint>
-					</input>
-				</group>
-			</group>
-		</group>
-		<input ref="ro_geopoint">
-			<label>geopoint question</label>
-		</input>
-		<input ref="ro_barcode">
-			<label>barcode question</label>
-		</input>
-		<upload ref="ro_image" mediatype="image/*">
-			<label>image question</label>
-		</upload>
-		<upload ref="ro_audio" mediatype="audio/*">
-			<label>audio question</label>
-		</upload>
-		<upload ref="ro_video" mediatype="video/*">
+		<upload ref="video" mediatype="video/*">
 			<label>video question</label>
 		</upload>
 	</h:body>
