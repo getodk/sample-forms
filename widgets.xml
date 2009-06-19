@@ -3,14 +3,13 @@
 	<h:head>
 		<h:title>Widgets Form</h:title>
 		<model>
-<!-- translation text -->
 			<itext>
 				<translation lang="english">
 					<text id="hello">
 						<value>language question</value>
 					</text>
 					<text id="hint">
-						<value>menu button to change languages.</value>
+						<value>menu button to change languages</value>
 					</text>
 				</translation>
 				<translation lang="italian">
@@ -18,7 +17,7 @@
 						<value>ci&#xE0;o</value>
 					</text>
 					<text id="hint">
-						<value>"hello" in italian. try another.</value>
+						<value>"hello" in italian</value>
 					</text>
 				</translation>
 				<translation lang="japanese">
@@ -26,7 +25,7 @@
 						<value>&#x3053;&#x3093;&#x306B;&#x3061;&#x306F;&#x3002;</value>
 					</text>
 					<text id="hint">
-						<value>"hello" in japanese. try another.</value>
+						<value>"hello" in japanese</value>
 					</text>
 				</translation>
 				<translation lang="macedonian">
@@ -34,11 +33,10 @@
 						<value>&#x417;&#x434;&#x440;&#x430;&#x432;&#x43E;</value>
 					</text>
 					<text id="hint">
-						<value>"hello" in macedonian. try another.</value>
+						<value>"hello" in macedonian</value>
 					</text>
 				</translation>
 			</itext>
-<!-- instance gets filled out and submitted when you complete the form -->
 			<instance>
 				<widgets>
 					<start/>
@@ -55,16 +53,18 @@
 					<date>2010-06-15</date>
 					<select>a c</select>
 					<select1>8</select1>
+					<branch>n</branch>
 					<language/>
-						<!--
+					<regex>test@test.com</regex>
 					<repeat_a jr:template="">
-						<item_string>this is a long strong</item_string>
+						<item_string_a/>
 						<item_int>123456789</item_int>
-					<repeat_b jr:template="">
-							<item_regex>test@test.com</item_regex>
-						</repeat_b> 
+						<repeat_b jr:template="">
+							<item_string_b>this is a long strong</item_string_b>
+						</repeat_b>
 						<item_decimal>1234567890.1234567890</item_decimal>
-					</repeat_a>-->
+					</repeat_a> 
+					<output>get ready for repeat section. this is a really long string where you can put lots of information to prepare a user for anything you would like.</output>
 					<geopoint/>
 					<barcode/>
 					<image/>
@@ -72,8 +72,6 @@
 					<video/>
 				</widgets>
 			</instance>
-<!-- binds allow us to add properties to the questions, like data types, skip logic, etc.-->
-<!-- hidden fields -->
 			<bind nodeset="start" type="time" jr:preload="timestamp" jr:preloadParams="start"/>
 			<bind nodeset="end" type="time" jr:preload="timestamp" jr:preloadParams="end"/>
 			<bind nodeset="now" type="time" jr:preload="timestamp" jr:preloadParams="now"/>
@@ -82,52 +80,48 @@
 			<bind nodeset="subscriberid" type="string" jr:preload="property" jr:preloadParams="subscriberid"/>
 			<bind nodeset="simid" type="string" jr:preload="property" jr:preloadParams="simserial"/>
 			<bind nodeset="phonenumber" type="string" jr:preload="property" jr:preloadParams="phonenumber"/>
-<!-- basic widgets -->
 			<bind nodeset="string" type="string"/>
 			<bind nodeset="int" type="int" constraint=". &lt; 1000" jr:constraintMsg="number cannot be above 1000"/>
 			<bind nodeset="decimal" type="decimal" constraint=". &gt; 10.51 and . &lt; 18.39" jr:constraintMsg="number must be between 10.51 and 18.39"/>
 			<bind nodeset="date" type="date" constraint=". &gt;= today()" jr:constraintMsg="only future dates allowed"/>
 			<bind nodeset="select" type="select" constraint="not(selected(., 'c') and selected(., 'd'))" jr:constraintMsg="option c and d cannot be selected together"/>
 			<bind nodeset="select1" type="select1"/>
-<!-- custom widgets -->
-			<bind nodeset="language" type="string"/>
-<!-- group widgets -->
-<!--
-			<bind nodeset="repeat_a" constraint="count(.) &lt;= 2"/>
-			<bind nodeset="repeat_a/item_string" type="string" readonly="true()"/>
-			<bind nodeset="repeat_a/item_int" type="int"/>
-			<bind nodeset="repeat_a/item_decimal" type="decimal"/>
-			<bind nodeset="repeat_a/repeat_b/item_regex" type="string" required="true()" constraint="regex(., '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,4}')" jr:constraintMsg="this isn't a valid email address"/> -->
-			
-<!-- sensors widgets-->
+			<bind nodeset="branch" required="true()"/>
+			<bind nodeset="language" type="string" relevant="selected(../branch, 'n')"/>
+			<bind nodeset="regex" type="string" required="true()" constraint="regex(., '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,4}')" jr:constraintMsg="this isn't a valid email address" relevant="selected(../branch, 'n')"/>
 			<bind nodeset="geopoint" type="geopoint"/>
 			<bind nodeset="barcode" type="barcode"/>
 			<bind nodeset="image" type="anyURI"/>
 			<bind nodeset="audio" type="anyURI"/>
-			<bind nodeset="video" type="anyURI"/>
+			<bind nodeset="video" type="anyURI"/> 
+			<bind nodeset="output" type="string" readonly="true()"/>
+			<bind nodeset="repeat_a"/>
+			<bind nodeset="repeat_a/item_string_a" type="string" readonly="true()"/>
+			<bind nodeset="repeat_a/item_int" type="int"/>
+			<bind nodeset="repeat_a/item_decimal" type="decimal"/>
+			<bind nodeset="repeat_b/item_string_b" type="string"/>
 		</model>
 	</h:head>
 	<h:body>
-<!-- text of the question definitions -->
 		<input ref="string">
 			<label>string question</label>
-			<hint>can be short or very long.</hint>
+			<hint>can be short or very long</hint>
 		</input>
 		<input ref="int">
 			<label>integer question</label>
-			<hint>try entering a number &gt; 1000.</hint>
+			<hint>try entering a number &gt; 1000</hint>
 		</input>
 		<input ref="decimal">
 			<label>decimal question</label>
-			<hint>only numbers &gt; 10.51 and &lt; 18.39.</hint>
+			<hint>only numbers &gt; 10.51 and &lt; 18.39</hint>
 		</input>
 		<input ref="date">
 			<label>date question</label>
-			<hint>only future dates allowed.</hint>
+			<hint>only future dates allowed</hint>
 		</input>
 		<select ref="select">
 			<label>select multiple question</label>
-			<hint>don't pick c and d together.</hint>
+			<hint>don't pick c and d together</hint>
 			<item>
 				<label>option a</label>
 				<value>a</value>
@@ -147,7 +141,7 @@
 		</select>
 		<select1 ref="select1">
 			<label>select one question</label>
-			<hint>scroll down to see default selection.</hint>
+			<hint>scroll down to see default selection</hint>
 			<item>
 				<label>option 1</label>
 				<value>1</value>
@@ -181,8 +175,18 @@
 				<value>8</value>
 			</item>
 		</select1>
-		
-		<!--
+		<select1 ref="branch">
+			<label>branch question</label>  
+			<hint>yes to skip languages and regex</hint>
+			<item>
+				<label>yes</label>
+				<value>y</value>
+			</item>
+			<item>
+				<label>no</label>
+				<value>n</value>
+			</item>
+		</select1>
 		<group>
 			<label>group a</label>
 			<group>
@@ -193,59 +197,59 @@
 						<label ref="jr:itext('hello')"/>
 						<hint ref="jr:itext('hint')"/>
 					</input>
-					<group>
-						<label>group d</label>
-						<group>
-							<label>group e</label>
-							
-						</group>
-					</group>
 				</group>
 			</group>
 		</group>
-		<group>
-			<label>repeat group ra</label>
-			<repeat nodeset="repeat_a">
-				<input ref="item_string">
-					<label>ra string question</label>
-					<hint>readonly and long string</hint>
-				</input>
-				<input ref="item_int">
-					<label>ra integer question</label>
-					<hint>largest integer (9 places).</hint>
-				</input>
-				<group>
-					<label>repeat group rb</label>
-					<repeat nodeset="repeat_b">
-						<input ref="item_regex">
-							<label>regex question</label>
-							<hint>custom email validator</hint>
-						</input>
-					</repeat>
-				</group> 
-				<input ref="item_decimal">
-					<label>group ra, decimal question</label>
-					<hint>largest decimal (16 places).</hint>
-				</input>
-			</repeat>
-		</group> -->
+		<input ref="regex">
+			<label>regex question</label>
+			<hint>email validator</hint>
+		</input>
 		<input ref="geopoint">
 			<label>geopoint question</label>
-			<hint>this will get gps location.</hint>
+			<hint>this will get gps location</hint>
 		</input>
 		<input ref="barcode">
 			<label>barcode question</label>
+			<hint>scans multi-format 1d/2d barcodes</hint>
 		</input>
 		<upload ref="image" mediatype="image/*">
-			<hint>this will launch the camera.</hint>
+			<hint>this will launch the camera</hint>
 			<label>image question</label>
 		</upload>
 		<upload ref="audio" mediatype="audio/*">
-			<hint>this will launch the audio recorder.</hint>
+			<hint>this will launch the audio recorder</hint>
 			<label>audio question</label>
 		</upload>
 		<upload ref="video" mediatype="video/*">
 			<label>video question</label>
 		</upload>
+		 <input ref="output">
+				<label>output question</label>
+			</input>
+		<group>
+			<label>group ra</label>
+			<repeat nodeset="repeat_a">
+				<input ref="item_string_a">
+					<label>ra string question</label>
+					<hint>readonly and long string</hint>
+				</input>
+				<input ref="item_int">
+					<label>ra integer question</label>
+					<hint>largest integer (9 places)</hint>
+				</input>
+				<group>
+					<label>group rb</label>
+					<repeat nodeset="repeat_b">
+						<input ref="item_string_b">
+							<label>rb string question</label>
+						</input>
+					</repeat>
+				</group>
+				<input ref="item_decimal">
+					<label>ra decimal question</label>
+					<hint>largest decimal (16 places)</hint>
+				</input>
+			</repeat>
+		</group>
 	</h:body>
 </h:html>
