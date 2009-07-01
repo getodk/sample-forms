@@ -59,6 +59,7 @@
 					<repeat_a jr:template="">
 						<item_string_a/>
 						<item_int>123456789</item_int>
+						<repeat_count>3</repeat_count>
 						<repeat_b jr:template="">
 							<item_string_b>this is a long strong</item_string_b>
 						</repeat_b>
@@ -81,7 +82,7 @@
 			<bind nodeset="simid" type="string" jr:preload="property" jr:preloadParams="simserial"/>
 			<bind nodeset="phonenumber" type="string" jr:preload="property" jr:preloadParams="phonenumber"/>
 			<bind nodeset="string" type="string"/>
-			<bind nodeset="int" type="int" constraint=". &lt; 1000" jr:constraintMsg="number cannot be above 1000"/>
+			<bind nodeset="int" type="int" constraint=". &lt; 10" jr:constraintMsg="number cannot be above 10"/>
 			<bind nodeset="decimal" type="decimal" constraint=". &gt; 10.51 and . &lt; 18.39" jr:constraintMsg="number must be between 10.51 and 18.39"/>
 			<bind nodeset="date" type="date" constraint=". &gt;= today()" jr:constraintMsg="only future dates allowed"/>
 			<bind nodeset="select" type="select" constraint="not(selected(., 'c') and selected(., 'd'))" jr:constraintMsg="option c and d cannot be selected together"/>
@@ -98,6 +99,7 @@
 			<bind nodeset="repeat_a"/>
 			<bind nodeset="repeat_a/item_string_a" type="string" readonly="true()"/>
 			<bind nodeset="repeat_a/item_int" type="int"/>
+			<bind nodeset="repeat_a/repeat_count" type="int"/>
 			<bind nodeset="repeat_a/item_decimal" type="decimal"/>
 			<bind nodeset="repeat_b/item_string_b" type="string"/>
 		</model>
@@ -109,7 +111,7 @@
 		</input>
 		<input ref="int">
 			<label>integer question</label>
-			<hint>try entering a number &gt; 1000</hint>
+			<hint>try entering a number &gt; 10</hint>
 		</input>
 		<input ref="decimal">
 			<label>decimal question</label>
@@ -227,7 +229,7 @@
 				<label>output question</label>
 			</input>
 		<group>
-			<label>group ra</label>
+		  <label>group ra</label>
 			<repeat nodeset="repeat_a">
 				<input ref="item_string_a">
 					<label>ra string question</label>
@@ -238,10 +240,11 @@
 					<hint>largest integer (9 places)</hint>
 				</input>
 				<group>
-					<label>group rb</label>
-					<repeat nodeset="repeat_b">
+				  <label>group rb</label>
+					<repeat nodeset="/widgets/repeat_a/repeat_b" jr:noAddRemove="true()" jr:count="/widgets/repeat_a/repeat_count">
 						<input ref="item_string_b">
 							<label>rb string question</label>
+							<hint>should ask thrice</hint>
 						</input>
 					</repeat>
 				</group>
