@@ -73,35 +73,35 @@
 					<video/>
 				</widgets>
 			</instance>
-			<bind nodeset="start" type="time" jr:preload="timestamp" jr:preloadParams="start"/>
-			<bind nodeset="end" type="time" jr:preload="timestamp" jr:preloadParams="end"/>
-			<bind nodeset="now" type="time" jr:preload="timestamp" jr:preloadParams="now"/>
-			<bind nodeset="today" type="date" jr:preload="date" jr:preloadParams="today"/>
-			<bind nodeset="deviceid" type="string" jr:preload="property" jr:preloadParams="deviceid"/>
-			<bind nodeset="subscriberid" type="string" jr:preload="property" jr:preloadParams="subscriberid"/>
-			<bind nodeset="simid" type="string" jr:preload="property" jr:preloadParams="simserial"/>
-			<bind nodeset="phonenumber" type="string" jr:preload="property" jr:preloadParams="phonenumber"/>
-			<bind nodeset="string" type="string"/>
-			<bind nodeset="int" type="int" constraint=". &lt; 10" jr:constraintMsg="number cannot be above 10"/>
-			<bind nodeset="decimal" type="decimal" constraint=". &gt; 10.51 and . &lt; 18.39" jr:constraintMsg="number must be between 10.51 and 18.39"/>
-			<bind nodeset="date" type="date" constraint=". &gt;= today()" jr:constraintMsg="only future dates allowed"/>
-			<bind nodeset="select" type="select" constraint="not(selected(., 'c') and selected(., 'd'))" jr:constraintMsg="option c and d cannot be selected together"/>
-			<bind nodeset="select1" type="select1"/>
-			<bind nodeset="branch" required="true()"/>
-			<bind nodeset="language" type="string" relevant="selected(../branch, 'n')"/>
-			<bind nodeset="regex" type="string" required="true()" constraint="regex(., '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,4}')" jr:constraintMsg="this isn't a valid email address" relevant="selected(../branch, 'n')"/>
-			<bind nodeset="geopoint" type="geopoint"/>
-			<bind nodeset="barcode" type="barcode"/>
-			<bind nodeset="image" type="anyURI"/>
-			<bind nodeset="audio" type="anyURI"/>
-			<bind nodeset="video" type="anyURI"/> 
-			<bind nodeset="output" type="string" readonly="true()"/>
-			<bind nodeset="repeat_a"/>
-			<bind nodeset="repeat_a/item_string_a" type="string" readonly="true()"/>
-			<bind nodeset="repeat_a/item_int" type="int"/>
-			<bind nodeset="repeat_a/repeat_count" type="int"/>
-			<bind nodeset="repeat_a/item_decimal" type="decimal"/>
-			<bind nodeset="repeat_b/item_string_b" type="string"/>
+			<bind nodeset="/widgets/start" type="time" jr:preload="timestamp" jr:preloadParams="start"/>
+			<bind nodeset="/widgets/end" type="time" jr:preload="timestamp" jr:preloadParams="end"/>
+			<bind nodeset="/widgets/now" type="time" jr:preload="timestamp" jr:preloadParams="now"/>
+			<bind nodeset="/widgets/today" type="date" jr:preload="date" jr:preloadParams="today"/>
+			<bind nodeset="/widgets/deviceid" type="string" jr:preload="property" jr:preloadParams="deviceid"/>
+			<bind nodeset="/widgets/subscriberid" type="string" jr:preload="property" jr:preloadParams="subscriberid"/>
+			<bind nodeset="/widgets/simid" type="string" jr:preload="property" jr:preloadParams="simserial"/>
+			<bind nodeset="/widgets/phonenumber" type="string" jr:preload="property" jr:preloadParams="phonenumber"/>
+			<bind nodeset="/widgets/string" type="string"/>
+			<bind nodeset="/widgets/int" type="int" constraint=". &lt; 10" jr:constraintMsg="number cannot be above 10"/>
+			<bind nodeset="/widgets/decimal" type="decimal" constraint=". &gt; 10.51 and . &lt; 18.39" jr:constraintMsg="number must be between 10.51 and 18.39"/>
+			<bind nodeset="/widgets/date" type="date" constraint=". &gt;= today()" jr:constraintMsg="only future dates allowed"/>
+			<bind nodeset="/widgets/select" type="select" constraint="not(selected(., 'c') and selected(., 'd'))" jr:constraintMsg="option c and d cannot be selected together"/>
+			<bind nodeset="/widgets/select1" type="select1"/>
+			<bind nodeset="/widgets/branch" required="true()"/>
+			<bind nodeset="/widgets/language" type="string" relevant="selected(/widgets/branch, 'n')"/>
+			<bind nodeset="/widgets/regex" type="string" required="true()" constraint="regex(., '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,4}')" jr:constraintMsg="this isn't a valid email address" relevant="selected(/widgets/branch, 'n')"/>
+			<bind nodeset="/widgets/geopoint" type="geopoint"/>
+			<bind nodeset="/widgets/barcode" type="barcode"/>
+			<bind nodeset="/widgets/image" type="anyURI"/>
+			<bind nodeset="/widgets/audio" type="anyURI"/>
+			<bind nodeset="/widgets/video" type="anyURI"/> 
+			<bind nodeset="/widgets/output" type="string" readonly="true()" relevant="selected(/widgets/branch, 'n')"/>
+			<bind nodeset="/widgets/repeat_a" relevant="selected(/widgets/branch, 'n')" />
+			<bind nodeset="/widgets/repeat_a/item_string_a" type="string" readonly="true()"/>
+			<bind nodeset="/widgets/repeat_a/item_int" type="int"/>
+			<bind nodeset="/widgets/repeat_a/repeat_count" type="int"/>
+			<bind nodeset="/widgets/repeat_a/item_decimal" type="decimal"/>
+			<bind nodeset="/widgets/repeat_a/repeat_b/item_string_b" type="string"/>
 		</model>
 	</h:head>
 	<h:body>
@@ -179,7 +179,7 @@
 		</select1>
 		<select1 ref="branch">
 			<label>branch question</label>  
-			<hint>yes to skip languages and regex</hint>
+			<hint>yes to skip languages, regex, repeats</hint>
 			<item>
 				<label>yes</label>
 				<value>y</value>
@@ -230,7 +230,7 @@
 			</input>
 		<group>
 		  <label>group ra</label>
-			<repeat nodeset="repeat_a">
+			<repeat nodeset="/widgets/repeat_a">
 				<input ref="item_string_a">
 					<label>ra string question</label>
 					<hint>readonly and long string</hint>
