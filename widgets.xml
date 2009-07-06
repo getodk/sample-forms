@@ -67,7 +67,7 @@
 					</repeat_a> 
 					<output>get ready for repeat section. this is a really long string where you can put lots of information to prepare a user for anything you would like.</output>
 					<geopoint/>
-					<barcode/>
+					<barcode/> 
 					<image/>
 					<audio/>
 					<video/>
@@ -96,7 +96,7 @@
 			<bind nodeset="/widgets/audio" type="anyURI"/>
 			<bind nodeset="/widgets/video" type="anyURI"/> 
 			<bind nodeset="/widgets/output" type="string" readonly="true()" relevant="selected(/widgets/branch, 'n')"/>
-			<bind nodeset="/widgets/repeat_a" relevant="selected(/widgets/branch, 'n')" />
+			<bind nodeset="/widgets/repeat_a" />
 			<bind nodeset="/widgets/repeat_a/item_string_a" type="string" readonly="true()"/>
 			<bind nodeset="/widgets/repeat_a/item_int" type="int"/>
 			<bind nodeset="/widgets/repeat_a/repeat_count" type="int"/>
@@ -241,7 +241,7 @@
 				</input>
 				<group>
 				  <label>group rb</label>
-					<repeat nodeset="/widgets/repeat_a/repeat_b" jr:noAddRemove="true()" jr:count="/widgets/repeat_a/repeat_count">
+					<repeat nodeset="/widgets/repeat_a/repeat_b">
 						<input ref="item_string_b">
 							<label>rb string question</label>
 							<hint>should ask thrice</hint>
@@ -254,5 +254,6 @@
 				</input>
 			</repeat>
 		</group>
+		
 	</h:body>
 </h:html>
