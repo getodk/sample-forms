@@ -154,9 +154,10 @@
 		
 			<!-- Economics Section -->		
 			<xf:bind id="BedNets" nodeset="/data/householdInfo/bed_nets" required="true()" type="string" />
-			<xf:bind id="NumberOfNets" nodeset="/data/householdInfo/number_of_nets" required="true()" constraint=". &gt;0" jr:constraintMsg="Must have at least 1 net" type="integer" />
-			<xf:bind id="NetsGiven" nodeset="/data/householdInfo/nets_given" required="true()" type="string" />
-			<xf:bind id="NetVoucher" nodeset="/data/householdInfo/net_voucher" type="string" />
+			<xf:bind id="NumberOfNets" nodeset="/data/householdInfo/number_of_nets" required="true()" relevant="../bed_nets='Yes'" 
+						constraint=". &gt;0" jr:constraintMsg="Must have at least 1 net" type="integer" />
+			<xf:bind id="NetsGiven" nodeset="/data/householdInfo/nets_given" required="true()" type="integer" />
+			<xf:bind id="NetVoucher" nodeset="/data/householdInfo/net_voucher" relevant="../nets_given != 0"type="string" />
 			<xf:bind id="LandOwned" nodeset="/data/householdInfo/land_owned" type="string" />
 			<xf:bind id="CowsOwned" nodeset="/data/householdInfo/cows_owned" type="integer" />
 			<xf:bind id="GoatsOwned" nodeset="/data/householdInfo/goats_owned" type="integer" />
@@ -165,7 +166,8 @@
 			<xf:bind id="ChildrenInSchool" nodeset="/data/householdInfo/children_in_school" type="integer" />
 
 			<!-- Individual Data Bindings -->
-			<xf:bind id="HouseholdLabel" nodeset="/data/individual/household" readonly="true()" type="string" />
+			<xf:bind id="HouseholdLabel" nodeset="/data/individual/household" calculate="/data/householdInfo/household_id" 
+						constraint="review('Household ID', .)" readonly="true()" type="string" />
 			<xf:bind id="HCTID" nodeset="/data/individual/hct_id" required="false()" 
 						constraint="regex(., '^\w+[-]?\d{1}') and checkdigit(.) and unique('hct_id', .) and review('HCT ID', .)" 
 						jr:constraintMsg="Invalid ID format and/or CheckDigit. Please Re-enter the ID." type="barcode" />
@@ -258,7 +260,6 @@
 			<xf:bind id="ReturnDateGroup" nodeset="/data/householdInfo/return_date_group" relevant="../allowed_in='LaterDate' or ../allowed_in='NotHome'" />
 			<xf:bind id="ConductSurvey" nodeset="/data/householdInfo/conduct_survey" relevant="../allowed_in='Accepted'" type="string" />		
 			<xf:bind id="EconomicGroup" nodeset="/data/householdInfo/economic_group" type="string" />
-			<xf:bind id="BedNetsGroup" nodeset="/data/householdInfo/bed_nets_group" relevant="../bed_nets='Yes'" type="string" />		
 			<xf:bind id="ChildrenBelow18" nodeset="/data/individual/children_below18" relevant="../total_age &lt; 216" />
 			<xf:bind id="ChildrenBelow13" nodeset="/data/individual/children_below13" relevant="../total_age &lt; 156" />
 			<xf:bind id="ChildrenBelow5" nodeset="/data/individual/children_below5" relevant="../total_age &lt; 60" />
@@ -384,30 +385,24 @@
 					<xf:value>No</xf:value>
 				</xf:item>
 			</xf:select1>
-			<xf:group bind="BedNetsGroup">
-				<xf:label>Bed Nets Info</xf:label>
-				<xf:input bind="NumberOfNets">
-					<xf:label>How Many Bednets?</xf:label>
-				</xf:input>
-				<xf:select1 bind="NetsGiven">
-					<xf:label>Number of Bednets Given</xf:label>
-					<xf:item>
-						<xf:label>0</xf:label>
-						<xf:value>0</xf:value>
-					</xf:item>
-					<xf:item>
-						<xf:label>1</xf:label>
-						<xf:value>1</xf:value>
-					</xf:item>
-					<xf:item>
-						<xf:label>2</xf:label>
-						<xf:value>2</xf:value>
-					</xf:item>
-				</xf:select1>		
-				<xf:input bind="NetVoucher">
-					<xf:label>Voucher number of provided bed net:</xf:label>
-				</xf:input>
-			</xf:group>
+			<xf:label>Bed Nets Info</xf:label>
+			<xf:input bind="NumberOfNets">
+				<xf:label>How Many Bednets?</xf:label>
+			</xf:input>
+			<xf:select1 bind="NetsGiven">
+				<xf:label>Number of Bednets Given</xf:label>
+				<xf:item>
+					<xf:label>0</xf:label>
+					<xf:value>0</xf:value>
+				</xf:item>
+				<xf:item>
+					<xf:label>1</xf:label>
+					<xf:value>1</xf:value>
+				</xf:item>
+			</xf:select1>		
+			<xf:input bind="NetVoucher">
+				<xf:label>Voucher number of provided bed net:</xf:label>
+			</xf:input>
 			<!-- End of Bed Nets -->
 
 			<xf:input bind="LandOwned">
