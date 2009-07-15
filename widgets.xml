@@ -89,12 +89,12 @@
 			<bind nodeset="/widgets/select1" type="select1"/>
 			<bind nodeset="/widgets/branch" required="true()"/>
 			<bind nodeset="/widgets/language" type="string" relevant="selected(/widgets/branch, 'n')"/>
-			<bind nodeset="/widgets/regex" type="string" required="true()" constraint="regex(., '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,4}')" jr:constraintMsg="this isn't a valid email address" relevant="selected(/widgets/branch, 'n')"/>
+			<bind nodeset="/widgets/regex" type="string" required="true()" constraint="regex(., '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}')" jr:constraintMsg="this isn't a valid email address" relevant="selected(/widgets/branch, 'n')"/>
 			<bind nodeset="/widgets/geopoint" type="geopoint"/>
 			<bind nodeset="/widgets/barcode" type="barcode"/>
-			<bind nodeset="/widgets/image" type="anyURI"/>
-			<bind nodeset="/widgets/audio" type="anyURI"/>
-			<bind nodeset="/widgets/video" type="anyURI"/> 
+			<bind nodeset="/widgets/image" type="binary"/>
+			<bind nodeset="/widgets/audio" type="binary"/>
+			<bind nodeset="/widgets/video" type="binary"/> 
 			<bind nodeset="/widgets/output" type="string" readonly="true()" relevant="selected(/widgets/branch, 'n')"/>
 			<bind nodeset="/widgets/repeat_a" />
 			<bind nodeset="/widgets/repeat_a/item_string_a" type="string" readonly="true()"/>
