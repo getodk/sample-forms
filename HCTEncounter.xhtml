@@ -77,7 +77,6 @@
 
 						<pregnancy_status />
 						<attending_anc />
-						<parents_in_household />
 						<mother_died />
 						<mother_hiv_positive />
 						<father_died />
@@ -209,7 +208,6 @@
 			
 			<xf:bind id="PregnancyStatus" nodeset="/data/individual/pregnancy_status" required="true()" relevant="../gender='Female' and ../total_age &gt;= 156"  type="string" />
 			<xf:bind id="AttendingANC" nodeset="/data/individual/attending_anc" required="true()" relevant="../pregnancy_status='Yes'" type="string" />
-			<xf:bind id="ParentsInHousehold" nodeset="/data/individual/parents_in_household" required="true()" type="string" />
 			<xf:bind id="MotherDied" nodeset="/data/individual/mother_died" required="true()" type="string" />
 			<xf:bind id="MotherHivPositive" nodeset="/data/individual/mother_hiv_positive" required="true()" type="string" />
 			<xf:bind id="FatherDied" nodeset="/data/individual/father_died" required="true()" type="string" />
@@ -254,10 +252,10 @@
 			<xf:bind id="PastTBTreatment" nodeset="/data/individual/past_tb_tx_status" required="true()" type="string" />
 			<xf:bind id="PastTBTreatmentYear" nodeset="/data/individual/past_tb_tx_year" required="true()" relevant="../past_tb_tx_status='Yes'" type="string" />
 			<xf:bind id="Completed8mTBTreatment" nodeset="/data/individual/completed_8m_tb_tx" required="true()" relevant="../past_tb_tx_status='Yes'" type="string" />
-			<xf:bind id="CoughGtTwoWks" nodeset="/data/individual/cough_gt_2_wks" type="string" />
-			<xf:bind id="BloodCoughPastYr" nodeset="/data/individual/blood_cough_past_year" type="string" />
-			<xf:bind id="FeverGtThreeWks" nodeset="/data/individual/fever_gt_3wks" type="string" />
-			<xf:bind id="WeightLossPastYr" nodeset="/data/individual/weight_loss_past_year" type="string" />
+			<xf:bind id="CoughGtTwoWks" nodeset="/data/individual/cough_gt_2_wks" required="true()" type="string" />
+			<xf:bind id="BloodCoughPastYr" nodeset="/data/individual/blood_cough_past_year" required="true()" type="string" />
+			<xf:bind id="FeverGtThreeWks" nodeset="/data/individual/fever_gt_3wks" required="true()" type="string" />
+			<xf:bind id="WeightLossPastYr" nodeset="/data/individual/weight_loss_past_year" required="true()" type="string" />
 			<xf:bind id="TBinHousehold" nodeset="/data/individual/tb_in_household" required="true()" type="string" />
 			<xf:bind id="FailureToThrive" nodeset="/data/individual/failure_to_thrive" relevant="../total_age &lt; 156" type="string" />
 			<xf:bind id="SputumCollected" nodeset="/data/individual/sputum_collected" required="true()" type="string" />
@@ -503,8 +501,7 @@ Here you will collect individual information for the Household with ID:
 				</xf:input>	
 				<xf:input bind="HCTID">
 					<xf:label>HCT ID:</xf:label>
-					<hint>Scan a Barcode on an ID Card to get
-					get this ID</hint>
+					<hint>Scan a Barcode on an ID Card to get this ID</hint>
 				</xf:input>
 				<xf:input bind="Demographics">
 					<xf:label>Individual Demographics</xf:label>
@@ -680,17 +677,6 @@ Here you will collect individual information for the Household with ID:
 				<!-- Start -For Children < 18 years -->
 				<xf:group bind="ChildrenBelow18">
 					<xf:label>Children Below 18 Years</xf:label>
-					<xf:select1 bind="ParentsInHousehold" >
-						<xf:label>Birth parents in household?</xf:label>
-						<xf:item>
-							<xf:label>Yes</xf:label>
-							<xf:value>Yes</xf:value>
-						</xf:item>
-						<xf:item>
-							<xf:label>No</xf:label>
-							<xf:value>No</xf:value>
-						</xf:item>		
-					</xf:select1>
 					<xf:select1 bind="MotherDied" selection="closed" appearance="full">
 						<xf:label>Mother Died?</xf:label>
 						<xf:item>
