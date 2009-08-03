@@ -1,57 +1,17 @@
-<xf:html xmlns:xf="http://www.w3.0rg/2002/sforms"
+<xf:html xmlns:xf="http://www.w3.org/2002/xforms"
 	xmlns:ev="http://www.w3.org/2001/xml-events"
 	xmlns:jr="http://openrosa.org/javarosa"> 
 
 	<head>
-		<title>HCT Household Survey</title>
+		<title>Add Individual</title>
 
 		<!-- XForm Data Model -->
-		<xf:model id="HCTHousehold">
+		<xf:model id="HCTIndividual">
 			<xf:instance id="MainInstance">
 				<data>
-					<householdInfo>
-						<household_id />
-						<survey_household_id />
-						<gps_location />
-						<provider_id />
-						<team_id />
-						<village />
-						<location />
-						<sublocation />
-						<district />
-						<division />
-						<visit_date />
-						<household_adults />
-						<children_under13 />
-						<total_household />
-						<allowed_in />
-						<return_date_group />
-						<conduct_survey />
-						<return_date />
-
-						<!-- Economic Questions -->
-						<economic_group />
-						<bed_nets />
-						<bed_nets_group />
-						<number_of_nets />
-						<nets_given />
-						<net_voucher />
-						<land_owned />
-						<cows_owned />
-						<goats_owned />
-						<sheep_owned />
-						<children_in_household />
-						<children_in_school />
-						<!-- End of Economic Questions -->
-
-						<start_time />
-						<end_time />
-					</householdInfo>
-
 					<individual>
 						<household />
 						<hct_id />
-						<survey_individual_id />
 						<given_name />
 						<middle_name />
 						<family_name />
@@ -96,7 +56,7 @@
 						<previous_hiv_test_year />
 						<previous_hiv_test_results />
 						<hiv_tx_program_status />
-						<hiv_tx_program_name />
+						<hiv_tx_program_name>AMPATH</hiv_tx_program_name>
 						<ampath_id />
 						<hiv_test_section />
 						<pretest_counseling />
@@ -126,53 +86,13 @@
 						<sputum_collected />
 						<follow_up />
 						<follow_up_date />
-		  			</individual>
-	  			</data>
+  					</individual>
+  				</data>
 			</xf:instance>
 
-			<!-- Household Information Bindings -->
-			<xf:bind id="HouseholdID" nodeset="/data/householdInfo/household_id" required="true()"
-						constraint="regex(., '^\w+[-]?\d{1}') and checkdigit(.) and unique('household_id', .)" 
-						jr:constraintMsg="Invalid ID format and/or CheckDigit. Please Re-enter the ID." type="string" />
-			<xf:bind id="SurveyHouseholdID" nodeset="/data/householdInfo/survey_household_id" type="integer" />
-			<xf:bind id="GPSLocation" nodeset="/data/householdInfo/gps_location" required="true()" type="geopoint" />
-			<xf:bind nodeset="/data/householdInfo/start_time" jr:preload="timestamp" jr:preloadParams="start" type="dateTime" />
-			<xf:bind nodeset="/data/householdInfo/end_time" jr:preload="timestamp" jr:preloadParams="end" type="dateTime" />
-			<xf:bind id="ProviderID" nodeset="/data/householdInfo/provider_id" required="true()" 
-						constraint="regex(., '^\w+[-]?\d{1}') and (checkdigit(.))" 
-						jr:constraintMsg="Invalid ID format and/or CheckDigit. Please Re-enter your ID." type="string" />
-			<xf:bind id="TeamID" nodeset="/data/householdInfo/team_id" required="true()" type="string" />		
-			<xf:bind id="Village" nodeset="/data/householdInfo/village" required="true()" type="string" />
-			<xf:bind id="Location" nodeset="/data/householdInfo/location" required="true()" type="string" />
-			<xf:bind id="Sublocation" nodeset="/data/householdInfo/sublocation" required="true()" type="string" />
-			<xf:bind id="District" nodeset="/data/householdInfo/district" required="true()" type="string" />
-			<xf:bind id="Division" nodeset="/data/householdInfo/division" required="true()" type="string" />
-			<xf:bind id="VisitDate" nodeset="/data/householdInfo/visit_date" constraint=". &lt;= today()" jr:constraintMsg="Visit date can not be in the future." type="date" />
-			<xf:bind id="HouseholdAdults" nodeset="/data/householdInfo/household_adults" required="true()" constraint=". &gt;=0" jr:constraintMsg="Must be a Positive Number" type="integer" />
-			<xf:bind id="ChildrenUnder13" nodeset="/data/householdInfo/children_under13" required="true()" constraint=". &gt;=0" jr:constraintMsg="Must be a Positive Number" type="integer" />
-			<xf:bind id="TotalInHousehold" nodeset="/data/householdInfo/total_household" calculate="../household_adults + ../children_under13" readonly="true()" type="integer" />
-			<xf:bind id="AllowedIn" nodeset="/data/householdInfo/allowed_in" required="true()" type="string" />
-			<xf:bind id="ReturnDate" nodeset="/data/householdInfo/return_date" constraint=". &gt; today()" jr:constraintMsg="Return date must be in the future!" type="date" />
-		
-			<!-- Economics Section -->		
-			<xf:bind id="BedNets" nodeset="/data/householdInfo/bed_nets" required="true()" type="string" />
-			<xf:bind id="NumberOfNets" nodeset="/data/householdInfo/number_of_nets" required="true()" relevant="../bed_nets='Yes'" 
-						constraint=". &gt;0" jr:constraintMsg="Must have at least 1 net" type="integer" />
-			<xf:bind id="NetsGiven" nodeset="/data/householdInfo/nets_given" required="true()" type="integer" />
-			<xf:bind id="NetVoucher" nodeset="/data/householdInfo/net_voucher" relevant="../nets_given != 0" type="string" />
-			<xf:bind id="LandOwned" nodeset="/data/householdInfo/land_owned" type="double" />
-			<xf:bind id="CowsOwned" nodeset="/data/householdInfo/cows_owned" type="integer" />
-			<xf:bind id="GoatsOwned" nodeset="/data/householdInfo/goats_owned" type="integer" />
-			<xf:bind id="SheepOwned" nodeset="/data/householdInfo/sheep_owned" type="integer" />
-			<xf:bind id="ChildrenInHousehold" nodeset="/data/householdInfo/children_in_household" constraint=". &lt;= 20" 
-						jr:constraintMsg="Too many children. Just type 20" type="integer" />
-			<xf:bind id="ChildrenInSchool" nodeset="/data/householdInfo/children_in_school" constraint=". &lt;= ../children_in_household" 
-						jr:contraintMsg="Cannot be more than children in household" type="integer" />
-
 			<!-- Individual Data Bindings -->
-			<xf:bind id="HouseholdLabel" nodeset="/data/individual/household" calculate="/data/householdInfo/household_id" 
-						constraint="review('Household ID', .)" readonly="true()" type="string" />
-			<xf:bind id="HCTID" nodeset="/data/individual/hct_id" required="true()" 
+			<xf:bind id="HouseholdLabel" nodeset="/data/individual/household" constraint="review('Household ID', .)" required="true()" type="lookup" />
+			<xf:bind id="HCTID" nodeset="/data/individual/hct_id" required="false()" 
 						constraint="regex(., '^\w+[-]?\d{1}') and checkdigit(.) and unique('hct_id', .) and review('HCT ID', .)" 
 						jr:constraintMsg="Invalid ID format and/or CheckDigit. Please Re-enter the ID." type="barcode" />
 			<xf:bind id="GivenName" nodeset="/data/individual/given_name" required="true()" constraint="review('Given Name', .)" type="string" />
@@ -194,7 +114,7 @@
 						jr:constraintMsg="Enter phone number or 1111 for no number." type="string" />
 			<xf:bind id="RePhoneNumber" nodeset="/data/individual/reenter_phone_number" type="string"
 						relevant="../phone_number !='1111'" required="true()" constraint=". = ../phone_number"
-						jr:constraintMsg="Phone numbers do not match. Can swipe back and confirm" />			
+						jr:constraintMsg="Phone numbers do match. Can swipe back and confirm" />			
 			<xf:bind id="Demographics" nodeset="/data/individual/demographics" type="review" />
 			<xf:bind id="MaritalStatus" nodeset="/data/individual/marital_status" required="true()" relevant="../total_age &gt;= 156" type="string" />
 			<xf:bind id="HouseStatus" nodeset="/data/individual/house_status" type="string" />
@@ -234,7 +154,8 @@
 			<xf:bind id="AcceptedHIVTesting" nodeset="/data/individual/accepted_hiv_testing" required="true()" type="string"
 						constraint=". = 'No' or (. ='Yes' and ../pretest_counseling='Yes')" 
 						jr:constraintMsg="You can not test without counselling" />
-			<xf:bind id="ReasonsForDecline" nodeset="/data/individual/reasons_for_decline" required="true()" type="string" relevant="../accepted_hiv_testing='No' and ../total_age &lt; 156"
+			<xf:bind id="ReasonsForDecline" nodeset="/data/individual/reasons_for_decline" required="true()" type="string" 
+						relevant="../accepted_hiv_testing='No' and ../total_age &lt; 156"
 						constraint="count-selected(.) &lt;= 3" jr:constraintMsg="A maximum of three Reasons" />
 			<xf:bind id="Test1Result" nodeset="/data/individual/test1_result" required="true()" type="string" />
 			<xf:bind id="Test2Name" nodeset="/data/individual/test2_name" required="true()" type="string" />
@@ -266,183 +187,27 @@
 						jr:constraintMsg="Follow-Up date must be in the future!" relevant="../follow_up != ''" type="date" />
 
 			<!-- Group Bindings -->
-			<xf:bind id="ReturnDateGroup" nodeset="/data/householdInfo/return_date_group" relevant="../allowed_in='LaterDate' or ../allowed_in='NotHome'" />
-			<xf:bind id="ConductSurvey" nodeset="/data/householdInfo/conduct_survey" relevant="../allowed_in='Accepted'" type="string" />		
-			<xf:bind id="EconomicGroup" nodeset="/data/householdInfo/economic_group" relevant="../survey_household_id != ''" type="string" />
+
 			<xf:bind id="ChildrenBelow18" nodeset="/data/individual/children_below18" relevant="../total_age &lt; 216" />
 			<xf:bind id="ChildrenBelow5" nodeset="/data/individual/children_below5" relevant="../total_age &lt; 60" />
 			<xf:bind id="ImmunizationInfo" nodeset="/data/individual/immunization_info" relevant="../child_immunized='Yes'" />
-			<xf:bind id="HIVTestSection" nodeset="/data/individual/hiv_test_section" relevant="../total_age &gt;= 156 or (../child_needs_hiv_test='Needs testing' and ../total_age &gt;= 18)
+			<xf:bind id="HIVTestSection" nodeset="/data/individual/hiv_test_section" relevant="../total_age &gt;= 156 or (../child_needs_hiv_test = 'Needs testing' and ../total_age &gt;= 18)
 							or (../test_child_irregardless='Yes' and ../total_age &gt;= 18)" />
 			<xf:bind id="HIVTestGroup" nodeset="/data/individual/hiv_test_group" relevant="../accepted_hiv_testing='Yes'" />
 			<xf:bind id="TBInfoGroup" nodeset="/data/individual/tb_info" relevant="../current_tb_tx_status='No'" />
-		</xf:model>
+    		</xf:model>
 	</head>
 
   <!-- XForm User Interface -->
   <body>
-  	<!-- Household -->
-  	<xf:group>
-  		<xf:label>Household Information</xf:label>
-		<xf:input bind="HouseholdID">
-			<xf:label>Household ID:</xf:label>
-			<hint>A Household is: 
-				1. Father, wife/wives and children 
-				2. Son, wife/wives and children in father's homestead
-				3. Child headed home
-				4. Mature man/woman living alone
-				5. Daughter with child/children living in parent house
-			</hint>
-		</xf:input>
-		<xf:input bind="SurveyHouseholdID">
-			<xf:label>Household Survey ID:</xf:label>
-		</xf:input>
-		<xf:input bind="GPSLocation"> 
-			<xf:label> Select GPS Location </xf:label>
-		</xf:input>
-		<xf:input bind="ProviderID">
-			<xf:label>Provider ID:</xf:label>
-		</xf:input>
-		<xf:select1 bind="TeamID">
-			<xf:label>Team ID:</xf:label>
-			<xf:item>
-				<xf:label>Team 1</xf:label>
-				<xf:value>Team1</xf:value>
-			</xf:item>
-			<xf:item>
-				<xf:label>Team 2</xf:label>
-				<xf:value>Team2</xf:value>
-			</xf:item>
-			<xf:item>
-				<xf:label>Team 3</xf:label>
-				<xf:value>Team3</xf:value>
-			</xf:item>
-			<xf:item>
-				<xf:label>Team 4</xf:label>
-				<xf:value>Team4</xf:value>
-			</xf:item>
-			<xf:item>
-				<xf:label>Team 5</xf:label>
-				<xf:value>Team5</xf:value>
-			</xf:item>
-		</xf:select1>
-		<xf:input bind="Village">
-			<xf:label>Village:</xf:label>
-		</xf:input>
-		<xf:group>
-			<xf:label>Best Consensus Information</xf:label>
-			<xf:input bind="HouseholdAdults">
-				<xf:label>No of household Adults:</xf:label>
-			</xf:input>    
-			<xf:input bind="ChildrenUnder13">
-				<xf:label>Number of Children below 13yrs:</xf:label>
-			</xf:input>  
-			<xf:input bind="TotalInHousehold">
-				<xf:label>Number of All members:</xf:label>
-			</xf:input> 
-		</xf:group>
-		<xf:select1 bind="AllowedIn" appearance="compact">
-			<xf:label>Allowed In?:</xf:label>
-			  <xf:item>
-				<xf:label>Accepted</xf:label>
-				<xf:value>Accepted</xf:value>
-			  </xf:item>
-			  <xf:item>
-				<xf:label>Declined</xf:label>
-				<xf:value>Declined</xf:value>
-			  </xf:item>
-			  <xf:item>
-				<xf:label>Not Home</xf:label>
-				<xf:value>NotHome</xf:value>
-			  </xf:item>
-			  <xf:item>
-				<xf:label>Requested later date</xf:label>
-				<xf:value>LaterDate</xf:value>
-			  </xf:item>
-		</xf:select1> 
- 	</xf:group>
-
-	<!-- AFTER HERE EITHER END SURVEY, CONTINUE, OR END AND TAKE A RETURN DATE -->
-
-	<!-- IF declined -There is nothing to do -->
-
-	<!-- Not Home or Requested Later Date-->
-	<xf:group bind="ReturnDateGroup">
-		<xf:label>Not Home or Requested Later Date</xf:label>
-		<xf:input bind="ReturnDate">
-			<xf:label>Enter Return Date:</xf:label>
-		</xf:input>
-	</xf:group>
-
-	<!-- ALLOWED IN CONDUCT SURVEY -->
-	<xf:group bind="ConductSurvey">
-		<xf:label>Household Survey</xf:label>
-		
-		<!-- ECONOMIC QUESTIONS -->
-		<xf:group bind="EconomicGroup">
-			<xf:label>Economic Questions</xf:label>
-			<!-- BED NETS -->
-			<xf:select1 bind="BedNets">
-				<xf:label>Do you have bed nets?</xf:label>
-				<xf:item>
-					<xf:label>Yes</xf:label>
-					<xf:value>Yes</xf:value>
-				</xf:item>
-				<xf:item>
-					<xf:label>No</xf:label>
-					<xf:value>No</xf:value>
-				</xf:item>
-			</xf:select1>
-			<xf:label>Bed Nets Info</xf:label>
-			<xf:input bind="NumberOfNets">
-				<xf:label>How Many Bednets?</xf:label>
-			</xf:input>
-			<xf:select1 bind="NetsGiven">
-				<xf:label>Number of Bednets Given</xf:label>
-				<xf:item>
-					<xf:label>0</xf:label>
-					<xf:value>0</xf:value>
-				</xf:item>
-				<xf:item>
-					<xf:label>1</xf:label>
-					<xf:value>1</xf:value>
-				</xf:item>
-			</xf:select1>		
-			<xf:input bind="NetVoucher">
-				<xf:label>Voucher number of provided bed net:</xf:label>
-			</xf:input>
-			<!-- End of Bed Nets -->
-
-			<xf:input bind="LandOwned">
-				<xf:label>Total Land Owned:</xf:label>
-			</xf:input>
-			<xf:input bind="CowsOwned">
-				<xf:label>Number of Cows owned:</xf:label>
-			</xf:input> 
-			<xf:input bind="GoatsOwned">
-				<xf:label>Number of Goats owned:</xf:label>
-			</xf:input> 
-			<xf:input bind="SheepOwned">
-				<xf:label>Number of Sheep owned:</xf:label>
-			</xf:input> 
-			<xf:input bind="ChildrenInHousehold">
-				<xf:label>Children between 3-20 yrs in household:</xf:label>
-			</xf:input> 
-			<xf:input bind="ChildrenInSchool">
-				<xf:label>Number attending school or Education Institutions:</xf:label>
-			</xf:input>  			
-		</xf:group>
-		<!-- End of Economic Questions -->
-
+  	
 		<!-- Household Individual -->
 		<xf:group>
 			<xf:label>Individual Info</xf:label>
 			<xf:repeat nodeset="/data/individual">
 				<xf:input bind="HouseholdLabel">
 					<xf:label>
-Household Counseling And Testing:
-
-Here you will collect individual information for the Household with ID:
+Household to add individual to:
 					</xf:label>
 				</xf:input> 
 				<xf:input bind="GivenName">
@@ -752,7 +517,7 @@ Here you will collect individual information for the Household with ID:
 						</xf:item>
 					</xf:select1>
 					<xf:input bind="ChildNeedsHIVTest">
-						<xf:label>ALERT: This Child</xf:label>
+						<xf:label>ALERT: This child</xf:label>
 					</xf:input>
 					<xf:select1 bind="TestChildIrregardless" selection="closed" appearance="full">
 						<xf:label>Test Child Anyway?</xf:label>
@@ -1395,7 +1160,5 @@ Here you will collect individual information for the Household with ID:
 			</xf:repeat>
 		</xf:group> 
 		<!--end of individual survey-->
-	</xf:group> 
-	<!-- END OF CONDUCT SURVEY -->
   </body>
-</xf:html>					
+</xf:html>
