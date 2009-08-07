@@ -55,6 +55,7 @@
 						<family_name/>
 						<gender/>
 						<age_type/>
+						<age_estimated/>
 						<birth_date/>
 						<age_in_years/>
 						<age_in_months/>
@@ -165,9 +166,10 @@
 			<bind nodeset="/data/individual/family_name" constraint="review('Family Name', .)" required="true()" type="string"/>
 			<bind nodeset="/data/individual/gender" constraint="review('Gender', .)" required="true()" type="string"/>
 			<bind nodeset="/data/individual/age_type" required="true()" type="string"/>
+			<bind nodeset="/data/individual/age_estimated" required="true()" type="string"/>
 			<bind nodeset="/data/individual/birth_date" relevant="../age_type='birth_date'" constraint=". &lt;= today()" jr:constraintMsg="Birth dates must be before today." type="date"/>
-			<bind nodeset="/data/individual/age_in_years" constraint=". &gt;= 0 and . &lt;= 110" relevant="../age_type='age_in_years_months' or ../age_type='unknown'" jr:constraintMsg="Age must be between 0 and 110." required="true()" type="integer"/>
-			<bind nodeset="/data/individual/age_in_months" constraint=". &gt;= 0 and . &lt;= 11" relevant="(../age_type='age_in_years_months' or ../age_type='unknown') and ../age_in_years &lt; 5" jr:constraintMsg="Age must be between 0 and 11." required="true()" type="integer"/>
+			<bind nodeset="/data/individual/age_in_years" constraint=". &gt;= 0 and . &lt;= 110" relevant="../age_type='age_in_years_months'" jr:constraintMsg="Age must be between 0 and 110." required="true()" type="integer"/>
+			<bind nodeset="/data/individual/age_in_months" constraint=". &gt;= 0 and . &lt;= 11" relevant="../age_type='age_in_years_months' and ../age_in_years &lt; 5" jr:constraintMsg="Age must be between 0 and 11." required="true()" type="integer"/>
 			<bind nodeset="/data/individual/approximate_age" readonly="true()" type="integer" calculate="if(../age_type='birth_date', ((now()-../birth_date) div 30), (if(../age_in_months &gt;0, ((../age_in_years * 12)+../age_in_months), (../age_in_years * 12))))"/>
 			<bind nodeset="/data/individual/phone_number" required="true()" constraint="(. = '0' or regex(., '\d{8,12}')) and review('Phone Number', .) and review('Year of Birth', ../approximate_age)" jr:constraintMsg="Invalid Phone Number. Please check and re-enter." type="string"/>
 			<bind nodeset="/data/individual/reenter_phone_number" type="string" relevant="../phone_number != ''" required="true()" constraint=". = ../phone_number" jr:constraintMsg="Phone numbers do not match. Go back and confirm both."/>
@@ -416,16 +418,23 @@
 					<select1 ref="/data/individual/age_type">
 						<label>Age Entry Mode</label>
 						<item>
-							<label>Enter Birthdate</label>
+							<label>Enter Full Birthdate</label>
 							<value>birth_date</value>
 						</item>
 						<item>
 							<label>Enter Age in Years or Months</label>
 							<value>age_in_years_months</value>
 						</item>
+					</select1> 
+					<select1 ref="/data/individual/age_estimated">
+						<label>Age Estimated</label>
 						<item>
-							<label>Unknown (Estimated Age)</label>
-							<value>unknown</value>
+							<label>Yes</label>
+							<value>y</value>
+						</item>
+						<item>
+							<label>No</label>
+							<value>n</value>
 						</item>
 					</select1>
 <!-- If enter birthdate -->
