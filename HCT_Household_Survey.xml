@@ -315,6 +315,14 @@
 					<label>Team 5</label>
 					<value>team5</value>
 				</item>
+				<item>
+					<label>Team 6</label>
+					<value>team6</value>
+				</item>
+				<item>
+					<label>Team 7</label>
+					<value>team7</value>
+				</item>
 			</select1>
 		</group>
 		<group>
