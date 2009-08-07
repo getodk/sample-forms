@@ -124,6 +124,7 @@
 						<follow_up_two/>
 						<follow_up_three/>
 						<follow_up_date/>
+						<preferred_clinic />
 						<really_sick />
 					</individual>
 				</data>
@@ -193,7 +194,8 @@
 			<bind nodeset="/data/individual/demographics" type="review"/>
 			<bind nodeset="/data/individual/marital_status" required="true()" relevant="../approximate_age &gt;= 96" type="string"/>
 			<bind nodeset="/data/individual/house_status" type="string"/>
-			<bind nodeset="/data/individual/relation_to_househead" required="true()" type="string"/>
+			<bind nodeset="/data/individual/relation_to_househead" required="true()" type="string"
+			constraint="" />
 			<!-- Individual Economic Questions -->
 			<bind nodeset="/data/individual/hours_in_farm" relevant="../approximate_age &gt;= 96" type="integer"/>
 			<bind nodeset="/data/individual/hours_in_housework" relevant="../approximate_age &gt;= 96" type="integer"/>
@@ -264,6 +266,7 @@
 					constraint=". != ../follow_up_two and . != ../follow_up_one" jr:constraintMsg="This Follow up has already been selected."/>
 			<bind nodeset="/data/individual/follow_up_date" constraint=". &gt; today()" jr:constraintMsg="Follow-Up date must be in the future!" 
 					relevant="not(selected(../follow_up_one, 'none'))" type="date"/>
+			<bind nodeset="/data/individual/preferred_clinic" type="string"/>
 			<bind nodeset="/data/individual/really_sick" type="string"/>
 			
 			<!-- Group Bindings -->
@@ -547,7 +550,7 @@
 						</item>
 						<item>
 							<label>Visitor from Elsewhere</label>
-							<value>vistor_elsewhere</value>
+							<value>visitor_elsewhere</value>
 						</item>
 					</select1>
 					<select1 ref="/data/individual/relation_to_househead">
@@ -1324,27 +1327,27 @@
 					</group>
 					<group ref="/data/individual/tb_screening_group">
 						<label>TB Screening</label>
-					<select1 ref="/data/individual/sputum_collected">
-						<label>Spot 1 Sputum Collected</label>
-						<item>
-							<label>Yes</label>
-							<value>y</value>
-						</item>
-						<item>
-							<label>No</label>
-							<value>n</value>
-						</item>
-						<item>
-							<label>Unable To Collect Sputum</label>
-							<value>unable</value>
-						</item>
-						<item>
-							<label>Under 5 Years, No Sample Needed</label>
-							<value>noneed</value>
-						</item>
-					</select1> 
-				</group>
-<!-- FOLLOW UP -->
+						<select1 ref="/data/individual/sputum_collected">
+							<label>Spot 1 Sputum Collected</label>
+							<item>
+								<label>Yes</label>
+								<value>y</value>
+							</item>
+							<item>
+								<label>No</label>
+								<value>n</value>
+							</item>
+							<item>
+								<label>Unable To Collect Sputum</label>
+								<value>unable</value>
+							</item>
+							<item>
+								<label>Under 5 Years, No Sample Needed</label>
+								<value>noneed</value>
+							</item>
+						</select1> 
+					</group>
+					<!-- FOLLOW UP -->
 					<select ref="/data/individual/follow_up_one">
 						<label>Select First FollowUp</label>
 						<item>
@@ -1445,6 +1448,25 @@
 					<input ref="/data/individual/follow_up_date">
 						<label>Follow Up Date</label>
 					</input>
+					<select1 ref="/data/individual/preferred_clinic">
+						<label>Preferred Clinic:</label>
+						<item>
+							<label>AMPATH</label>
+							<value>ampath</value>
+						</item>
+						<item>
+							<label>Naitiri</label>
+							<value>naitiri</value>
+						</item>
+						<item>
+							<label>Teso</label>
+							<value>teso</value>
+						</item>
+						<item>
+							<label>Webuye</label>
+							<value>webuye</value>
+						</item>
+					</select1>					
 					<select1 ref="/data/individual/really_sick">
 						<label>Looks really sick?</label>
 						<item>
