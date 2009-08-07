@@ -1114,6 +1114,10 @@
 						<label>Return to Home with Sputum Results</label>
 						<value>sputumresults</value>
 					</item>
+					<item>
+						<label>No Followup</label>
+						<value>NoFollowup</value>
+					</item>
 				</select>
 				<input ref="/data/individual/follow_up_date">
 					<label>Follow Up Date</label>
