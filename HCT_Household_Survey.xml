@@ -145,24 +145,24 @@
 			<bind nodeset="/data/household/district" required="true()" type="string"/>
 			<bind nodeset="/data/household/division" required="true()" type="string"/>
 			<bind nodeset="/data/household/household_adults" required="true()" constraint=". &gt;= 0" 
-					jr:constraintMsg="Number of adults must be positive." type="integer"/>
+					jr:constraintMsg="Number of adults must be positive. If none, enter 0." type="integer"/>
 			<bind nodeset="/data/household/children_under13" required="true()" constraint=". &gt;= 0" 
-					jr:constraintMsg="Number of children must be positive." type="integer"/>
-			<bind nodeset="/data/household/total_household" calculate="../household_adults + ../children_under13" readonly="true()" type="integer"/>
+					jr:constraintMsg="Number of children must be positive. If none, enter 0." type="integer"/>
+			<bind nodeset="/data/household/total_household" calculate="../household_adults + ../children_under13" constraint=". &gt;= 1" jr:constraintMsg="Total in household must be greater than one." readonly="true()" type="integer"/>
 			<bind nodeset="/data/household/allowed_in" required="true()" type="string"/>
 			<bind nodeset="/data/household/return_date" relevant="../allowed_in='nothome' or ../allowed_in='laterdate'" 
 					constraint=". &gt;= today()" jr:constraintMsg="Return date must be after today." type="date"/>
 			<bind nodeset="/data/household/number_of_bednets" required="true()" constraint=". &gt;= 0" 
-					jr:constraintMsg="Number of bed nets must be positive." type="integer"/>
+					jr:constraintMsg="Number of bed nets must be positive. If none, enter 0." type="integer"/>
 			<bind nodeset="/data/household/bednets_given" required="true()" type="string"/>
 			<bind nodeset="/data/household/bednet_voucher" relevant="../bednets_given != 0" type="string"/>
-			<bind nodeset="/data/economics/land_owned" required="true()" type="decimal"/>
-			<bind nodeset="/data/economics/cows_owned" required="true()" type="integer"/>
-			<bind nodeset="/data/economics/goats_owned" required="true()" type="integer"/>
-			<bind nodeset="/data/economics/sheep_owned" required="true()" type="integer"/>
-			<bind nodeset="/data/economics/children_in_household" constraint=". &gt;= 0" jr:constraintMsg="Number of children must be positive." required="true()" type="integer"/>
+			<bind nodeset="/data/economics/land_owned" constraint=". &gt;= 0" required="true()" jr:constraintMsg="Land owned must be positive. If none, enter 0." type="decimal"/>
+			<bind nodeset="/data/economics/cows_owned" constraint=". &gt;= 0" required="true()" jr:constraintMsg="Cows owned must be positive. If none, enter 0." type="integer"/>
+			<bind nodeset="/data/economics/goats_owned" constraint=". &gt;= 0" required="true()" jr:constraintMsg="Goats owned must be positive. If none, enter 0." type="integer"/>
+			<bind nodeset="/data/economics/sheep_owned" constraint=". &gt;= 0" required="true()" jr:constraintMsg="Sheep owned must be positive. If none, enter 0." type="integer"/>
+			<bind nodeset="/data/economics/children_in_household" constraint=". &gt;= 0" jr:constraintMsg="Number of children must be positive. If none, enter 0." required="true()" type="integer"/>
 			<!-- constraint message not working -->
-			<bind nodeset="/data/economics/children_in_school" relevant="../children_in_household &gt; 0" constraint=". &lt;= ../children_in_household" 					jr:constraintMsg="Number of children in school must be less than the number in household." type="integer"/>
+			<bind nodeset="/data/economics/children_in_school" relevant="../children_in_household &gt; 0" constraint=". &lt;= ../children_in_household  and . &gt;= 0" jr:constraintMsg="Number of children in school must be less than the number in household and positive." type="integer"/>
 			<!-- Individual Data Bindings -->
 			<bind nodeset="/data/individual/household" constraint="review('Household ID', .)" 
 					calculate="/data/household/household_id" readonly="true()" type="string" />
@@ -180,9 +180,9 @@
 			<bind nodeset="/data/individual/birth_date" relevant="../age_type='birth_date'" constraint=". &lt;= today()" 
 					jr:constraintMsg="Birth dates must be before today." type="date"/>
 			<bind nodeset="/data/individual/age_in_years" constraint=". &gt;= 0 and . &lt;= 110" 
-					relevant="../age_type='age_in_years_months' or ../age_type='unknown'" required="true()" type="integer"/>
+					relevant="../age_type='age_in_years_months' or ../age_type='unknown'" jr:constraintMsg="Age must be between 0 and 110." required="true()" type="integer"/>
 			<bind nodeset="/data/individual/age_in_months" constraint=". &gt;= 0 and . &lt;= 11" 
-					relevant="(../age_type='age_in_years_months' or ../age_type='unknown') and ../age_in_years &lt; 5" required="true()" type="integer"/>
+					relevant="(../age_type='age_in_years_months' or ../age_type='unknown') and ../age_in_years &lt; 5" jr:constraintMsg="Age must be between 0 and 11." required="true()" type="integer"/>
 			<bind nodeset="/data/individual/approximate_age" readonly="true()" type="integer" 
 					calculate="if(../age_type='birth_date', ((now()-../birth_date) div 30), 
 					(if(../age_in_months &gt;0, ((../age_in_years * 12)+../age_in_months), (../age_in_years * 12))))"/>
@@ -192,14 +192,14 @@
 					required="true()" constraint=". = ../phone_number" jr:constraintMsg="Phone numbers do not match. Go back and confirm both."/>
 			<!-- can't have review type -->
 			<bind nodeset="/data/individual/demographics" type="review"/>
-			<bind nodeset="/data/individual/marital_status" required="true()" relevant="../approximate_age &gt;= 96" type="string"/>
+			<bind nodeset="/data/individual/marital_status" required="true()" relevant="../approximate_age &gt;= 156" type="string"/>
 			<bind nodeset="/data/individual/house_status" type="string"/>
 			<bind nodeset="/data/individual/relation_to_househead" required="true()" type="string"/>
 			<!-- Individual Economic Questions -->
-			<bind nodeset="/data/individual/hours_in_farm" relevant="../approximate_age &gt;= 96" type="integer"/>
-			<bind nodeset="/data/individual/hours_in_housework" relevant="../approximate_age &gt;= 96" type="integer"/>
-			<bind nodeset="/data/individual/clinic_visits" type="integer"/>
-			<bind nodeset="/data/individual/cost_of_medication" type="integer"/>
+			<bind nodeset="/data/individual/hours_in_farm" constraint=". &gt;= 0" relevant="../approximate_age &gt;= 156" jr:constraintMsg="Hours worked on farm owned must be positive. If none, enter 0." relevant="../approximate_age &gt;= 96" type="integer"/>
+			<bind nodeset="/data/individual/hours_in_housework" constraint=". &gt;= 0" relevant="../approximate_age &gt;= 156" jr:constraintMsg="Hours spent on housework must be positive. If none, enter 0." relevant="../approximate_age &gt;= 96" type="integer"/>
+			<bind nodeset="/data/individual/clinic_visits" constraint=". &gt;= 0" jr:constraintMsg="Number of clinic visits must be positive. If none, enter 0." type="integer"/>
+			<bind nodeset="/data/individual/cost_of_medication" constraint=". &gt;= 0" jr:constraintMsg="Amount spent on medication must be positive. If none, enter 0." type="integer"/>
 			<!-- End of Individual Economic Questions -->
 			<bind nodeset="/data/individual/pregnancy_status" required="true()" relevant="../gender='f' and ../approximate_age &gt;= 96" type="string"/>
 			<bind nodeset="/data/individual/attending_anc" required="true()" relevant="../pregnancy_status='y'" type="string"/>
@@ -282,7 +282,6 @@
 			</input>
 			<input ref="/data/survey/survey_id">
 				<label>Survey ID</label>
-				<hint>Needed to ask economic questions.</hint>
 			</input>
 			<input ref="/data/survey/provider_id">
 				<label>Provider ID</label>
@@ -308,6 +307,14 @@
 				<item>
 					<label>Team 5</label>
 					<value>team5</value>
+				</item>
+				<item>
+					<label>Team 6</label>
+					<value>team6</value>
+				</item>
+				<item>
+					<label>Team 7</label>
+					<value>team7</value>
 				</item>
 			</select1>
 		</group>
@@ -463,9 +470,11 @@
 <!-- If age in years or Unknown -->
 					<input ref="/data/individual/age_in_years">
 						<label>Number of Years</label>
+						<hint>If less than a year, enter 0.</hint>
 					</input>
 					<input ref="/data/individual/age_in_months">
 						<label>Number of Months</label>
+						<hint>If none, enter 0.</hint>
 					</input>
 					<input ref="/data/individual/phone_number">
 						<label>Enter Phone Number</label>
@@ -627,9 +636,12 @@
 					</input>
 					<input ref="/data/individual/clinic_visits">
 						<label>Times Visited Clinic Due to Sickness in Last Month</label>
+						<hint>If none, enter 0.</hint>
 					</input>
 					<input ref="/data/individual/cost_of_medication">
-						<label>Amount of Money Spent on Medication in Last Month</label>
+						<label>Amount of Money Spent on Medication in Last Month</label> 
+						<hint>If none, enter 0.</hint>
+						
 					</input>
 <!-- End of Indiv Qsts -->
 					<select1 ref="/data/individual/pregnancy_status">
