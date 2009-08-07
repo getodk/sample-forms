@@ -50,7 +50,7 @@
 						<hct_id_barcode/>
 						<hct_id_manual/>
 						<survey_individual_id/>
-						<given_name/>
+						<first_name/>
 						<middle_name/>
 						<family_name/>
 						<gender/>
@@ -120,48 +120,63 @@
 						<tb_in_household/>
 						<failure_to_thrive/>
 						<sputum_collected/>
-						<follow_up/>
+						<follow_up_one/>
+						<follow_up_two/>
+						<follow_up_three/>
 						<follow_up_date/>
+						<really_sick />
 					</individual>
 				</data>
 			</instance>
-<!-- Meta Information Bindings -->
+			<!-- Meta Information Bindings -->
 			<bind nodeset="/data/meta/start_time" jr:preload="timestamp" jr:preloadParams="start" type="time"/>
 			<bind nodeset="/data/meta/end_time" jr:preload="timestamp" jr:preloadParams="end" type="time"/>
 			<bind nodeset="/data/meta/device_id" jr:preload="property" jr:preloadParams="deviceid" type="string"/>
 			<bind nodeset="/data/meta/subscriber_id" jr:preload="property" jr:preloadParams="subscriberid" type="string"/>
-<!-- Survey Information Bindings -->
+			<!-- Survey Information Bindings -->
 			<bind nodeset="/data/survey/survey_location" required="true()" type="geopoint"/>
 			<bind nodeset="/data/survey/survey_id" type="integer"/>
-			<bind nodeset="/data/survey/provider_id" constraint="regex(., '^\w+[-]?\d{1}') and (checkdigit(.))" required="true()" jr:constraintMsg="Invalid Provider ID. Please check and re-enter." type="string"/>
+
+			<bind nodeset="/data/survey/provider_id"  constraint="regex(., '^\w+[-]?\d{1}') and (checkdigit(.))" required="true()" 
+					jr:constraintMsg="Invalid Provider ID. Please check and re-enter." type="string"/>
 			<bind nodeset="/data/survey/team_id" required="true()" type="string"/>
-<!-- Household Information Bindings -->
-			<bind nodeset="/data/household/household_id" constraint="regex(., '^\w+[-]?\d{1}') and checkdigit(.) and unique('household_id', .)" required="true()" jr:constraintMsg="Invalid Household ID. Please check and re-enter." type="string"/>
+			<!-- Household Information Bindings -->
+			<bind nodeset="/data/household/household_id" constraint="regex(., '^\w+[-]?\d{1}') and checkdigit(.) and unique('household_id', .)" 
+					required="true()" jr:constraintMsg="Invalid Household ID. Please check and re-enter." type="string"/>
 			<bind nodeset="/data/household/village" required="true()" type="string"/>
 			<bind nodeset="/data/household/location" required="true()" type="string"/>
 			<bind nodeset="/data/household/sublocation" required="true()" type="string"/>
 			<bind nodeset="/data/household/district" required="true()" type="string"/>
 			<bind nodeset="/data/household/division" required="true()" type="string"/>
-			<bind nodeset="/data/household/household_adults" required="true()" constraint=". &gt;= 0" jr:constraintMsg="Number of adults must be positive. If none, enter 0." type="integer"/>
-			<bind nodeset="/data/household/children_under13" required="true()" constraint=". &gt;= 0" jr:constraintMsg="Number of children must be positive. If none, enter 0." type="integer"/>
-			<bind nodeset="/data/household/total_household" calculate="../household_adults + ../children_under13" constraint=". &gt;= 1" jr:constraintMsg="Total in household must be greater than one." readonly="true()" type="integer"/>
+			<bind nodeset="/data/household/household_adults" required="true()" constraint=". &gt;= 0" 
+					jr:constraintMsg="Number of adults must be positive." type="integer"/>
+			<bind nodeset="/data/household/children_under13" required="true()" constraint=". &gt;= 0" 
+					jr:constraintMsg="Number of children must be positive." type="integer"/>
+			<bind nodeset="/data/household/total_household" calculate="../household_adults + ../children_under13" readonly="true()" type="integer"/>
 			<bind nodeset="/data/household/allowed_in" required="true()" type="string"/>
-			<bind nodeset="/data/household/return_date" relevant="../allowed_in='nothome' or ../allowed_in='laterdate'" constraint=". &gt;= today()" jr:constraintMsg="Return date must be after today." type="date"/>
-			<bind nodeset="/data/household/number_of_bednets" required="true()" constraint=". &gt;= 0" jr:constraintMsg="Number of bed nets must be positive. If none, enter 0." type="integer"/>
+			<bind nodeset="/data/household/return_date" relevant="../allowed_in='nothome' or ../allowed_in='laterdate'" 
+					constraint=". &gt;= today()" jr:constraintMsg="Return date must be after today." type="date"/>
+			<bind nodeset="/data/household/number_of_bednets" required="true()" constraint=". &gt;= 0" 
+					jr:constraintMsg="Number of bed nets must be positive." type="integer"/>
 			<bind nodeset="/data/household/bednets_given" required="true()" type="string"/>
 			<bind nodeset="/data/household/bednet_voucher" relevant="../bednets_given != 0" type="string"/>
-			<bind nodeset="/data/economics/land_owned" constraint=". &gt;= 0" required="true()" jr:constraintMsg="Land owned must be positive. If none, enter 0." type="decimal"/>
-			<bind nodeset="/data/economics/cows_owned" constraint=". &gt;= 0" required="true()" jr:constraintMsg="Cows owned must be positive. If none, enter 0." type="integer"/>
-			<bind nodeset="/data/economics/goats_owned" constraint=". &gt;= 0" required="true()" jr:constraintMsg="Goats owned must be positive. If none, enter 0." type="integer"/>
-			<bind nodeset="/data/economics/sheep_owned" constraint=". &gt;= 0" required="true()" jr:constraintMsg="Sheep owned must be positive. If none, enter 0." type="integer"/>
-			<bind nodeset="/data/economics/children_in_household" constraint=". &gt;= 0" jr:constraintMsg="Number of children must be positive. If none, enter 0." required="true()" type="integer"/>
-<!-- constraint message not working -->
-			<bind nodeset="/data/economics/children_in_school" relevant="../children_in_household &gt; 0" constraint=". &lt;= ../children_in_household  and . &gt;= 0" jr:constraintMsg="Number of children in school must be less than the number in household and positive." type="integer"/>
-<!-- Individual Data Bindings -->
-			<bind nodeset="/data/individual/household" constraint="review('Household ID', .)" calculate="/data/household/household_id" readonly="true()" type="string"/>
-			<bind nodeset="/data/individual/hct_id_barcode" constraint="regex(., '^\w+[-]?\d{1}') and checkdigit(.) and unique('hct_id', .) and review('HCT ID', .)" jr:constraintMsg="Invalid HCT ID. Please check and re-enter." type="barcode"/>
-			<bind nodeset="/data/individual/hct_id_manual" constraint="regex(., '^\w+[-]?\d{1}') and checkdigit(.) and unique('hct_id', .) and review('HCT ID', .)" relevant="../hct_id_barcode = '' " required="true()" jr:constraintMsg="Invalid HCT ID. Please check and re-enter." type="string"/>
-			<bind nodeset="/data/individual/given_name" constraint="review('Given Name', .)" required="true()" type="string"/>
+			<bind nodeset="/data/economics/land_owned" required="true()" type="decimal"/>
+			<bind nodeset="/data/economics/cows_owned" required="true()" type="integer"/>
+			<bind nodeset="/data/economics/goats_owned" required="true()" type="integer"/>
+			<bind nodeset="/data/economics/sheep_owned" required="true()" type="integer"/>
+			<bind nodeset="/data/economics/children_in_household" constraint=". &gt;= 0" jr:constraintMsg="Number of children must be positive." required="true()" type="integer"/>
+			<!-- constraint message not working -->
+			<bind nodeset="/data/economics/children_in_school" relevant="../children_in_household &gt; 0" constraint=". &lt;= ../children_in_household" 					jr:constraintMsg="Number of children in school must be less than the number in household." type="integer"/>
+			<!-- Individual Data Bindings -->
+			<bind nodeset="/data/individual/household" constraint="review('Household ID', .)" 
+					calculate="/data/household/household_id" readonly="true()" type="string" />
+			<bind nodeset="/data/individual/hct_id_barcode" 
+					constraint="regex(., '^\w+[-]?\d{1}') and checkdigit(.) and unique('hct_id', .)" 
+					jr:constraintMsg="Invalid HCT ID. Please check and re-enter." type="barcode"/>
+			<bind nodeset="/data/individual/hct_id_manual" 
+					constraint="regex(., '^\w+[-]?\d{1}') and checkdigit(.) and unique('hct_id', .)" 
+					relevant="../hct_id_barcode = '' " required="true()" jr:constraintMsg="Invalid HCT ID. Please check and re-enter." type="string"/>
+			<bind nodeset="/data/individual/first_name" constraint="review('Given Name', .)" required="true()" type="string"/>
 			<bind nodeset="/data/individual/middle_name" constraint="review('Middle Name', .)" type="string"/>
 			<bind nodeset="/data/individual/family_name" constraint="review('Family Name', .)" required="true()" type="string"/>
 			<bind nodeset="/data/individual/gender" constraint="review('Gender', .)" required="true()" type="string"/>
@@ -174,24 +189,30 @@
 			<bind nodeset="/data/individual/phone_number" required="true()" constraint="(. = '0' or regex(., '\d{8,12}')) and review('Phone Number', .) and review('Year of Birth', ../approximate_age)" jr:constraintMsg="Invalid Phone Number. Please check and re-enter." type="string"/>
 			<bind nodeset="/data/individual/reenter_phone_number" type="string" relevant="../phone_number != ''" required="true()" constraint=". = ../phone_number" jr:constraintMsg="Phone numbers do not match. Go back and confirm both."/>
 <!-- can't have review type -->
+
 			<bind nodeset="/data/individual/demographics" type="review"/>
-			<bind nodeset="/data/individual/marital_status" required="true()" relevant="../approximate_age &gt;= 156" type="string"/>
+			<bind nodeset="/data/individual/marital_status" required="true()" relevant="../approximate_age &gt;= 96" type="string"/>
 			<bind nodeset="/data/individual/house_status" type="string"/>
 			<bind nodeset="/data/individual/relation_to_househead" required="true()" type="string"/>
-<!-- Individual Economic Questions -->
-			<bind nodeset="/data/individual/hours_in_farm" constraint=". &gt;= 0" relevant="../approximate_age &gt;= 156" jr:constraintMsg="Hours worked on farm owned must be positive. If none, enter 0." type="integer"/>
-			<bind nodeset="/data/individual/hours_in_housework" constraint=". &gt;= 0" relevant="../approximate_age &gt;= 156" jr:constraintMsg="Hours spent on housework must be positive. If none, enter 0." type="integer"/>
-			<bind nodeset="/data/individual/clinic_visits" constraint=". &gt;= 0" jr:constraintMsg="Number of clinic visits must be positive. If none, enter 0." type="integer"/>
-			<bind nodeset="/data/individual/cost_of_medication" constraint=". &gt;= 0" jr:constraintMsg="Amount spent on medication must be positive. If none, enter 0." type="integer"/>
-<!-- End of Individual Economic Questions -->
+			<!-- Individual Economic Questions -->
+			<bind nodeset="/data/individual/hours_in_farm" relevant="../approximate_age &gt;= 96" type="integer"/>
+			<bind nodeset="/data/individual/hours_in_housework" relevant="../approximate_age &gt;= 96" type="integer"/>
+			<bind nodeset="/data/individual/clinic_visits" type="integer"/>
+			<bind nodeset="/data/individual/cost_of_medication" type="integer"/>
+			<!-- End of Individual Economic Questions -->
 			<bind nodeset="/data/individual/pregnancy_status" required="true()" relevant="../gender='f' and ../approximate_age &gt;= 96" type="string"/>
 			<bind nodeset="/data/individual/attending_anc" required="true()" relevant="../pregnancy_status='y'" type="string"/>
 			<bind nodeset="/data/individual/mother_died" required="true()" type="string"/>
 			<bind nodeset="/data/individual/mother_hiv_positive" required="true()" type="string"/>
 			<bind nodeset="/data/individual/father_died" required="true()" type="string"/>
 			<bind nodeset="/data/individual/father_hiv_positive" required="true()" type="string"/>
-			<bind nodeset="/data/individual/child_needs_hiv_test" readonly="true()" calculate="if(../approximate_age &lt; 156 and (../mother_died='y' or ../mother_died='unknown' or ../mother_hiv_positive='y' or       ../mother_hiv_positive='unknown'), 'Needs Testing', 'Does Not Need Testing')" relevant="../approximate_age &lt; 156 and (../mother_died='y' or ../mother_died='unknown' or ../mother_hiv_positive='y' or       ../mother_hiv_positive='unknown')" type="string"/>
-			<bind nodeset="/data/individual/test_child_regardless" type="string" relevant="../approximate_age &lt; 156 and (../mother_died='n' and ../mother_hiv_positive='n')"/>
+			<bind nodeset="/data/individual/child_needs_hiv_test" readonly="true()" 
+					calculate="if(../approximate_age &lt; 156 and (../mother_died='y' or ../mother_died='unknown' or ../mother_hiv_positive='y' or 
+					../mother_hiv_positive='unknown'), 'Needs Testing', 'Does Not Need Testing')" 	
+					relevant="../approximate_age &lt; 156 and (../mother_died='y' or ../mother_died='unknown' or ../mother_hiv_positive='y' or 
+					../mother_hiv_positive='unknown')" type="string"/>
+			<bind nodeset="/data/individual/test_child_regardless" type="string"
+					relevant="../approximate_age &lt; 156 and (../mother_died='n' and ../mother_hiv_positive='n')" />
 			<bind nodeset="/data/individual/child_immunized" type="string"/>
 			<bind nodeset="/data/individual/immunization_info_source" type="string"/>
 			<bind nodeset="/data/individual/bcg_immunization" required="true()" type="string"/>
@@ -201,20 +222,27 @@
 			<bind nodeset="/data/individual/previous_hiv_test_results" required="true()" relevant="../previous_hiv_test='y'" type="string"/>
 			<bind nodeset="/data/individual/hiv_tx_program_status" relevant="../previous_hiv_test_results='positive'" type="string"/>
 			<bind nodeset="/data/individual/hiv_tx_program_name" relevant="../hiv_tx_program_status='y'" type="string"/>
-			<bind nodeset="/data/individual/ampath_id" type="string" relevant="../hiv_tx_program_name='Ampath' or ../hiv_tx_program_name='AMPATH' or ../hiv_tx_program_name='ampath'"/>
+			<bind nodeset="/data/individual/ampath_id" type="string" 
+					relevant="../hiv_tx_program_name='Ampath' or ../hiv_tx_program_name='AMPATH' or ../hiv_tx_program_name='ampath'"/>
 			<bind nodeset="/data/individual/pretest_counseling" required="true()" type="string"/>
-			<bind nodeset="/data/individual/accepted_hiv_testing" required="true()" type="string" constraint=". = 'n' or (. ='y' and ../pretest_counseling='y')" jr:constraintMsg="You can not test without counseling"/>
-			<bind nodeset="/data/individual/reasons_for_decline" required="true()" type="string" relevant="../accepted_hiv_testing='n' and ../approximate_age &lt; 156" constraint="count-selected(.) &lt;= 3" jr:constraintMsg="Only a maximum of three allowed."/>
+			<bind nodeset="/data/individual/accepted_hiv_testing" required="true()" type="string" 
+					constraint=". = 'n' or (. ='y' and ../pretest_counseling='y')" jr:constraintMsg="You can not test without counseling"/>
+			<bind nodeset="/data/individual/reasons_for_decline" required="true()" type="string" 
+					relevant="../accepted_hiv_testing='n' and ../approximate_age &lt; 156" constraint="count-selected(.) &lt;= 3" 
+					jr:constraintMsg="Only a maximum of three allowed."/>
 			<bind nodeset="/data/individual/test1_result" required="true()" type="string"/>
 			<bind nodeset="/data/individual/test2_name" required="true()" type="string"/>
 			<bind nodeset="/data/individual/test2_result" required="true()" type="string"/>
-			<bind nodeset="/data/individual/test3_name" required="true()" relevant="../test2_result != ../test1_result" constraint=". != ../test2_name" jr:constraintMsg="Test 3 must be different from Test 2!" type="string"/>
+			<bind nodeset="/data/individual/test3_name" required="true()" relevant="../test2_result != ../test1_result" 
+					constraint=". != ../test2_name" jr:constraintMsg="Test 3 must be different from Test 2!" type="string"/>
 			<bind nodeset="/data/individual/test3_result" required="true()" relevant="../test2_result != ../test1_result" type="string"/>
-			<bind nodeset="/data/individual/test_outcome" readonly="true()" relevant="../test2_result != '' or ../test3_result != ''" type="string" calculate="if (../test3_result = 'reactive' or ((../test1_result = ../test2_result) and ../test2_result = 'reactive'),'Please refer patient to AMPATH', if (../test3_result = 'nonreactive' or ((../test1_result = ../test2_result) and ../test2_result = 'nonreactive'),'Patient is Negative', 'Refer patient to a clinic for further testing.'))"/>
+			<bind nodeset="/data/individual/test_outcome" readonly="true()" relevant="../test2_result != '' or ../test3_result != ''" type="string" 
+					calculate="if (../test3_result = 'reactive' or ((../test1_result = ../test2_result) and ../test2_result = 'reactive'),'Please refer patient to AMPATH', if (../test3_result = 'nonreactive' or ((../test1_result = ../test2_result) and ../test2_result = 'nonreactive'),'Patient is Negative', 'Refer patient to a clinic for further testing.'))"/>
 			<bind nodeset="/data/individual/couple_tested_together" required="true()" relevant="../marital_status='married'" type="string"/>
 			<bind nodeset="/data/individual/discordant_couple" required="true()" relevant="../marital_status='married'" type="string"/>
-<!-- check partner hct id -->
-			<bind nodeset="/data/individual/partner_hct_id" constraint="regex(., '^\w+[-]?\d{1}') and checkdigit(.)" required="true()" relevant="../discordant_couple='y'" type="string"/>
+			<!-- check partner hct id -->
+			<bind nodeset="/data/individual/partner_hct_id" constraint="regex(., '^\w+[-]?\d{1}') and checkdigit(.)" required="true()" 
+					relevant="../discordant_couple='y'" type="string"/>
 			<bind nodeset="/data/individual/current_tb_tx_status" required="true()" type="string"/>
 			<bind nodeset="/data/individual/past_tb_tx_status" required="true()" type="string"/>
 			<bind nodeset="/data/individual/past_tb_tx_year" required="true()" relevant="../past_tb_tx_status='y'" type="string"/>
@@ -225,16 +253,27 @@
 			<bind nodeset="/data/individual/weight_loss_past_year" required="true()" type="string"/>
 			<bind nodeset="/data/individual/tb_in_household" required="true()" type="string"/>
 			<bind nodeset="/data/individual/failure_to_thrive" relevant="../approximate_age &lt; 156" type="string"/>
-			<bind nodeset="/data/individual/sputum_collected" required="true()" type="string" relevant="(../cough_gt_2_wks='y' or ../blood_cough_past_year='y' or ../fever_gt_3_wks = 'y' or ../weight_loss_past_year = 'y'         or ../tb_in_household = 'y' or ../failure_to_thrive = 'y') and ../current_tb_tx_status = 'n'"/>
-			<bind nodeset="/data/individual/follow_up" type="string" constraint="count-selected(.) &lt;= 3" jr:constraintMsg="Only a maximum of three allowed."/>
-			<bind nodeset="/data/individual/follow_up_date" constraint=". &gt; today()" jr:constraintMsg="Follow up date must be after today." relevant="../follow_up != ''" type="date"/>
-<!-- Group Bindings -->
+			<bind nodeset="/data/individual/sputum_collected" required="true()" type="string" 
+					relevant="(../cough_gt_2_wks='y' or ../blood_cough_past_year='y' or ../fever_gt_3_wks = 'y' or ../weight_loss_past_year = 'y' 
+							or ../tb_in_household = 'y' or ../failure_to_thrive = 'y') and ../current_tb_tx_status = 'n'" />
+			<bind nodeset="/data/individual/follow_up_one" type="string" required="true()" 
+					constraint=". != ../follow_up_two and . != ../follow_up_three" jr:constraintMsg="This Follow up has already been selected." />
+			<bind nodeset="/data/individual/follow_up_two" type="string" relevant="not(selected(../follow_up_one, 'none'))" 
+					constraint=". != ../follow_up_three and . != ../follow_up_one" jr:constraintMsg="This Follow up has already been selected." />
+			<bind nodeset="/data/individual/follow_up_three" type="string" relevant="../follow_up_two != ''" 
+					constraint=". != ../follow_up_two and . != ../follow_up_one" jr:constraintMsg="This Follow up has already been selected."/>
+			<bind nodeset="/data/individual/follow_up_date" constraint=". &gt; today()" jr:constraintMsg="Follow-Up date must be in the future!" 
+					relevant="not(selected(../follow_up_one, 'none'))" type="date"/>
+			<bind nodeset="/data/individual/really_sick" type="string"/>
+			
+			<!-- Group Bindings -->
 			<bind nodeset="/data/household/conduct_survey_group" relevant="../allowed_in='accepted'" type="string"/>
 			<bind nodeset="/data/household/economic_questions_group" type="string"/>
 			<bind nodeset="/data/individual/children_below18_group" relevant="../approximate_age &lt; 216" type="string"/>
 			<bind nodeset="/data/individual/children_below5_group" relevant="../approximate_age &lt; 60" type="string"/>
 			<bind nodeset="/data/individual/immunization_info" relevant="../child_immunized='y'" type="string"/>
-			<bind nodeset="/data/individual/hiv_testing_group" relevant="../approximate_age &gt;= 156 or (../child_needs_hiv_test='Needs Testing' and ../approximate_age &gt;= 18) or (../test_child_regardless='y' and ../approximate_age &gt;= 18)" type="string"/>
+			<bind nodeset="/data/individual/hiv_testing_group" 
+					relevant="../approximate_age &gt;= 156 or (../child_needs_hiv_test='Needs Testing' and ../approximate_age &gt;= 18) or (../test_child_regardless='y' and ../approximate_age &gt;= 18)" type="string"/>
 			<bind nodeset="/data/individual/hiv_results_group" relevant="../accepted_hiv_testing='y'" type="string"/>
 			<bind nodeset="/data/individual/tb_screening_group" type="string"/>
 			<bind nodeset="/data/individual/tb_info_group" relevant="../current_tb_tx_status='n'" type="string"/>
@@ -249,6 +288,7 @@
 			</input>
 			<input ref="/data/survey/survey_id">
 				<label>Survey ID</label>
+				<hint>Needed to ask economic questions.</hint>
 			</input>
 			<input ref="/data/survey/provider_id">
 				<label>Provider ID</label>
@@ -274,14 +314,6 @@
 				<item>
 					<label>Team 5</label>
 					<value>team5</value>
-				</item>
-				<item>
-					<label>Team 6</label>
-					<value>team6</value>
-				</item>
-				<item>
-					<label>Team 7</label>
-					<value>team7</value>
 				</item>
 			</select1>
 		</group>
@@ -394,8 +426,8 @@
 					</label>
 						<hint>Please confirm this ID is correct.</hint>
 					</input>
-					<input ref="/data/individual/given_name">
-						<label>Given Name</label>
+					<input ref="/data/individual/first_name">
+						<label>First Name</label>
 					</input>
 					<input ref="/data/individual/middle_name">
 						<label>Middle Name</label>
@@ -444,11 +476,9 @@
 <!-- If age in years or Unknown -->
 					<input ref="/data/individual/age_in_years">
 						<label>Number of Years</label>
-						<hint>If less than a year, enter 0.</hint>
 					</input>
 					<input ref="/data/individual/age_in_months">
 						<label>Number of Months</label>
-						<hint>If none, enter 0.</hint>
 					</input>
 					<input ref="/data/individual/phone_number">
 						<label>Enter Phone Number</label>
@@ -458,16 +488,16 @@
 						<label>Re-Enter Phone Number</label>
 						<hint>If none, enter 0.</hint>
 					</input>
+					<input ref="/data/individual/demographics">
+						<label>Individual Demographics</label>
+						<hint>Please write this demographics on the card and issue it out to the client.</hint>
+					</input>
 					<input ref="/data/individual/hct_id_barcode">
 						<label>Scan HCT AMRS ID</label>
 						<hint>Ensure you have enough light.</hint>
 					</input>
 					<input ref="/data/individual/hct_id_manual">
 						<label>Enter HCT AMRS ID</label>
-					</input>
-					<input ref="/data/individual/demographics">
-						<label>Individual Demographics</label>
-						<hint>Please write this demographics on the card and issue it out to the client.</hint>
 					</input>
 					<select1 ref="/data/individual/marital_status">
 						<label>Marital Status</label>
@@ -610,11 +640,9 @@
 					</input>
 					<input ref="/data/individual/clinic_visits">
 						<label>Times Visited Clinic Due to Sickness in Last Month</label>
-						<hint>If none, enter 0.</hint>
 					</input>
 					<input ref="/data/individual/cost_of_medication">
 						<label>Amount of Money Spent on Medication in Last Month</label>
-						<hint>If none, enter 0.</hint>
 					</input>
 <!-- End of Indiv Qsts -->
 					<select1 ref="/data/individual/pregnancy_status">
@@ -639,70 +667,6 @@
 							<value>n</value>
 						</item>
 					</select1>
-<!-- Start -For Children < 5 years -->
-					<group ref="/data/individual/children_below5_group">
-						<label>Child Below 5</label>
-						<select1 ref="/data/individual/child_immunized">
-							<label>Child Immunized</label>
-							<item>
-								<label>Yes</label>
-								<value>y</value>
-							</item>
-							<item>
-								<label>No</label>
-								<value>n</value>
-							</item>
-							<item>
-								<label>Unknown</label>
-								<value>unknown</value>
-							</item>
-						</select1>
-						<group ref="/data/individual/immunization_info">
-							<label>Immunization Data</label>
-							<select1 ref="/data/individual/immunization_info_source">
-								<label>Immunization Data Source</label>
-								<item>
-									<label>Documentation</label>
-									<value>Documentation</value>
-								</item>
-								<item>
-									<label>Caretaker</label>
-									<value>Caretaker</value>
-								</item>
-							</select1>
-							<select1 ref="/data/individual/bcg_immunization">
-								<label>BCG Immunization</label>
-								<item>
-									<label>Yes</label>
-									<value>y</value>
-								</item>
-								<item>
-									<label>No</label>
-									<value>n</value>
-								</item>
-								<item>
-									<label>Unknown</label>
-									<value>unknown</value>
-								</item>
-							</select1>
-							<select1 ref="/data/individual/measles_immunization">
-								<label>Measles Immunization</label>
-								<item>
-									<label>Yes</label>
-									<value>Tes</value>
-								</item>
-								<item>
-									<label>No</label>
-									<value>n</value>
-								</item>
-								<item>
-									<label>Unknown</label>
-									<value>unknown</value>
-								</item>
-							</select1>
-						</group>
-					</group>
-<!-- End For Children < 5 years --> 
 <!-- Start -For Children < 18 years -->
 					<group ref="/data/individual/children_below18_group">
 						<label>Child Below 18</label>
@@ -782,6 +746,70 @@
 						</select1>
 					</group>
 <!-- End -For Children < 18 years -->
+<!-- Start -For Children < 5 years -->
+					<group ref="/data/individual/children_below5_group">
+						<label>Child Below 5</label>
+						<select1 ref="/data/individual/child_immunized">
+							<label>Child Immunized</label>
+							<item>
+								<label>Yes</label>
+								<value>y</value>
+							</item>
+							<item>
+								<label>No</label>
+								<value>n</value>
+							</item>
+							<item>
+								<label>Unknown</label>
+								<value>unknown</value>
+							</item>
+						</select1>
+						<group ref="/data/individual/immunization_info">
+							<label>Immunization Data</label>
+							<select1 ref="/data/individual/immunization_info_source">
+								<label>Immunization Data Source</label>
+								<item>
+									<label>Documentation</label>
+									<value>Documentation</value>
+								</item>
+								<item>
+									<label>Caretaker</label>
+									<value>Caretaker</value>
+								</item>
+							</select1>
+							<select1 ref="/data/individual/bcg_immunization">
+								<label>BCG Immunization</label>
+								<item>
+									<label>Yes</label>
+									<value>y</value>
+								</item>
+								<item>
+									<label>No</label>
+									<value>n</value>
+								</item>
+								<item>
+									<label>Unknown</label>
+									<value>unknown</value>
+								</item>
+							</select1>
+							<select1 ref="/data/individual/measles_immunization">
+								<label>Measles Immunization</label>
+								<item>
+									<label>Yes</label>
+									<value>Tes</value>
+								</item>
+								<item>
+									<label>No</label>
+									<value>n</value>
+								</item>
+								<item>
+									<label>Unknown</label>
+									<value>unknown</value>
+								</item>
+							</select1>
+						</group>
+					</group>
+<!-- End For Children < 5 years -->
 <!-- HIV Testing History -->
 					<select1 ref="/data/individual/previous_hiv_test">
 						<label>Previously Tested for HIV</label>
@@ -1288,30 +1316,29 @@
 					</group>
 					<group ref="/data/individual/tb_screening_group">
 						<label>TB Screening</label>
-						<select1 ref="/data/individual/sputum_collected">
-							<label>Spot 1 Sputum Collected</label>
-							<item>
-								<label>Yes</label>
-								<value>y</value>
-							</item>
-							<item>
-								<label>No</label>
-								<value>n</value>
-							</item>
-							<item>
-								<label>Unable To Collect Sputum</label>
-								<value>unable</value>
-							</item>
-							<item>
-								<label>Under 5 Years, No Sample Needed</label>
-								<value>noneed</value>
-							</item>
-						</select1>
-					</group>
+					<select1 ref="/data/individual/sputum_collected">
+						<label>Spot 1 Sputum Collected</label>
+						<item>
+							<label>Yes</label>
+							<value>y</value>
+						</item>
+						<item>
+							<label>No</label>
+							<value>n</value>
+						</item>
+						<item>
+							<label>Unable To Collect Sputum</label>
+							<value>unable</value>
+						</item>
+						<item>
+							<label>Under 5 Years, No Sample Needed</label>
+							<value>noneed</value>
+						</item>
+					</select1> 
+				</group>
 <!-- FOLLOW UP -->
-					<select ref="/data/individual/follow_up">
-						<label>Follow Up</label>
-						<hint>Select at most three options.</hint>
+					<select ref="/data/individual/follow_up_one">
+						<label>Select First FollowUp</label>
 						<item>
 							<label>Repeat Testing 3 - 6 Months</label>
 							<value>repeat</value>
@@ -1342,12 +1369,85 @@
 						</item>
 						<item>
 							<label>No Followup</label>
-							<value>NoFollowup</value>
+							<value>none</value>
+						</item>
+					</select>
+					<select ref="/data/individual/follow_up_one">
+						<label>Select Second FollowUp</label>
+						<item>
+							<label>Repeat Testing 3 - 6 Months</label>
+							<value>repeat</value>
+						</item>
+						<item>
+							<label>Positive Test, HIV Clinic Referral</label>
+							<value>positivetest</value>
+						</item>
+						<item>
+							<label>Indeterminate Test, Health Center</label>
+							<value>indeterminate</value>
+						</item>
+						<item>
+							<label>Child Below 18 Months, Health Center Referral</label>
+							<value>below18</value>
+						</item>
+						<item>
+							<label>ANC Referral</label>
+							<value>ancreferral</value>
+						</item>
+						<item>
+							<label>Health Center Referral for Other</label>
+							<value>healthctrreferral</value>
+						</item>
+						<item>
+							<label>Return to Home with Sputum Results</label>
+							<value>sputumresults</value>
+						</item>
+					</select>
+					<select ref="/data/individual/follow_up_three">
+						<label>Select Third FollowUp</label>
+						<item>
+							<label>Repeat Testing 3 - 6 Months</label>
+							<value>repeat</value>
+						</item>
+						<item>
+							<label>Positive Test, HIV Clinic Referral</label>
+							<value>positivetest</value>
+						</item>
+						<item>
+							<label>Indeterminate Test, Health Center</label>
+							<value>indeterminate</value>
+						</item>
+						<item>
+							<label>Child Below 18 Months, Health Center Referral</label>
+							<value>below18</value>
+						</item>
+						<item>
+							<label>ANC Referral</label>
+							<value>ancreferral</value>
+						</item>
+						<item>
+							<label>Health Center Referral for Other</label>
+							<value>healthctrreferral</value>
+						</item>
+						<item>
+							<label>Return to Home with Sputum Results</label>
+							<value>sputumresults</value>
 						</item>
 					</select>
 					<input ref="/data/individual/follow_up_date">
 						<label>Follow Up Date</label>
 					</input>
+					<select1 ref="/data/individual/really_sick">
+						<label>Looks really sick?</label>
+						<item>
+							<label>Yes</label>
+							<value>y</value>
+						</item>
+						<item>
+							<label>No</label>
+							<value>n</value>
+						</item>
+					</select1>
 				</repeat>
 			</group>
 <!--end of individual survey-->
