@@ -17,11 +17,12 @@
 						<hct_id_barcode/>
 						<hct_id_manual/>
 						<survey_individual_id/>
-						<given_name/>
+						<first_name/>
 						<middle_name/>
 						<family_name/>
 						<gender/>
 						<age_type/>
+						<age_estimated/>
 						<birth_date/>
 						<age_in_years/>
 						<age_in_months/>
@@ -90,6 +91,7 @@
 						<follow_up_two/>
 						<follow_up_three/>
 						<follow_up_date/>
+						<preferred_clinic />
 						<really_sick />
 					</individual>
 				</data>
@@ -97,7 +99,7 @@
 			<bind nodeset="/data/individual/household" constraint="review('Household ID', .)" required="true()" type="lookup" />
    			<bind nodeset="/data/individual/hct_id_barcode" constraint="regex(., '^\w+[-]?\d{1}') and checkdigit(.) and unique('hct_id', .)" jr:constraintMsg="Invalid HCT ID. Please check and re-enter." type="barcode"/>
 			<bind nodeset="/data/individual/hct_id_manual" constraint="regex(., '^\w+[-]?\d{1}') and checkdigit(.) and unique('hct_id', .) and review('HCT ID', .)" relevant="../hct_id_barcode = '' " required="true()" jr:constraintMsg="Invalid HCT ID. Please check and re-enter." type="string"/>
-			<bind nodeset="/data/individual/given_name" constraint="review('Given Name', .)" required="true()" type="string"/>
+			<bind nodeset="/data/individual/first_name" constraint="review('Given Name', .)" required="true()" type="string"/>
 			<bind nodeset="/data/individual/middle_name" constraint="review('Middle Name', .)" type="string"/>
 			<bind nodeset="/data/individual/family_name" constraint="review('Family Name', .)" required="true()" type="string"/>
 			<bind nodeset="/data/individual/gender" constraint="review('Gender', .)" required="true()" type="string"/>
@@ -169,7 +171,9 @@
 					constraint=". != ../follow_up_two and . != ../follow_up_one" jr:constraintMsg="This Follow up has already been selected."/>
 			<bind nodeset="/data/individual/follow_up_date" constraint=". &gt; today()" jr:constraintMsg="Follow-Up date must be in the future!" 
 					relevant="not(selected(../follow_up_one, 'none'))" type="date"/>
+			<bind nodeset="/data/individual/preferred_clinic" type="string"/>
 			<bind nodeset="/data/individual/really_sick" type="string"/>
+			
 <!-- Group Bindings -->
 			<bind nodeset="/data/individual/children_below18_group" relevant="../approximate_age &lt; 216" type="string"/>
 			<bind nodeset="/data/individual/children_below5_group" relevant="../approximate_age &lt; 60" type="string"/>
@@ -189,8 +193,8 @@
 					</label>
 					<hint>Please confirm this ID is correct.</hint>
 				</input>
-				<input ref="/data/individual/given_name">
-					<label>Given Name</label>
+				<input ref="/data/individual/first_name">
+					<label>First Name</label>
 				</input>
 				<input ref="/data/individual/middle_name">
 					<label>Middle Name</label>
@@ -209,20 +213,27 @@
 						<value>f</value>
 					</item>
 				</select1>
-<!--Individual Age-->
+				<!--Individual Age-->
 				<select1 ref="/data/individual/age_type">
 					<label>Age Entry Mode</label>
 					<item>
-						<label>Enter Birthdate</label>
+						<label>Enter Full Birthdate</label>
 						<value>birth_date</value>
 					</item>
 					<item>
 						<label>Enter Age in Years or Months</label>
 						<value>age_in_years_months</value>
 					</item>
+				</select1> 
+				<select1 ref="/data/individual/age_estimated">
+					<label>Age Estimated</label>
 					<item>
-						<label>Unknown (Estimated Age)</label>
-						<value>unknown</value>
+						<label>Yes</label>
+						<value>y</value>
+					</item>
+					<item>
+						<label>No</label>
+						<value>n</value>
 					</item>
 				</select1>
 <!-- If enter birthdate -->
@@ -247,13 +258,13 @@
 				<input ref="/data/individual/demographics">
 					<label>Individual Demographics</label>
 					<hint>Please write this demographics on the card and issue it out to the client.</hint>
-				</input>				
+				</input>
 				<input ref="/data/individual/hct_id_barcode">
-					<label>Scan HCT ID</label>
+					<label>Scan HCT AMRS ID</label>
 					<hint>Ensure you have enough light.</hint>
 				</input>
 				<input ref="/data/individual/hct_id_manual">
-					<label>Enter HCT ID</label>
+					<label>Enter HCT AMRS ID</label>
 				</input>
 				<select1 ref="/data/individual/marital_status">
 					<label>Marital Status</label>
@@ -295,7 +306,7 @@
 					</item>
 					<item>
 						<label>Visitor from Elsewhere</label>
-						<value>vistor_elsewhere</value>
+						<value>visitor_elsewhere</value>
 					</item>
 				</select1>
 				<select1 ref="/data/individual/relation_to_househead">
@@ -1090,120 +1101,139 @@
 							<label>Under 5 Years, No Sample Needed</label>
 							<value>noneed</value>
 						</item>
-					</select1>
+					</select1> 
 				</group>
-<!-- FOLLOW UP -->
+				<!-- FOLLOW UP -->
 				<select ref="/data/individual/follow_up_one">
-						<label>Select First FollowUp</label>
-						<item>
-							<label>Repeat Testing 3 - 6 Months</label>
-							<value>repeat</value>
-						</item>
-						<item>
-							<label>Positive Test, HIV Clinic Referral</label>
-							<value>positivetest</value>
-						</item>
-						<item>
-							<label>Indeterminate Test, Health Center</label>
-							<value>indeterminate</value>
-						</item>
-						<item>
-							<label>Child Below 18 Months, Health Center Referral</label>
-							<value>below18</value>
-						</item>
-						<item>
-							<label>ANC Referral</label>
-							<value>ancreferral</value>
-						</item>
-						<item>
-							<label>Health Center Referral for Other</label>
-							<value>healthctrreferral</value>
-						</item>
-						<item>
-							<label>Return to Home with Sputum Results</label>
-							<value>sputumresults</value>
-						</item>
-						<item>
-							<label>No Followup</label>
-							<value>none</value>
-						</item>
-					</select>
-					<select ref="/data/individual/follow_up_one">
-						<label>Select Second FollowUp</label>
-						<item>
-							<label>Repeat Testing 3 - 6 Months</label>
-							<value>repeat</value>
-						</item>
-						<item>
-							<label>Positive Test, HIV Clinic Referral</label>
-							<value>positivetest</value>
-						</item>
-						<item>
-							<label>Indeterminate Test, Health Center</label>
-							<value>indeterminate</value>
-						</item>
-						<item>
-							<label>Child Below 18 Months, Health Center Referral</label>
-							<value>below18</value>
-						</item>
-						<item>
-							<label>ANC Referral</label>
-							<value>ancreferral</value>
-						</item>
-						<item>
-							<label>Health Center Referral for Other</label>
-							<value>healthctrreferral</value>
-						</item>
-						<item>
-							<label>Return to Home with Sputum Results</label>
-							<value>sputumresults</value>
-						</item>
-					</select>
-					<select ref="/data/individual/follow_up_three">
-						<label>Select Third FollowUp</label>
-						<item>
-							<label>Repeat Testing 3 - 6 Months</label>
-							<value>repeat</value>
-						</item>
-						<item>
-							<label>Positive Test, HIV Clinic Referral</label>
-							<value>positivetest</value>
-						</item>
-						<item>
-							<label>Indeterminate Test, Health Center</label>
-							<value>indeterminate</value>
-						</item>
-						<item>
-							<label>Child Below 18 Months, Health Center Referral</label>
-							<value>below18</value>
-						</item>
-						<item>
-							<label>ANC Referral</label>
-							<value>ancreferral</value>
-						</item>
-						<item>
-							<label>Health Center Referral for Other</label>
-							<value>healthctrreferral</value>
-						</item>
-						<item>
-							<label>Return to Home with Sputum Results</label>
-							<value>sputumresults</value>
-						</item>
-					</select>
-					<input ref="/data/individual/follow_up_date">
-						<label>Follow Up Date</label>
-					</input>
-					<select1 ref="/data/individual/really_sick">
-						<label>Looks really sick?</label>
-						<item>
-							<label>Yes</label>
-							<value>y</value>
-						</item>
-						<item>
-							<label>No</label>
-							<value>n</value>
-						</item>
-					</select1>
+					<label>Select First FollowUp</label>
+					<item>
+						<label>Repeat Testing 3 - 6 Months</label>
+						<value>repeat</value>
+					</item>
+					<item>
+						<label>Positive Test, HIV Clinic Referral</label>
+						<value>positivetest</value>
+					</item>
+					<item>
+						<label>Indeterminate Test, Health Center</label>
+						<value>indeterminate</value>
+					</item>
+					<item>
+						<label>Child Below 18 Months, Health Center Referral</label>
+						<value>below18</value>
+					</item>
+					<item>
+						<label>ANC Referral</label>
+						<value>ancreferral</value>
+					</item>
+					<item>
+						<label>Health Center Referral for Other</label>
+						<value>healthctrreferral</value>
+					</item>
+					<item>
+						<label>Return to Home with Sputum Results</label>
+						<value>sputumresults</value>
+					</item>
+					<item>
+						<label>No Followup</label>
+						<value>none</value>
+					</item>
+				</select>
+				<select ref="/data/individual/follow_up_one">
+					<label>Select Second FollowUp</label>
+					<item>
+						<label>Repeat Testing 3 - 6 Months</label>
+						<value>repeat</value>
+					</item>
+					<item>
+						<label>Positive Test, HIV Clinic Referral</label>
+						<value>positivetest</value>
+					</item>
+					<item>
+						<label>Indeterminate Test, Health Center</label>
+						<value>indeterminate</value>
+					</item>
+					<item>
+						<label>Child Below 18 Months, Health Center Referral</label>
+						<value>below18</value>
+					</item>
+					<item>
+						<label>ANC Referral</label>
+						<value>ancreferral</value>
+					</item>
+					<item>
+						<label>Health Center Referral for Other</label>
+						<value>healthctrreferral</value>
+					</item>
+					<item>
+						<label>Return to Home with Sputum Results</label>
+						<value>sputumresults</value>
+					</item>
+				</select>
+				<select ref="/data/individual/follow_up_three">
+					<label>Select Third FollowUp</label>
+					<item>
+						<label>Repeat Testing 3 - 6 Months</label>
+						<value>repeat</value>
+					</item>
+					<item>
+						<label>Positive Test, HIV Clinic Referral</label>
+						<value>positivetest</value>
+					</item>
+					<item>
+						<label>Indeterminate Test, Health Center</label>
+						<value>indeterminate</value>
+					</item>
+					<item>
+						<label>Child Below 18 Months, Health Center Referral</label>
+						<value>below18</value>
+					</item>
+					<item>
+						<label>ANC Referral</label>
+						<value>ancreferral</value>
+					</item>
+					<item>
+						<label>Health Center Referral for Other</label>
+						<value>healthctrreferral</value>
+					</item>
+					<item>
+						<label>Return to Home with Sputum Results</label>
+						<value>sputumresults</value>
+					</item>
+				</select>
+				<input ref="/data/individual/follow_up_date">
+					<label>Follow Up Date</label>
+				</input>
+				<select1 ref="/data/individual/preferred_clinic">
+					<label>Preferred Clinic:</label>
+					<item>
+						<label>AMPATH</label>
+						<value>ampath</value>
+					</item>
+					<item>
+						<label>Naitiri</label>
+						<value>naitiri</value>
+					</item>
+					<item>
+						<label>Teso</label>
+						<value>teso</value>
+					</item>
+					<item>
+						<label>Webuye</label>
+						<value>webuye</value>
+					</item>
+				</select1>					
+				<select1 ref="/data/individual/really_sick">
+					<label>Looks really sick?</label>
+					<item>
+						<label>Yes</label>
+						<value>y</value>
+					</item>
+					<item>
+						<label>No</label>
+						<value>n</value>
+					</item>
+				</select1>				
 			</repeat>
 		</group>
 <!-- END OF CONDUCT SURVEY -->
