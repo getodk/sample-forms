@@ -124,10 +124,11 @@
 			<bind nodeset="/data/individual/demographics" type="review"/>
 			<bind nodeset="/data/individual/marital_status" required="true()" relevant="../approximate_age &gt;= 96" type="string"/>
 			<bind nodeset="/data/individual/house_status" required="true()" type="string"/>
-			<bind nodeset="/data/individual/relation_to_househead" required="true()" type="string"/>
+			<bind nodeset="/data/individual/relation_to_househead" required="true()" type="string"
+					constraint="not(selected(., 'self')) or (selected(.,'self') and selected(../house_status,'household_resident'))" 						jr:constraintMsg="Household already has a head or this is a non-resident individual. 'Can't be household head'." />
 			<!-- Individual Economic Questions -->
-			<bind nodeset="/data/individual/hours_in_farm" required="true()" relevant="../approximate_age &gt;= 96" type="integer"/>
-			<bind nodeset="/data/individual/hours_in_housework" required="true()" relevant="../approximate_age &gt;= 96" type="integer"/>
+			<bind nodeset="/data/individual/hours_in_farm" required="true()" relevant="../approximate_age &gt;= 156" type="integer"/>
+			<bind nodeset="/data/individual/hours_in_housework" required="true()" relevant="../approximate_age &gt;= 156" type="integer"/>
 			<bind nodeset="/data/individual/clinic_visits" required="true()" type="integer"/>
 			<bind nodeset="/data/individual/cost_of_medication" required="true()" type="integer"/>
 			<!-- End of Individual Economic Questions -->
@@ -323,8 +324,8 @@
 						<value>household_resident</value>
 					</item>
 					<item>
-						<label>Visitor from Catchement</label>
-						<value>visitor_catchement</value>
+						<label>Visitor from Catchment</label>
+						<value>visitor_catchment</value>
 					</item>
 					<item>
 						<label>Visitor from Elsewhere</label>
@@ -615,6 +616,10 @@
 				</select1>
 				<select1 ref="/data/individual/previous_hiv_test_year">
 					<label>Year of Last HIV Testing</label>
+					<item>
+						<label>2009</label>
+						<value>200</value>
+					</item>					
 					<item>
 						<label>2008</label>
 						<value>2008</value>
@@ -1005,6 +1010,10 @@
 					<select1 ref="/data/individual/past_tb_tx_year">
 						<label>Year of Past Treatment</label>
 						<item>
+							<label>2009</label>
+							<value>2009</value>
+						</item>						
+						<item>
 							<label>2008</label>
 							<value>2008</value>
 						</item>
@@ -1159,7 +1168,7 @@
 						<value>sputumresults</value>
 					</item>
 					<item>
-						<label>No Followup</label>
+						<label>No Follow Up</label>
 						<value>none</value>
 					</item>
 				</select1>
@@ -1193,6 +1202,10 @@
 						<label>Return to Home with Sputum Results</label>
 						<value>sputumresults</value>
 					</item>
+					<item>
+						<label>No Second Follow Up</label>
+						<value>none</value>
+					</item>					
 				</select1>
 				<select1 ref="/data/individual/follow_up_three">
 					<label>Select Third FollowUp</label>
@@ -1224,6 +1237,10 @@
 						<label>Return to Home with Sputum Results</label>
 						<value>sputumresults</value>
 					</item>
+					<item>
+						<label>No Third Follow up</label>
+						<value>none</value>
+					</item>					
 				</select1>
 				<input ref="/data/individual/follow_up_date">
 					<label>Follow Up Date</label>
