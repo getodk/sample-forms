@@ -61,13 +61,14 @@
 						<item_int>123456789</item_int>
 						<repeat_count>3</repeat_count>
 						<repeat_b jr:template="">
-							<item_string_b>this is a long strong</item_string_b>
+							<item_string_b>this is a really long string where you can put lots of information to prepare a user for anything you would like.</item_string_b>
 						</repeat_b>
 						<item_decimal>1234567890.1234567890</item_decimal>
-					</repeat_a> 
-					<output>get ready for repeat section. this is a really long string where you can put lots of information to prepare a user for anything you would like.</output>
+					</repeat_a>
+					<calculate/>
+					<output/> 
 					<geopoint/>
-					<barcode/> 
+					<barcode/>
 					<image/>
 					<audio/>
 					<video/>
@@ -94,9 +95,10 @@
 			<bind nodeset="/widgets/barcode" type="barcode"/>
 			<bind nodeset="/widgets/image" type="binary"/>
 			<bind nodeset="/widgets/audio" type="binary"/>
-			<bind nodeset="/widgets/video" type="binary"/> 
+			<bind nodeset="/widgets/video" type="binary"/>
+			<bind nodeset="/widgets/calculate" calculate="if(../int = '5', 'five', 'not five')"/>
 			<bind nodeset="/widgets/output" type="string" readonly="true()" relevant="selected(/widgets/branch, 'n')"/>
-			<bind nodeset="/widgets/repeat_a" />
+			<bind nodeset="/widgets/repeat_a"/>
 			<bind nodeset="/widgets/repeat_a/item_string_a" type="string" readonly="true()"/>
 			<bind nodeset="/widgets/repeat_a/item_int" type="int"/>
 			<bind nodeset="/widgets/repeat_a/repeat_count" type="int"/>
@@ -178,7 +180,7 @@
 			</item>
 		</select1>
 		<select1 ref="branch">
-			<label>branch question</label>  
+			<label>branch question</label>
 			<hint>yes to skip languages, regex, repeats</hint>
 			<item>
 				<label>yes</label>
@@ -225,11 +227,12 @@
 		<upload ref="video" mediatype="video/*">
 			<label>video question</label>
 		</upload>
-		 <input ref="output">
-				<label>output question</label>
-			</input>
+		<input ref="output">
+			<label>output question. is your email still <output value="/widgets/regex"/>? was your integer answer <output value="/widgets/calculate"/>?</label>
+			<hint>long hint: there is an upcoming repeat. lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</hint>
+		</input>
 		<group>
-		  <label>group ra</label>
+			<label>group ra</label>
 			<repeat nodeset="/widgets/repeat_a">
 				<input ref="item_string_a">
 					<label>ra string question</label>
@@ -240,7 +243,7 @@
 					<hint>largest integer (9 places)</hint>
 				</input>
 				<group>
-				  <label>group rb</label>
+					<label>group rb</label>
 					<repeat nodeset="/widgets/repeat_a/repeat_b">
 						<input ref="item_string_b">
 							<label>rb string question</label>
@@ -254,6 +257,5 @@
 				</input>
 			</repeat>
 		</group>
-		
 	</h:body>
 </h:html>
