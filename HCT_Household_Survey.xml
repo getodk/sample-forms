@@ -4,7 +4,7 @@
 		<h:title>HCT Household Survey</h:title>
 		<model>
 			<instance>
-				<data name="HCT Household Survey" version="1.0">
+				<form name="HCT Household Survey" version="1.0">
 					<meta>
 						<version/>
 						<start_time/>
@@ -127,183 +127,184 @@
 						<preferred_clinic />
 						<really_sick />
 					</individual>
-				</data>
+				</form>
 			</instance>
 			<!-- Meta Information Bindings -->
-			<bind nodeset="/data/meta/start_time" jr:preload="timestamp" jr:preloadParams="start" type="time"/>
-			<bind nodeset="/data/meta/end_time" jr:preload="timestamp" jr:preloadParams="end" type="time"/>
-			<bind nodeset="/data/meta/device_id" jr:preload="property" jr:preloadParams="deviceid" type="string"/>
-			<bind nodeset="/data/meta/subscriber_id" jr:preload="property" jr:preloadParams="subscriberid" type="string"/>
+			<bind nodeset="/form/meta/start_time" jr:preload="timestamp" jr:preloadParams="start" type="time"/>
+			<bind nodeset="/form/meta/end_time" jr:preload="timestamp" jr:preloadParams="end" type="time"/>
+			<bind nodeset="/form/meta/device_id" jr:preload="property" jr:preloadParams="deviceid" type="string"/>
+			<bind nodeset="/form/meta/subscriber_id" jr:preload="property" jr:preloadParams="subscriberid" type="string"/>
 			<!-- Survey Information Bindings -->
-			<bind nodeset="/data/survey/survey_location" required="true()" type="geopoint"/>
-			<bind nodeset="/data/survey/survey_id" type="integer"/>
-			<bind nodeset="/data/survey/provider_id"  constraint="regex(., '^\w+[-]?\d{1}') and (checkdigit(.))" required="true()" 
+			<bind nodeset="/form/survey/survey_location" required="true()" type="geopoint"/>
+			<bind nodeset="/form/survey/survey_id" type="integer"/>
+			<bind nodeset="/form/survey/provider_id"  constraint="regex(., '^\w+[-]?\d{1}') and (checkdigit(.))" required="true()" 
 					jr:constraintMsg="Invalid Provider ID. Please check and re-enter." type="string"/>
-			<bind nodeset="/data/survey/team_id" required="true()" type="string"/>
+			<bind nodeset="/form/survey/team_id" required="true()" type="string"/>
 			<!-- Household Information Bindings -->
-			<bind nodeset="/data/household/household_id" constraint="regex(., '^\w+[-]?\d{1}') and checkdigit(.) and unique('household', .)" 
-					required="true()" jr:constraintMsg="Invalid Household ID. Please check and re-enter." type="string"/>
-			<bind nodeset="/data/household/village" required="true()" type="string"/>
-			<bind nodeset="/data/household/location" required="true()" type="string"/>
-			<bind nodeset="/data/household/sublocation" required="true()" type="string"/>
-			<bind nodeset="/data/household/district" required="true()" type="string"/>
-			<bind nodeset="/data/household/division" required="true()" type="string"/>
-			<bind nodeset="/data/household/household_adults" required="true()" constraint=". &gt;= 0" 
+			<bind nodeset="/form/household/household_id" constraint="regex(., '^\w+[-]?\d{1}') and checkdigit(.) and unique('household', .)" 
+					required="true()" jr:constraintMsg="Invalid Household ID. (Note: The ID may already have been assigned.) 
+					Please check and re-enter." type="string"/>
+			<bind nodeset="/form/household/village" required="true()" type="string"/>
+			<bind nodeset="/form/household/location" required="true()" type="string"/>
+			<bind nodeset="/form/household/sublocation" required="true()" type="string"/>
+			<bind nodeset="/form/household/district" required="true()" type="string"/>
+			<bind nodeset="/form/household/division" required="true()" type="string"/>
+			<bind nodeset="/form/household/household_adults" required="true()" constraint=". &gt;= 0" 
 					jr:constraintMsg="Number of adults must be positive." type="integer"/>
-			<bind nodeset="/data/household/children_under13" required="true()" constraint="if (../household_adults = 0, . &gt; 0, . &gt;= 0)" 
+			<bind nodeset="/form/household/children_under13" required="true()" constraint="if (../household_adults = 0, . &gt; 0, . &gt;= 0)" 
 					jr:constraintMsg="This Number must be positive. If number of adults is 0 you cannot have 0 children." type="integer"/>
-			<bind nodeset="/data/household/total_household" calculate="../household_adults + ../children_under13" readonly="true()" type="integer" />
-			<bind nodeset="/data/household/allowed_in" required="true()" type="string"/>
-			<bind nodeset="/data/household/return_date" relevant="../allowed_in='nothome' or ../allowed_in='laterdate'" 
+			<bind nodeset="/form/household/total_household" calculate="../household_adults + ../children_under13" readonly="true()" type="integer" />
+			<bind nodeset="/form/household/allowed_in" required="true()" type="string"/>
+			<bind nodeset="/form/household/return_date" relevant="../allowed_in='nothome' or ../allowed_in='laterdate'" 
 					constraint=". &gt;= today()" jr:constraintMsg="Return date must be after today." type="date"/>
-			<bind nodeset="/data/household/number_of_bednets" required="true()" constraint=". &gt;= 0" 
+			<bind nodeset="/form/household/number_of_bednets" required="true()" constraint=". &gt;= 0" 
 					jr:constraintMsg="Number of bed nets must be positive." type="integer"/>
-			<bind nodeset="/data/household/bednets_given" required="true()" type="string"/>
-			<bind nodeset="/data/household/bednet_voucher" relevant="../bednets_given != 0" type="string"/>
-			<bind nodeset="/data/economics/land_owned" required="true()" type="decimal"/>
-			<bind nodeset="/data/economics/cows_owned" required="true()" type="integer"/>
-			<bind nodeset="/data/economics/goats_owned" required="true()" type="integer"/>
-			<bind nodeset="/data/economics/sheep_owned" required="true()" type="integer"/>
-			<bind nodeset="/data/economics/children_in_household" constraint=". &gt;= 0" 
+			<bind nodeset="/form/household/bednets_given" required="true()" type="string"/>
+			<bind nodeset="/form/household/bednet_voucher" relevant="../bednets_given != 0" type="string"/>
+			<bind nodeset="/form/economics/land_owned" required="true()" type="decimal"/>
+			<bind nodeset="/form/economics/cows_owned" required="true()" type="integer"/>
+			<bind nodeset="/form/economics/goats_owned" required="true()" type="integer"/>
+			<bind nodeset="/form/economics/sheep_owned" required="true()" type="integer"/>
+			<bind nodeset="/form/economics/children_in_household" constraint=". &gt;= 0" 
 					jr:constraintMsg="Number of children must be positive." required="true()" type="integer"/>
-			<bind nodeset="/data/economics/children_in_school" relevant="../children_in_household &gt; 0" constraint=". &lt;= ../children_in_household" 						jr:constraintMsg="Number of children in school must be less than or equal to the number in household." type="integer"/>
+			<bind nodeset="/form/economics/children_in_school" relevant="../children_in_household &gt; 0" constraint=". &lt;= ../children_in_household" 						jr:constraintMsg="Number of children in school must be less than or equal to the number in household." type="integer"/>
 			<!-- Individual Data Bindings -->
-			<bind nodeset="/data/individual/household" constraint="review('Household ID', .)" 
-					calculate="/data/household/household_id" readonly="true()" type="string" />
-			<bind nodeset="/data/individual/hct_id_barcode" 
+			<bind nodeset="/form/individual/household" constraint="review('Household ID', .)" 
+					calculate="/form/household/household_id" readonly="true()" type="string" />
+			<bind nodeset="/form/individual/hct_id_barcode" 
 					constraint="regex(., '^\w+[-]?\d{1}') and checkdigit(.) and unique('individual', .)" 
-					jr:constraintMsg="Invalid HCT ID. Please check and re-enter." type="barcode"/>
-			<bind nodeset="/data/individual/hct_id_manual" required="true()"
-					constraint="regex(., '^\w+[-]?\d{1}') and checkdigit(.) and unique('individual', .)" 
-					relevant="../hct_id_barcode = '' " jr:constraintMsg="Invalid HCT ID. Please check and re-enter." type="string"/>
-			<bind nodeset="/data/individual/first_name" constraint="review('Given Name', .)" required="true()" type="string"/>
-			<bind nodeset="/data/individual/middle_name" constraint="review('Middle Name', .)" type="string"/>
-			<bind nodeset="/data/individual/family_name" constraint="review('Family Name', .)" required="true()" type="string"/>
-			<bind nodeset="/data/individual/gender" constraint="review('Gender', .)" required="true()" type="string"/>
-			<bind nodeset="/data/individual/age_type" required="true()" type="string"/>
-			<bind nodeset="/data/individual/age_estimated" required="true()" type="string"/>
-			<bind nodeset="/data/individual/birth_date" relevant="../age_type='birth_date'" constraint=". &lt;= today()" 
+					jr:constraintMsg="Invalid HCT ID. (Note: The ID may already have been assigned.) Please check and re-enter." type="barcode"/>
+			<bind nodeset="/form/individual/hct_id_manual" required="true()"
+					relevant="../hct_id_barcode = '' " constraint="regex(., '^\w+[-]?\d{1}') and checkdigit(.) and unique('individual', .)" 
+					jr:constraintMsg="Invalid HCT ID. (Note: The ID may already have been assigned.) Please check and re-enter." type="string"/>
+			<bind nodeset="/form/individual/first_name" constraint="review('Given Name', .)" required="true()" type="string"/>
+			<bind nodeset="/form/individual/middle_name" constraint="review('Middle Name', .)" type="string"/>
+			<bind nodeset="/form/individual/family_name" constraint="review('Family Name', .)" required="true()" type="string"/>
+			<bind nodeset="/form/individual/gender" constraint="review('Gender', .)" required="true()" type="string"/>
+			<bind nodeset="/form/individual/age_type" required="true()" type="string"/>
+			<bind nodeset="/form/individual/age_estimated" required="true()" type="string"/>
+			<bind nodeset="/form/individual/birth_date" relevant="../age_type='birth_date'" constraint=". &lt;= today()" 
 					jr:constraintMsg="Birth dates must be before today." type="date"/>
-			<bind nodeset="/data/individual/age_in_years" constraint=". &gt;= 0 and . &lt;= 110" required="true()" type="integer"
+			<bind nodeset="/form/individual/age_in_years" constraint=". &gt;= 0 and . &lt;= 110" required="true()" type="integer"
 					relevant="../age_type='age_in_years_months'" jr:constraintMsg="Age must be between 0 and 110." />
-			<bind nodeset="/data/individual/age_in_months" constraint=". &gt;= 0 and . &lt;= 11" required="true()" type="integer"
+			<bind nodeset="/form/individual/age_in_months" constraint=". &gt;= 0 and . &lt;= 11" required="true()" type="integer"
 					relevant="../age_type='age_in_years_months' and ../age_in_years &lt; 5" jr:constraintMsg="Age must be between 0 and 11." />
-			<bind nodeset="/data/individual/approximate_age" readonly="true()" type="integer" 
+			<bind nodeset="/form/individual/approximate_age" readonly="true()" type="integer" 
 					calculate="if(../age_type='birth_date', ((now()-../birth_date) div 30), 
 					(if(../age_in_months &gt;0, ((../age_in_years * 12)+../age_in_months), (../age_in_years * 12))))"/>
-			<bind nodeset="/data/individual/phone_number" required="true()" 
+			<bind nodeset="/form/individual/phone_number" required="true()" 
 					constraint="(. = '0' or regex(., '\d{8,12}')) and review('Phone Number', .) and review('Year of Birth', ../approximate_age)" 						jr:constraintMsg="Invalid Phone Number. Please check and re-enter." type="string"/>
-			<bind nodeset="/data/individual/reenter_phone_number" type="string" relevant="../phone_number != 0" required="true()" 
+			<bind nodeset="/form/individual/reenter_phone_number" type="string" relevant="../phone_number != 0" required="true()" 
 					constraint=". = ../phone_number" jr:constraintMsg="Phone numbers do not match. Go back and confirm both."/>
 			
 			<!-- can't have review type -->
-			<bind nodeset="/data/individual/demographics" type="review"/>
-			<bind nodeset="/data/individual/marital_status" required="true()" relevant="../approximate_age &gt;= 96" type="string"/>
-			<bind nodeset="/data/individual/house_status" required="true()" type="string"/>
-			<bind nodeset="/data/individual/relation_to_househead" required="true()" type="string"
+			<bind nodeset="/form/individual/demographics" type="string"/>
+			<bind nodeset="/form/individual/marital_status" required="true()" relevant="../approximate_age &gt;= 96" type="string"/>
+			<bind nodeset="/form/individual/house_status" required="true()" type="string"/>
+			<bind nodeset="/form/individual/relation_to_househead" required="true()" type="string"
 					constraint="not(selected(., 'self')) or (selected(.,'self') and selected(../house_status,'household_resident'))" 						jr:constraintMsg="Household already has a head or this is a non-resident individual. 'Can't be household head'." />
 			<!-- Individual Economic Questions -->
-			<bind nodeset="/data/individual/hours_in_farm" required="true()" relevant="../approximate_age &gt;= 156" type="integer"/>
-			<bind nodeset="/data/individual/hours_in_housework" required="true()" relevant="../approximate_age &gt;= 156" type="integer"/>
-			<bind nodeset="/data/individual/clinic_visits" required="true()" type="integer"/>
-			<bind nodeset="/data/individual/cost_of_medication" required="true()" type="integer"/>
+			<bind nodeset="/form/individual/hours_in_farm" required="true()" relevant="../approximate_age &gt;= 156" type="integer"/>
+			<bind nodeset="/form/individual/hours_in_housework" required="true()" relevant="../approximate_age &gt;= 156" type="integer"/>
+			<bind nodeset="/form/individual/clinic_visits" required="true()" type="integer"/>
+			<bind nodeset="/form/individual/cost_of_medication" required="true()" type="integer"/>
 			<!-- End of Individual Economic Questions -->
-			<bind nodeset="/data/individual/pregnancy_status" required="true()" relevant="../gender='f' and ../approximate_age &gt;= 96" type="string"/>
-			<bind nodeset="/data/individual/attending_anc" required="true()" relevant="../pregnancy_status='y'" type="string"/>
-			<bind nodeset="/data/individual/mother_died" required="true()" type="string"/>
-			<bind nodeset="/data/individual/mother_hiv_positive" required="true()" type="string"/>
-			<bind nodeset="/data/individual/father_died" required="true()" type="string"/>
-			<bind nodeset="/data/individual/father_hiv_positive" required="true()" type="string"/>
-			<bind nodeset="/data/individual/child_needs_hiv_test" readonly="true()" 
+			<bind nodeset="/form/individual/pregnancy_status" required="true()" relevant="../gender='f' and ../approximate_age &gt;= 96" type="string"/>
+			<bind nodeset="/form/individual/attending_anc" required="true()" relevant="../pregnancy_status='y'" type="string"/>
+			<bind nodeset="/form/individual/mother_died" required="true()" type="string"/>
+			<bind nodeset="/form/individual/mother_hiv_positive" required="true()" type="string"/>
+			<bind nodeset="/form/individual/father_died" required="true()" type="string"/>
+			<bind nodeset="/form/individual/father_hiv_positive" required="true()" type="string"/>
+			<bind nodeset="/form/individual/child_needs_hiv_test" readonly="true()" 
 					calculate="if(../approximate_age &lt; 156 and (../mother_died='y' or ../mother_died='unknown' or ../mother_hiv_positive='y' or 
 					../mother_hiv_positive='unknown'), 'Needs Testing', 'Does Not Need Testing')" 	
 					relevant="../approximate_age &lt; 156 and (../mother_died='y' or ../mother_died='unknown' or ../mother_hiv_positive='y' or 
 					../mother_hiv_positive='unknown')" type="string"/>
-			<bind nodeset="/data/individual/test_child_regardless" type="string"
+			<bind nodeset="/form/individual/test_child_regardless" type="string"
 					relevant="../approximate_age &lt; 156 and (../mother_died='n' and ../mother_hiv_positive='n')" />
-			<bind nodeset="/data/individual/child_immunized" type="string"/>
-			<bind nodeset="/data/individual/immunization_info_source" type="string"/>
-			<bind nodeset="/data/individual/bcg_immunization" required="true()" type="string"/>
-			<bind nodeset="/data/individual/measles_immunization" required="true()" type="string"/>
-			<bind nodeset="/data/individual/previous_hiv_test" required="true()" type="string"/>
-			<bind nodeset="/data/individual/previous_hiv_test_year" required="true()" relevant="../previous_hiv_test='y'" type="string"/>
-			<bind nodeset="/data/individual/previous_hiv_test_results" required="true()" relevant="../previous_hiv_test='y'" type="string"/>
-			<bind nodeset="/data/individual/hiv_tx_program_status" relevant="../previous_hiv_test_results='positive'" type="string"/>
-			<bind nodeset="/data/individual/hiv_tx_program_name" relevant="../hiv_tx_program_status='y'" type="string"/>
-			<bind nodeset="/data/individual/ampath_id" type="string" 
+			<bind nodeset="/form/individual/child_immunized" type="string"/>
+			<bind nodeset="/form/individual/immunization_info_source" type="string"/>
+			<bind nodeset="/form/individual/bcg_immunization" required="true()" type="string"/>
+			<bind nodeset="/form/individual/measles_immunization" required="true()" type="string"/>
+			<bind nodeset="/form/individual/previous_hiv_test" required="true()" type="string"/>
+			<bind nodeset="/form/individual/previous_hiv_test_year" required="true()" relevant="../previous_hiv_test='y'" type="string"/>
+			<bind nodeset="/form/individual/previous_hiv_test_results" required="true()" relevant="../previous_hiv_test='y'" type="string"/>
+			<bind nodeset="/form/individual/hiv_tx_program_status" relevant="../previous_hiv_test_results='positive'" type="string"/>
+			<bind nodeset="/form/individual/hiv_tx_program_name" relevant="../hiv_tx_program_status='y'" type="string"/>
+			<bind nodeset="/form/individual/ampath_id" type="string" 
 					relevant="../hiv_tx_program_name='Ampath' or ../hiv_tx_program_name='AMPATH' or ../hiv_tx_program_name='ampath'"/>
-			<bind nodeset="/data/individual/pretest_counseling" required="true()" type="string"/>
-			<bind nodeset="/data/individual/accepted_hiv_testing" required="true()" type="string" 
+			<bind nodeset="/form/individual/pretest_counseling" required="true()" type="string"/>
+			<bind nodeset="/form/individual/accepted_hiv_testing" required="true()" type="string" 
 					constraint=". = 'n' or (. ='y' and ../pretest_counseling='y')" jr:constraintMsg="You can not test without counseling"/>
-			<bind nodeset="/data/individual/reasons_for_decline" required="true()" type="string" 
+			<bind nodeset="/form/individual/reasons_for_decline" required="true()" type="string" 
 					relevant="../accepted_hiv_testing='n' and ../approximate_age &lt; 156" constraint="count-selected(.) &lt;= 3" 
 					jr:constraintMsg="Only a maximum of three allowed."/>
-			<bind nodeset="/data/individual/test1_result" required="true()" type="string"/>
-			<bind nodeset="/data/individual/test2_name" required="true()" type="string"/>
-			<bind nodeset="/data/individual/test2_result" required="true()" type="string"/>
-			<bind nodeset="/data/individual/test3_name" required="true()" relevant="../test2_result != ../test1_result" 
+			<bind nodeset="/form/individual/test1_result" required="true()" type="string"/>
+			<bind nodeset="/form/individual/test2_name" required="true()" type="string"/>
+			<bind nodeset="/form/individual/test2_result" required="true()" type="string"/>
+			<bind nodeset="/form/individual/test3_name" required="true()" relevant="../test2_result != ../test1_result" 
 					constraint=". != ../test2_name" jr:constraintMsg="Test 3 must be different from Test 2!" type="string"/>
-			<bind nodeset="/data/individual/test3_result" required="true()" relevant="../test2_result != ../test1_result" type="string"/>
-			<bind nodeset="/data/individual/test_outcome" readonly="true()" relevant="../test2_result != '' or ../test3_result != ''" type="string" 
+			<bind nodeset="/form/individual/test3_result" required="true()" relevant="../test2_result != ../test1_result" type="string"/>
+			<bind nodeset="/form/individual/test_outcome" readonly="true()" relevant="../test2_result != '' or ../test3_result != ''" type="string" 
 					calculate="if (../test3_result = 'reactive' or ((../test1_result = ../test2_result) and ../test2_result = 'reactive'),
 					'Please refer patient to AMPATH', if (../test3_result = 'nonreactive' or ((../test1_result = ../test2_result) 
 					and ../test2_result = 'nonreactive'),'Patient is Negative', 'Refer patient to a clinic for further testing.'))"/>
-			<bind nodeset="/data/individual/couple_tested_together" required="true()" relevant="../marital_status='married'" type="string"/>
-			<bind nodeset="/data/individual/discordant_couple" required="true()" relevant="../marital_status='married'" type="string"/>
+			<bind nodeset="/form/individual/couple_tested_together" required="true()" relevant="../marital_status='married'" type="string"/>
+			<bind nodeset="/form/individual/discordant_couple" required="true()" relevant="../marital_status='married'" type="string"/>
 			<!-- check partner hct id -->
-			<bind nodeset="/data/individual/partner_hct_id" constraint="regex(., '^\w+[-]?\d{1}') and checkdigit(.)" required="true()" 
+			<bind nodeset="/form/individual/partner_hct_id" constraint="regex(., '^\w+[-]?\d{1}') and checkdigit(.)" required="true()" 
 					relevant="../discordant_couple='y'" type="string"/>
-			<bind nodeset="/data/individual/current_tb_tx_status" required="true()" type="string"/>
-			<bind nodeset="/data/individual/past_tb_tx_status" required="true()" type="string"/>
-			<bind nodeset="/data/individual/past_tb_tx_year" required="true()" relevant="../past_tb_tx_status='y'" type="string"/>
-			<bind nodeset="/data/individual/completed_8_mths_tb_tx" required="true()" relevant="../past_tb_tx_status='y'" type="string"/>
-			<bind nodeset="/data/individual/cough_gt_2_wks" required="true()" type="string"/>
-			<bind nodeset="/data/individual/blood_cough_past_year" required="true()" type="string"/>
-			<bind nodeset="/data/individual/fever_gt_3_wks" required="true()" type="string"/>
-			<bind nodeset="/data/individual/weight_loss_past_year" required="true()" type="string"/>
-			<bind nodeset="/data/individual/tb_in_household" required="true()" type="string"/>
-			<bind nodeset="/data/individual/failure_to_thrive" relevant="../approximate_age &lt; 156" type="string"/>
-			<bind nodeset="/data/individual/sputum_collected" required="true()" type="string" 
+			<bind nodeset="/form/individual/current_tb_tx_status" required="true()" type="string"/>
+			<bind nodeset="/form/individual/past_tb_tx_status" required="true()" type="string"/>
+			<bind nodeset="/form/individual/past_tb_tx_year" required="true()" relevant="../past_tb_tx_status='y'" type="string"/>
+			<bind nodeset="/form/individual/completed_8_mths_tb_tx" required="true()" relevant="../past_tb_tx_status='y'" type="string"/>
+			<bind nodeset="/form/individual/cough_gt_2_wks" required="true()" type="string"/>
+			<bind nodeset="/form/individual/blood_cough_past_year" required="true()" type="string"/>
+			<bind nodeset="/form/individual/fever_gt_3_wks" required="true()" type="string"/>
+			<bind nodeset="/form/individual/weight_loss_past_year" required="true()" type="string"/>
+			<bind nodeset="/form/individual/tb_in_household" required="true()" type="string"/>
+			<bind nodeset="/form/individual/failure_to_thrive" relevant="../approximate_age &lt; 156" type="string"/>
+			<bind nodeset="/form/individual/sputum_collected" required="true()" type="string" 
 					relevant="(../cough_gt_2_wks='y' or ../blood_cough_past_year='y' or ../fever_gt_3_wks = 'y' or ../weight_loss_past_year = 'y' 
 							or ../tb_in_household = 'y' or ../failure_to_thrive = 'y') and ../current_tb_tx_status = 'n'" />
-			<bind nodeset="/data/individual/follow_up_one" type="string" required="true()" 
+			<bind nodeset="/form/individual/follow_up_one" type="string" required="true()" 
 					constraint=". != ../follow_up_two and . != ../follow_up_three" jr:constraintMsg="This Follow up has already been selected." />
-			<bind nodeset="/data/individual/follow_up_two" type="string" relevant="not(selected(../follow_up_one, 'none'))" 
+			<bind nodeset="/form/individual/follow_up_two" type="string" required="true()" relevant="not(selected(../follow_up_one, 'none'))" 
 					constraint=". != ../follow_up_three and . != ../follow_up_one" jr:constraintMsg="This Follow up has already been selected." />
-			<bind nodeset="/data/individual/follow_up_three" type="string" relevant="../follow_up_two != ''" 
+			<bind nodeset="/form/individual/follow_up_three" type="string" required="true()" relevant="not(selected(../follow_up_two, 'none'))" 
 					constraint=". != ../follow_up_two and . != ../follow_up_one" jr:constraintMsg="This Follow up has already been selected."/>
-			<bind nodeset="/data/individual/follow_up_date" constraint=". &gt; today()" jr:constraintMsg="Follow-Up date must be in the future!" 
+			<bind nodeset="/form/individual/follow_up_date" constraint=". &gt;= today()" jr:constraintMsg="Follow-Up date must be in the future!" 
 					relevant="not(selected(../follow_up_one, 'none'))" type="date"/>
-			<bind nodeset="/data/individual/preferred_clinic" relevant="not(selected(../follow_up_one, 'none'))" type="string"/>
-			<bind nodeset="/data/individual/really_sick" type="string"/>
+			<bind nodeset="/form/individual/preferred_clinic" relevant="not(selected(../follow_up_one, 'none'))" type="string"/>
+			<bind nodeset="/form/individual/really_sick" type="string"/>
 			
 			<!-- Group Bindings -->
-			<bind nodeset="/data/household/conduct_survey_group" relevant="../allowed_in='accepted'" type="string"/>
-			<bind nodeset="/data/household/economic_questions_group" type="string"/>
-			<bind nodeset="/data/individual/children_below18_group" relevant="../approximate_age &lt; 216" type="string"/>
-			<bind nodeset="/data/individual/children_below5_group" relevant="../approximate_age &lt; 60" type="string"/>
-			<bind nodeset="/data/individual/immunization_info" relevant="../child_immunized='y'" type="string"/>
-			<bind nodeset="/data/individual/hiv_testing_group" 
+			<bind nodeset="/form/household/conduct_survey_group" relevant="../allowed_in='accepted'" type="string"/>
+			<bind nodeset="/form/household/economic_questions_group" type="string"/>
+			<bind nodeset="/form/individual/children_below18_group" relevant="../approximate_age &lt; 216" type="string"/>
+			<bind nodeset="/form/individual/children_below5_group" relevant="../approximate_age &lt; 60" type="string"/>
+			<bind nodeset="/form/individual/immunization_info" relevant="../child_immunized='y'" type="string"/>
+			<bind nodeset="/form/individual/hiv_testing_group" 
 					relevant="../approximate_age &gt;= 156 or (../child_needs_hiv_test='Needs Testing' and ../approximate_age &gt;= 18) or (../test_child_regardless='y' and ../approximate_age &gt;= 18)" type="string"/>
-			<bind nodeset="/data/individual/hiv_results_group" relevant="../accepted_hiv_testing='y'" type="string"/>
-			<bind nodeset="/data/individual/tb_screening_group" type="string"/>
-			<bind nodeset="/data/individual/tb_info_group" relevant="../current_tb_tx_status='n'" type="string"/>
+			<bind nodeset="/form/individual/hiv_results_group" relevant="../accepted_hiv_testing='y'" type="string"/>
+			<bind nodeset="/form/individual/tb_screening_group" type="string"/>
+			<bind nodeset="/form/individual/tb_info_group" relevant="../current_tb_tx_status='n'" type="string"/>
 		</model>
 	</h:head>
 	<h:body>
 		<group>
 			<label>Survey Information</label>
-			<input ref="/data/survey/survey_location">
+			<input ref="/form/survey/survey_location">
 				<label>Survey Location</label>
 				<hint>Ensure you have a clear view of the sky.</hint>
 			</input>
-			<input ref="/data/survey/survey_id">
+			<input ref="/form/survey/survey_id">
 				<label>Survey ID</label>
 			</input>
-			<input ref="/data/survey/provider_id">
+			<input ref="/form/survey/provider_id">
 				<label>Provider ID</label>
 			</input>
-			<select1 ref="/data/survey/team_id">
+			<select1 ref="/form/survey/team_id">
 				<label>Team Number</label>
 				<item>
 					<label>Team 1</label>
@@ -337,7 +338,7 @@
 		</group>
 		<group>
 			<label>Household Information</label>
-			<input ref="/data/household/household_id">
+			<input ref="/form/household/household_id">
 				<label>Household ID</label>
 				<hint>Remember, a household is: 
  1. Father, wife/wives and children 
@@ -347,22 +348,22 @@
  5. Daughter/son with child/children living in parent house
 			</hint>
 			</input>
-			<input ref="/data/household/village">
+			<input ref="/form/household/village">
 				<label>Household Village</label>
 			</input>
-			<input ref="/data/household/household_adults">
+			<input ref="/form/household/household_adults">
 				<label>Adults in Household</label>
 				<hint>Must be 13 years old and above. If none, enter 0.</hint>
 			</input>
-			<input ref="/data/household/children_under13">
+			<input ref="/form/household/children_under13">
 				<label>Children in Household</label>
 				<hint>Must be less than 13 years old. If none, enter 0.</hint>
 			</input>
-			<input ref="/data/household/total_household">
+			<input ref="/form/household/total_household">
 				<label>Total in Household</label>
 				<hint>Confirm this total number of adults and children with Mobilizer.</hint>
 			</input>
-			<select1 ref="/data/household/allowed_in">
+			<select1 ref="/form/household/allowed_in">
 				<label>Survey Status</label>
 				<hint>Were you accepted in?</hint>
 				<item>
@@ -382,46 +383,46 @@
 					<value>laterdate</value>
 				</item>
 			</select1>
-			<input ref="/data/household/return_date">
+			<input ref="/form/household/return_date">
 				<label>Schedule Return Date</label>
 			</input>
 		</group>
-		<group ref="/data/household/conduct_survey_group">
+		<group ref="/form/household/conduct_survey_group">
 			<label>Household Survey</label>
-			<group ref="/data/household/economic_questions_group">
+			<group ref="/form/household/economic_questions_group">
 				<label>Economic Data</label>
-				<input ref="/data/economics/land_owned">
+				<input ref="/form/economics/land_owned">
 					<label>Total Land Owned</label>
 					<hint>Please enter in acres. If none, enter 0.</hint>
 				</input>
-				<input ref="/data/economics/cows_owned">
+				<input ref="/form/economics/cows_owned">
 					<label>Number of Cows Owned</label>
 					<hint>If none, enter 0.</hint>
 				</input>
-				<input ref="/data/economics/goats_owned">
+				<input ref="/form/economics/goats_owned">
 					<label>Number of Goats Owned</label>
 					<hint>If none, enter 0.</hint>
 				</input>
-				<input ref="/data/economics/sheep_owned">
+				<input ref="/form/economics/sheep_owned">
 					<label>Number of Sheep Owned</label>
 					<hint>If none, enter 0.</hint>
 				</input>
-				<input ref="/data/economics/children_in_household">
+				<input ref="/form/economics/children_in_household">
 					<label>Children Between 3-20 Years</label>
 					<hint>Include all children in household.</hint>
 				</input>
-				<input ref="/data/economics/children_in_school">
+				<input ref="/form/economics/children_in_school">
 					<label>Children Attending School</label>
 					<hint>Include primary school through college.</hint>
 				</input>
 			</group>
-			<group ref="/data/household/bednet_questions_group">
+			<group ref="/form/household/bednet_questions_group">
 				<label>Bed Net Data</label>
-				<input ref="/data/household/number_of_bednets">
+				<input ref="/form/household/number_of_bednets">
 					<label>Number of Bed Nets</label>
 					<hint>If none, enter 0.</hint>
 				</input>
-				<select1 ref="/data/household/bednets_given">
+				<select1 ref="/form/household/bednets_given">
 					<label>Number of Nets Provided</label>
 					<item>
 						<label>Zero</label>
@@ -432,28 +433,28 @@
 						<value>1</value>
 					</item>
 				</select1>
-				<input ref="/data/household/bednet_voucher">
+				<input ref="/form/household/bednet_voucher">
 					<label>Voucher ID of Provided Net</label>
 				</input>
 			</group>
 			<group>
 				<label>Individual Section</label>
-				<repeat nodeset="/data/individual">
-					<input ref="/data/individual/household">
+				<repeat nodeset="/form/individual">
+					<input ref="/form/individual/household">
 						<label>Household Counseling and Testing for the Household ID
 					</label>
 						<hint>Please confirm this ID is correct.</hint>
 					</input>
-					<input ref="/data/individual/first_name">
+					<input ref="/form/individual/first_name">
 						<label>First Name</label>
 					</input>
-					<input ref="/data/individual/middle_name">
+					<input ref="/form/individual/middle_name">
 						<label>Middle Name</label>
 					</input>
-					<input ref="/data/individual/family_name">
+					<input ref="/form/individual/family_name">
 						<label>Family Name</label>
 					</input>
-					<select1 ref="/data/individual/gender">
+					<select1 ref="/form/individual/gender">
 						<label>Gender</label>
 						<item>
 							<label>Male</label>
@@ -465,7 +466,7 @@
 						</item>
 					</select1>
 <!--Individual Age-->
-					<select1 ref="/data/individual/age_type">
+					<select1 ref="/form/individual/age_type">
 						<label>Age Entry Mode</label>
 						<item>
 							<label>Enter Full Birthdate</label>
@@ -476,7 +477,7 @@
 							<value>age_in_years_months</value>
 						</item>
 					</select1> 
-					<select1 ref="/data/individual/age_estimated">
+					<select1 ref="/form/individual/age_estimated">
 						<label>Age Estimated</label>
 						<item>
 							<label>Yes</label>
@@ -488,36 +489,37 @@
 						</item>
 					</select1>
 <!-- If enter birthdate -->
-					<input ref="/data/individual/birth_date">
+					<input ref="/form/individual/birth_date">
 						<label>Select Birthdate</label>
 					</input>
 <!-- If age in years or Unknown -->
-					<input ref="/data/individual/age_in_years">
+					<input ref="/form/individual/age_in_years">
 						<label>Number of Years</label>
 					</input>
-					<input ref="/data/individual/age_in_months">
+					<input ref="/form/individual/age_in_months">
 						<label>Number of Months</label>
 					</input>
-					<input ref="/data/individual/phone_number">
+					<input ref="/form/individual/phone_number">
 						<label>Enter Phone Number</label>
 						<hint>If none, enter 0.</hint>
 					</input>
-					<input ref="/data/individual/reenter_phone_number">
+					<input ref="/form/individual/reenter_phone_number">
 						<label>Re-Enter Phone Number</label>
 						<hint>If none, enter 0.</hint>
 					</input>
-					<input ref="/data/individual/demographics">
-						<label>Individual Demographics</label>
+					<input ref="/form/individual/demographics">
+						<label>Individual Demographics
+</label>
 						<hint>Please write this demographics on the card and issue it out to the client.</hint>
 					</input>
-					<input ref="/data/individual/hct_id_barcode">
+					<input ref="/form/individual/hct_id_barcode">
 						<label>Scan HCT AMRS ID</label>
 						<hint>Ensure you have enough light.</hint>
 					</input>
-					<input ref="/data/individual/hct_id_manual">
+					<input ref="/form/individual/hct_id_manual">
 						<label>Enter HCT AMRS ID</label>
 					</input>
-					<select1 ref="/data/individual/marital_status">
+					<select1 ref="/form/individual/marital_status">
 						<label>Marital Status</label>
 						<item>
 							<label>Single</label>
@@ -544,7 +546,7 @@
 							<value>cohabiting</value>
 						</item>
 					</select1>
-					<select1 ref="/data/individual/house_status">
+					<select1 ref="/form/individual/house_status">
 						<label>Household Status</label>
 						<hint>A household resident is a person who is part of a household (including servants/employees).</hint>
 						<item>
@@ -560,7 +562,7 @@
 							<value>visitor_elsewhere</value>
 						</item>
 					</select1>
-					<select1 ref="/data/individual/relation_to_househead">
+					<select1 ref="/form/individual/relation_to_househead">
 						<label>Relation to Head of Household</label>
 						<item>
 							<label>Self</label>
@@ -648,24 +650,24 @@
 						</item>
 					</select1>
 <!-- Indiv Economic Qstns -->
-					<input ref="/data/individual/hours_in_farm">
+					<input ref="/form/individual/hours_in_farm">
 						<label>Hours Worked Past Week on Farm</label>
 						<hint>Include for wage and business.</hint>
 					</input>
-					<input ref="/data/individual/hours_in_housework">
+					<input ref="/form/individual/hours_in_housework">
 						<label>Hours Worked Past Week in Housework</label>
 						<hint>For example, cooking and cleaning.</hint>
 					</input>
-					<input ref="/data/individual/clinic_visits">
+					<input ref="/form/individual/clinic_visits">
 						<label>Times Visited Clinic Due to Sickness in Last Month</label>
 						<hint>If none, enter 0.</hint>
 					</input>
-					<input ref="/data/individual/cost_of_medication">
+					<input ref="/form/individual/cost_of_medication">
 						<label>Amount of Money Spent on Medication in Last Month</label>
 						<hint>Value in Kshs</hint>
 					</input>
 <!-- End of Indiv Qsts -->
-					<select1 ref="/data/individual/pregnancy_status">
+					<select1 ref="/form/individual/pregnancy_status">
 						<label>Pregnant</label>
 						<item>
 							<label>Yes</label>
@@ -676,7 +678,7 @@
 							<value>n</value>
 						</item>
 					</select1>
-					<select1 ref="/data/individual/attending_anc">
+					<select1 ref="/form/individual/attending_anc">
 						<label>Attending Antenatal Clinic</label>
 						<item>
 							<label>Yes</label>
@@ -688,9 +690,9 @@
 						</item>
 					</select1>
 <!-- Start -For Children < 18 years -->
-					<group ref="/data/individual/children_below18_group">
+					<group ref="/form/individual/children_below18_group">
 						<label>Child Below 18</label>
-						<select1 ref="/data/individual/mother_died">
+						<select1 ref="/form/individual/mother_died">
 							<label>Mother Died</label>
 							<item>
 								<label>Yes</label>
@@ -705,7 +707,7 @@
 								<value>unknown</value>
 							</item>
 						</select1>
-						<select1 ref="/data/individual/mother_hiv_positive">
+						<select1 ref="/form/individual/mother_hiv_positive">
 							<label>Mother HIV Positive</label>
 							<item>
 								<label>Yes</label>
@@ -720,7 +722,7 @@
 								<value>unknown</value>
 							</item>
 						</select1>
-						<select1 ref="/data/individual/father_died">
+						<select1 ref="/form/individual/father_died">
 							<label>Father Died</label>
 							<item>
 								<label>Yes</label>
@@ -735,7 +737,7 @@
 								<value>unknown</value>
 							</item>
 						</select1>
-						<select1 ref="/data/individual/father_hiv_positive">
+						<select1 ref="/form/individual/father_hiv_positive">
 							<label>Father HIV Positive</label>
 							<item>
 								<label>Yes</label>
@@ -750,10 +752,10 @@
 								<value>unknown</value>
 							</item>
 						</select1>
-						<input ref="/data/individual/child_needs_hiv_test">
+						<input ref="/form/individual/child_needs_hiv_test">
 							<label>TEST STATUS</label>
 						</input>
-						<select1 ref="/data/individual/test_child_regardless">
+						<select1 ref="/form/individual/test_child_regardless">
 							<label>Test Child Anyway</label>
 							<item>
 								<label>Yes</label>
@@ -767,9 +769,9 @@
 					</group>
 <!-- End -For Children < 18 years -->
 <!-- Start -For Children < 5 years -->
-					<group ref="/data/individual/children_below5_group">
+					<group ref="/form/individual/children_below5_group">
 						<label>Child Below 5</label>
-						<select1 ref="/data/individual/child_immunized">
+						<select1 ref="/form/individual/child_immunized">
 							<label>Child Immunized</label>
 							<item>
 								<label>Yes</label>
@@ -784,9 +786,9 @@
 								<value>unknown</value>
 							</item>
 						</select1>
-						<group ref="/data/individual/immunization_info">
+						<group ref="/form/individual/immunization_info">
 							<label>Immunization Data</label>
-							<select1 ref="/data/individual/immunization_info_source">
+							<select1 ref="/form/individual/immunization_info_source">
 								<label>Immunization Data Source</label>
 								<item>
 									<label>Documentation</label>
@@ -797,7 +799,7 @@
 									<value>Caretaker</value>
 								</item>
 							</select1>
-							<select1 ref="/data/individual/bcg_immunization">
+							<select1 ref="/form/individual/bcg_immunization">
 								<label>BCG Immunization</label>
 								<item>
 									<label>Yes</label>
@@ -812,7 +814,7 @@
 									<value>unknown</value>
 								</item>
 							</select1>
-							<select1 ref="/data/individual/measles_immunization">
+							<select1 ref="/form/individual/measles_immunization">
 								<label>Measles Immunization</label>
 								<item>
 									<label>Yes</label>
@@ -831,7 +833,7 @@
 					</group>
 <!-- End For Children < 5 years -->
 <!-- HIV Testing History -->
-					<select1 ref="/data/individual/previous_hiv_test">
+					<select1 ref="/form/individual/previous_hiv_test">
 						<label>Previously Tested for HIV</label>
 						<item>
 							<label>Yes</label>
@@ -842,7 +844,7 @@
 							<value>n</value>
 						</item>
 					</select1>
-					<select1 ref="/data/individual/previous_hiv_test_year">
+					<select1 ref="/form/individual/previous_hiv_test_year">
 						<label>Year of Last HIV Testing</label>
 						<item>
 							<label>2009</label>
@@ -933,7 +935,7 @@
 							<value>unknown</value>
 						</item>
 					</select1>
-					<select1 ref="/data/individual/previous_hiv_test_results">
+					<select1 ref="/form/individual/previous_hiv_test_results">
 						<label>Previous HIV Test Results</label>
 						<item>
 							<label>Positive</label>
@@ -952,7 +954,7 @@
 							<value>unknown</value>
 						</item>
 					</select1>
-					<select1 ref="/data/individual/hiv_tx_program_status">
+					<select1 ref="/form/individual/hiv_tx_program_status">
 						<label>In Treatment Program</label>
 						<item>
 							<label>Yes</label>
@@ -963,16 +965,16 @@
 							<value>n</value>
 						</item>
 					</select1>
-					<input ref="/data/individual/hiv_tx_program_name">
+					<input ref="/form/individual/hiv_tx_program_name">
 						<label>Program Name</label>
 					</input>
-					<input ref="/data/individual/ampath_id">
+					<input ref="/form/individual/ampath_id">
 						<label>AMPATH ID</label>
 					</input>
 <!-- Current HIV Testing Section -->
-					<group ref="/data/individual/hiv_testing_group">
+					<group ref="/form/individual/hiv_testing_group">
 						<label>HIV Testing</label>
-						<select1 ref="/data/individual/pretest_counseling">
+						<select1 ref="/form/individual/pretest_counseling">
 							<label>Pretest Counseling</label>
 							<item>
 								<label>Yes</label>
@@ -983,7 +985,7 @@
 								<value>n</value>
 							</item>
 						</select1>
-						<select1 ref="/data/individual/accepted_hiv_testing">
+						<select1 ref="/form/individual/accepted_hiv_testing">
 							<label>Accepted HIV Testing</label>
 							<item>
 								<label>Yes</label>
@@ -994,7 +996,7 @@
 								<value>n</value>
 							</item>
 						</select1>
-						<select ref="/data/individual/reasons_for_decline">
+						<select ref="/form/individual/reasons_for_decline">
 							<label>Reasons for Declining</label>
 							<hint>Select at most three reasons.</hint>
 							<item>
@@ -1030,9 +1032,9 @@
 								<value>other</value>
 							</item>
 						</select>
-						<group ref="/data/individual/hiv_results_group">
+						<group ref="/form/individual/hiv_results_group">
 							<label>HIV Test Results</label>
-							<select1 ref="/data/individual/test1_result">
+							<select1 ref="/form/individual/test1_result">
 								<label>Test 1 Result</label>
 								<item>
 									<label>Reactive</label>
@@ -1047,7 +1049,7 @@
 									<value>equivocal</value>
 								</item>
 							</select1>
-							<select1 ref="/data/individual/test2_name">
+							<select1 ref="/form/individual/test2_name">
 								<label>Test 2 Name</label>
 								<item>
 									<label>Bioline</label>
@@ -1058,7 +1060,7 @@
 									<value>unigold</value>
 								</item>
 							</select1>
-							<select1 ref="/data/individual/test2_result">
+							<select1 ref="/form/individual/test2_result">
 								<label>Test 2 Result</label>
 								<item>
 									<label>Reactive</label>
@@ -1073,7 +1075,7 @@
 									<value>equivocal</value>
 								</item>
 							</select1>
-							<select1 ref="/data/individual/test3_name">
+							<select1 ref="/form/individual/test3_name">
 								<label>Test 3 Name</label>
 								<item>
 									<label>Bioline</label>
@@ -1084,7 +1086,7 @@
 									<value>unigold</value>
 								</item>
 							</select1>
-							<select1 ref="/data/individual/test3_result">
+							<select1 ref="/form/individual/test3_result">
 								<label>Test 3 Result</label>
 								<item>
 									<label>Reactive</label>
@@ -1099,10 +1101,10 @@
 									<value>equivocal</value>
 								</item>
 							</select1>
-							<input ref="/data/individual/test_outcome">
+							<input ref="/form/individual/test_outcome">
 								<label>TEST RESULTS</label>
 							</input>
-							<select1 ref="/data/individual/couple_tested_together">
+							<select1 ref="/form/individual/couple_tested_together">
 								<label>Couple Tested Together</label>
 								<item>
 									<label>Yes</label>
@@ -1117,7 +1119,7 @@
 									<value>notapplicable</value>
 								</item>
 							</select1>
-							<select1 ref="/data/individual/discordant_couple">
+							<select1 ref="/form/individual/discordant_couple">
 								<label>Discordant Couple</label>
 								<item>
 									<label>Yes</label>
@@ -1136,15 +1138,15 @@
 									<value>notapplicable</value>
 								</item>
 							</select1>
-							<input ref="/data/individual/partner_hct_id">
+							<input ref="/form/individual/partner_hct_id">
 								<label>Partners HCT ID</label>
 							</input>
 						</group>
 					</group>
 <!-- TB Screening -->
-					<group ref="/data/individual/tb_screening_group">
+					<group ref="/form/individual/tb_screening_group">
 						<label>TB Screening</label>
-						<select1 ref="/data/individual/cough_gt_2_wks">
+						<select1 ref="/form/individual/cough_gt_2_wks">
 							<label>Cough For Past Two Weeks</label>
 							<item>
 								<label>Yes</label>
@@ -1155,7 +1157,7 @@
 								<value>n</value>
 							</item>
 						</select1>
-						<select1 ref="/data/individual/blood_cough_past_year">
+						<select1 ref="/form/individual/blood_cough_past_year">
 							<label>Bloody Cough for Past Year</label>
 							<item>
 								<label>Yes</label>
@@ -1166,7 +1168,7 @@
 								<value>n</value>
 							</item>
 						</select1>
-						<select1 ref="/data/individual/fever_gt_3_wks">
+						<select1 ref="/form/individual/fever_gt_3_wks">
 							<label>Fever For Past Three Weeks</label>
 							<item>
 								<label>Yes</label>
@@ -1177,7 +1179,7 @@
 								<value>n</value>
 							</item>
 						</select1>
-						<select1 ref="/data/individual/weight_loss_past_year">
+						<select1 ref="/form/individual/weight_loss_past_year">
 							<label>Weight Loss in Past Year</label>
 							<item>
 								<label>Yes</label>
@@ -1188,7 +1190,7 @@
 								<value>n</value>
 							</item>
 						</select1>
-						<select1 ref="/data/individual/tb_in_household">
+						<select1 ref="/form/individual/tb_in_household">
 							<label>TB in Household</label>
 							<item>
 								<label>Yes</label>
@@ -1199,7 +1201,7 @@
 								<value>n</value>
 							</item>
 						</select1>
-						<select1 ref="/data/individual/failure_to_thrive">
+						<select1 ref="/form/individual/failure_to_thrive">
 							<label>Failure to Thrive</label>
 							<item>
 								<label>Yes</label>
@@ -1210,7 +1212,7 @@
 								<value>n</value>
 							</item>
 						</select1>
-						<select1 ref="/data/individual/current_tb_tx_status">
+						<select1 ref="/form/individual/current_tb_tx_status">
 							<label>Currently on TB Treatment</label>
 							<item>
 								<label>Yes</label>
@@ -1222,9 +1224,9 @@
 							</item>
 						</select1>
 					</group>
-					<group ref="/data/individual/tb_info_group">
+					<group ref="/form/individual/tb_info_group">
 						<label>TB Treatment History</label>
-						<select1 ref="/data/individual/past_tb_tx_status">
+						<select1 ref="/form/individual/past_tb_tx_status">
 							<label>Past TB Treatment</label>
 							<item>
 								<label>Yes</label>
@@ -1235,7 +1237,7 @@
 								<value>n</value>
 							</item>
 						</select1>
-						<select1 ref="/data/individual/past_tb_tx_year">
+						<select1 ref="/form/individual/past_tb_tx_year">
 							<label>Year of Past Treatment</label>
 							<item>
 								<label>2009</label>
@@ -1326,7 +1328,7 @@
 								<value>unknown</value>
 							</item>
 						</select1>
-						<select1 ref="/data/individual/completed_8_mths_tb_tx">
+						<select1 ref="/form/individual/completed_8_mths_tb_tx">
 							<label>Completed 8 Months Treatment</label>
 							<item>
 								<label>Yes</label>
@@ -1342,9 +1344,9 @@
 							</item>
 						</select1>
 					</group>
-					<group ref="/data/individual/tb_screening_group">
+					<group ref="/form/individual/tb_screening_group">
 						<label>TB Screening</label>
-						<select1 ref="/data/individual/sputum_collected">
+						<select1 ref="/form/individual/sputum_collected">
 							<label>Spot 1 Sputum Collected</label>
 							<item>
 								<label>Yes</label>
@@ -1365,7 +1367,7 @@
 						</select1> 
 					</group>
 					<!-- FOLLOW UP -->
-					<select1 ref="/data/individual/follow_up_one">
+					<select1 ref="/form/individual/follow_up_one">
 						<label>Select First FollowUp</label>
 						<item>
 							<label>Repeat Testing 3 - 6 Months</label>
@@ -1400,7 +1402,7 @@
 							<value>none</value>
 						</item>
 					</select1>
-					<select1 ref="/data/individual/follow_up_two">
+					<select1 ref="/form/individual/follow_up_two">
 						<label>Select Second FollowUp</label>
 						<item>
 							<label>Repeat Testing 3 - 6 Months</label>
@@ -1431,7 +1433,7 @@
 							<value>sputumresults</value>
 						</item>
 					</select1>
-					<select1 ref="/data/individual/follow_up_three">
+					<select1 ref="/form/individual/follow_up_three">
 						<label>Select Third FollowUp</label>
 						<item>
 							<label>Repeat Testing 3 - 6 Months</label>
@@ -1462,10 +1464,10 @@
 							<value>sputumresults</value>
 						</item>
 					</select1>
-					<input ref="/data/individual/follow_up_date">
+					<input ref="/form/individual/follow_up_date">
 						<label>Follow Up Date</label>
 					</input>
-					<select1 ref="/data/individual/preferred_clinic">
+					<select1 ref="/form/individual/preferred_clinic">
 						<label>Preferred Clinic:</label>
 						<item>
 							<label>AMPATH</label>
@@ -1484,7 +1486,7 @@
 							<value>webuye</value>
 						</item>
 					</select1>					
-					<select1 ref="/data/individual/really_sick">
+					<select1 ref="/form/individual/really_sick">
 						<label>Looks really sick?</label>
 						<item>
 							<label>Yes</label>
