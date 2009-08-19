@@ -46,7 +46,7 @@
 					<deviceid/>
 					<subscriberid/>
 					<simid/>
-					<phonenumber/>
+					<phonenumber/> 
 					<string/>
 					<int/>
 					<decimal>18.31</decimal>
@@ -66,6 +66,7 @@
 						<item_decimal>1234567890.1234567890</item_decimal>
 					</repeat_a>
 					<calculate/>
+					<trigger/>
 					<output/> 
 					<geopoint/>
 					<barcode/>
@@ -73,7 +74,7 @@
 					<audio/>
 					<video/>
 				</widgets>
-			</instance>
+			</instance>   
 			<bind nodeset="/widgets/start" type="time" jr:preload="timestamp" jr:preloadParams="start"/>
 			<bind nodeset="/widgets/end" type="time" jr:preload="timestamp" jr:preloadParams="end"/>
 			<bind nodeset="/widgets/now" type="time" jr:preload="timestamp" jr:preloadParams="now"/>
@@ -95,7 +96,8 @@
 			<bind nodeset="/widgets/barcode" type="barcode"/>
 			<bind nodeset="/widgets/image" type="binary"/>
 			<bind nodeset="/widgets/audio" type="binary"/>
-			<bind nodeset="/widgets/video" type="binary"/>
+			<bind nodeset="/widgets/video" type="binary"/>                        
+			<bind nodeset="/widgets/trigger" constraint=". != ''" />
 			<bind nodeset="/widgets/calculate" calculate="if(../int = '5', 'five', 'not five')"/>
 			<bind nodeset="/widgets/output" type="string" readonly="true()" relevant="selected(/widgets/branch, 'n')"/>
 			<bind nodeset="/widgets/repeat_a"/>
@@ -106,7 +108,11 @@
 			<bind nodeset="/widgets/repeat_a/repeat_b/item_string_b" type="string"/>
 		</model>
 	</h:head>
-	<h:body>
+	<h:body>     
+		<trigger ref="trigger">
+			<label>trigger question</label>
+			<hint>need to push button</hint>
+		</trigger>
 		<input ref="string">
 			<label>string question</label>
 			<hint>can be short or very long</hint>
