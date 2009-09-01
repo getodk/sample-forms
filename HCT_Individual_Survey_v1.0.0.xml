@@ -215,14 +215,14 @@
 		</model>
 	</h:head>
 	<h:body>
+		<input ref="/form/individual/household">
+			<label>Household Counseling and Testing for the Household ID
+			</label>
+			<hint>Please confirm this ID is correct.</hint>
+		</input>
 		<group>
 			<label>Individual Section</label>
 			<repeat nodeset="/form/individual">
-				<input ref="/form/individual/household">
-					<label>Household Counseling and Testing for the Household ID
-					</label>
-					<hint>Please confirm this ID is correct.</hint>
-				</input>
 				<input ref="/form/individual/first_name">
 					<label>First Name</label>
 				</input>
