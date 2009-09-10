@@ -1,0 +1,199 @@
+<?xml version="1.0"?>
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:jr="http://openrosa.org/javarosa">
+	<h:head>
+		<h:title>Test Form</h:title>
+		<model>
+			<itext>
+				<translation lang="English">
+					<text id="red">
+						<value>Red</value>
+					</text>
+					<text id="green">
+						<value>Green</value>
+					</text>
+					<text id="yellow">
+						<value>Yellow</value>
+					</text>
+					<text id="person_color">
+						<value>What is this person's favorite color?</value>
+					</text>
+				</translation>
+				<translation lang="Spanish">
+					<text id="red">
+						<value>Rojo</value>
+					</text>
+					<text id="green">
+						<value>Verde</value>
+					</text>
+					<text id="yellow">
+						<value>Amarillo</value>
+					</text>
+					<text id="person_color">
+						<value>&#xBF;Cual es el color favorito de esa persona?</value>
+					</text>
+				</translation>
+				<translation lang="Swahili">
+					<text id="red">
+						<value>Nyekundu</value>
+					</text>
+					<text id="green">
+						<value>Kijani</value>
+					</text>
+					<text id="yellow">
+						<value>Njano</value>
+					</text>
+					<text id="person_color">
+						<value>Huyu anapendelea rangi gani?</value>
+					</text>
+				</translation>
+				<translation lang="French">
+					<text id="red">
+						<value>Rouge</value>
+					</text>
+					<text id="green">
+						<value>Vert</value>
+					</text>
+					<text id="yellow">
+						<value>Jaune</value>
+					</text>
+					<text id="person_color">
+						<value>Quelle est la couleur pr&#xE9;f&#xE9;r&#xE9;e de cette personne?</value>
+					</text>
+				</translation>
+			</itext>
+			<instance>
+				<household>
+					<survey_taker>John Smith</survey_taker>
+					<survey_device/>
+					<household_address/>
+					<household_zipcode/>
+					<household_image/>
+					<household_location/>
+					<household_features/>
+					<household_count/>
+					<household_people>
+						<person jr:template="">
+							<person_name/>
+							<person_age/>
+							<person_color/>
+						</person>
+					</household_people>
+				</household>
+			</instance>
+			<bind nodeset="survey_taker" required="true()"/>
+			<bind nodeset="survey_device" required="true()"/>
+			<bind nodeset="household_address" relevant="selected(../survey_device, 'n')" required="true()"/>
+			<bind nodeset="household_zipcode" relevant="selected(../survey_device, 'n')" constraint=". &gt;= 00210 and . &lt;= 99950" jr:constraintMsg="Zipcodes must less than 99951 and greater than 00209!" required="true()" type="integer"/>
+			<bind nodeset="household_features" relevant="selected(../survey_device, 'n')"/>
+			<bind nodeset="household_image" relevant="selected(../survey_device, 'y')"/>
+			<bind nodeset="household_location" relevant="selected(../survey_device, 'y')" type="geopoint"/>
+			<bind nodeset="household_count"/>
+			<bind nodeset="/household/household_people/person/person_name" required="true()"/>
+			<bind nodeset="/household/household_people/person/person_age" constraint=". &lt;= today()" jr:constraintMsg="Birthdays cannot be in the future!" type="date"/>
+			<bind nodeset="/household/household_people/person/person_color"/>
+		</model>
+	</h:head>
+	<h:body>
+		<input ref="survey_taker">
+			<label>What is your name?</label>
+		</input>
+		<select1 ref="survey_device">
+			<label>Are you using the fancy T-Mobile G1 phone?</label>
+			<item>
+				<label>Yes</label>
+				<value>y</value>
+			</item>
+			<item>
+				<label>No</label>
+				<value>n</value>
+			</item>
+		</select1>
+		<group>
+			<label>Household Information</label>
+			<input ref="household_address">
+				<label>What is the street address?</label>
+			</input>
+			<input ref="household_zipcode">
+				<label>What is the zip code?</label>
+			</input>
+			<select ref="household_features">
+				<label>Does the house have any of these features?</label>
+				<item>
+					<label>Chimney</label>
+					<value>chimney</value>
+				</item>
+				<item>
+					<label>Driveway</label>
+					<value>driveway</value>
+				</item>
+				<item>
+					<label>Dog</label>
+					<value>dog</value>
+				</item>
+				<item>
+					<label>Fence</label>
+					<value>fence</value>
+				</item>
+				<item>
+					<label>Garage</label>
+					<value>garage</value>
+				</item>
+				<item>
+					<label>Lawn</label>
+					<value>lawn</value>
+				</item>
+				<item>
+					<label>Mailbox</label>
+					<value>mailbox</value>
+				</item>
+				<item>
+					<label>Porch</label>
+					<value>porch</value>
+				</item>
+				<item>
+					<label>Roof</label>
+					<value>roof</value>
+				</item>
+				<item>
+					<label>Windows</label>
+					<value>windows</value>
+				</item>
+			</select>
+		</group>
+		<group>
+			<label>Household Information</label>
+			<input ref="household_location">
+				<label>Stand near the front door and get a GPS reading.</label>
+			</input>
+			<upload ref="household_image" mediatype="image/*">
+				<label>Take a picture of the entire front of the house.</label>
+			</upload>
+		</group>
+		<group>
+			<label>Household Member</label>
+			<repeat nodeset="/household/household_people/person">
+				<input ref="person_name">
+					<label>What is the person's name?</label>
+				</input>
+				<input ref="person_age">
+					<label>When was the person born?</label>
+				</input>
+				<select1 ref="person_color">
+					<label ref="jr:itext('person_color')"/>
+					<item>
+						<label ref="jr:itext('red')"/>
+						<value>red</value>
+					</item>
+					<item>
+						<label ref="jr:itext('green')"/>
+						<value>green</value>
+					</item>
+					<item>
+						<label ref="jr:itext('yellow')"/>
+						<value>yellow</value>
+					</item>
+				</select1>
+			</repeat>
+		</group>
+	</h:body>
+</h:html>
