@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:jr="http://openrosa.org/javarosa">
+	<h:head>
+		<h:title>Geo Tagger</h:title>
+		<model>
+			<instance xmlns="geotagger">
+				<geotagger>
+					<timestamp/>
+					<image/>
+					<geopoint/>
+					<string/>
+				</geotagger>
+			</instance>
+			<bind nodeset="/geotagger/timestamp" type="time" jr:preload="timestamp" jr:preloadParams="now"/>
+			<bind nodeset="/geotagger/deviceid" type="string" jr:preload="property" jr:preloadParams="deviceid"/>
+			<bind nodeset="/geotagger/subscriberid" type="string" jr:preload="property" jr:preloadParams="subscriberid"/>
+			<bind nodeset="/geotagger/geopoint" type="geopoint"/>
+			<bind nodeset="/geotagger/image" type="binary"/>
+			<bind nodeset="/geotagger/string" type="string"/>
+		</model>
+	</h:head>
+	<h:body>
+		<upload ref="image" mediatype="image/*">
+			<label>What do you see?</label>
+		</upload>
+		<input ref="geopoint">
+			<label>Where are you?</label>
+		</input>
+		<input ref="string">
+			<label>Any thoughts?</label>
+		</input>
+	</h:body>
+</h:html>
