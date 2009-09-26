@@ -38,7 +38,7 @@
 				</translation>
 			</itext>
 			<instance>
-				<widgets>
+				<widgets xmlns="widgets">
 					<start/>
 					<end/>
 					<now/>
@@ -77,7 +77,6 @@
 			</instance>   
 			<bind nodeset="/widgets/start" type="time" jr:preload="timestamp" jr:preloadParams="start"/>
 			<bind nodeset="/widgets/end" type="time" jr:preload="timestamp" jr:preloadParams="end"/>
-			<bind nodeset="/widgets/now" type="time" jr:preload="timestamp" jr:preloadParams="now"/>
 			<bind nodeset="/widgets/today" type="date" jr:preload="date" jr:preloadParams="today"/>
 			<bind nodeset="/widgets/deviceid" type="string" jr:preload="property" jr:preloadParams="deviceid"/>
 			<bind nodeset="/widgets/subscriberid" type="string" jr:preload="property" jr:preloadParams="subscriberid"/>

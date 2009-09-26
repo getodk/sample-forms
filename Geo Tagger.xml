@@ -3,17 +3,19 @@
 	<h:head>
 		<h:title>Geo Tagger</h:title>
 		<model>
-			<instance xmlns="geotagger">
-				<geotagger>
-					<timestamp/>
+			<instance>
+				<geotagger xlmns="geotagger">
+					<timestamp />
+					<device_id/>
+					<subscriber_id/>
 					<image/>
 					<geopoint/>
 					<string/>
 				</geotagger>
 			</instance>
 			<bind nodeset="/geotagger/timestamp" type="time" jr:preload="timestamp" jr:preloadParams="now"/>
-			<bind nodeset="/geotagger/deviceid" type="string" jr:preload="property" jr:preloadParams="deviceid"/>
-			<bind nodeset="/geotagger/subscriberid" type="string" jr:preload="property" jr:preloadParams="subscriberid"/>
+			<bind nodeset="/geotagger/device_id" type="string" jr:preload="property" jr:preloadParams="deviceid"/>
+			<bind nodeset="/geotagger/subscriber_id" type="string" jr:preload="property" jr:preloadParams="subscriberid"/>
 			<bind nodeset="/geotagger/geopoint" type="geopoint"/>
 			<bind nodeset="/geotagger/image" type="binary"/>
 			<bind nodeset="/geotagger/string" type="string"/>

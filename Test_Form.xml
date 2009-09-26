@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <h:html xmlns="http://www.w3.org/2002/xforms" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:jr="http://openrosa.org/javarosa">
 	<h:head>
-		<h:title>Test Form</h:title>
+		<h:title>Tests Form</h:title>
 		<model>
 			<itext>
 				<translation lang="English">
@@ -62,7 +62,7 @@
 				</translation>
 			</itext>
 			<instance>
-				<household>
+				<household xmlns="test_form">
 					<survey_taker>John Smith</survey_taker>
 					<survey_device/>
 					<household_address/>
