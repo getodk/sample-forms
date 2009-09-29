@@ -41,7 +41,6 @@
 				<widgets xmlns="widgets">
 					<start/>
 					<end/>
-					<now/>
 					<today/>
 					<deviceid/>
 					<subscriberid/>
@@ -75,8 +74,8 @@
 					<video/>
 				</widgets>
 			</instance>   
-			<bind nodeset="/widgets/start" type="time" jr:preload="timestamp" jr:preloadParams="start"/>
-			<bind nodeset="/widgets/end" type="time" jr:preload="timestamp" jr:preloadParams="end"/>
+			<bind nodeset="/widgets/start" type="dateTime" jr:preload="timestamp" jr:preloadParams="start"/>
+			<bind nodeset="/widgets/end" type="dateTime" jr:preload="timestamp" jr:preloadParams="end"/>
 			<bind nodeset="/widgets/today" type="date" jr:preload="date" jr:preloadParams="today"/>
 			<bind nodeset="/widgets/deviceid" type="string" jr:preload="property" jr:preloadParams="deviceid"/>
 			<bind nodeset="/widgets/subscriberid" type="string" jr:preload="property" jr:preloadParams="subscriberid"/>
