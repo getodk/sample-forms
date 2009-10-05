@@ -96,7 +96,7 @@
 			<bind nodeset="/widgets/audio" type="binary"/>
 			<bind nodeset="/widgets/video" type="binary"/>                        
 			<bind nodeset="/widgets/trigger" constraint=". != ''" />
-			<bind nodeset="/widgets/calculate" calculate="if(../int = '5', 'five', 'not five')"/>
+			<bind nodeset="/widgets/calculate" calculate="if(../int &gt '5', 'greater than five', 'less than or equal to five')"/>
 			<bind nodeset="/widgets/output" type="string" readonly="true()" relevant="selected(/widgets/branch, 'n')"/>
 			<bind nodeset="/widgets/repeat_a"/>
 			<bind nodeset="/widgets/repeat_a/item_string_a" type="string" readonly="true()"/>
@@ -107,10 +107,6 @@
 		</model>
 	</h:head>
 	<h:body>     
-		<trigger ref="trigger">
-			<label>trigger question</label>
-			<hint>need to push button</hint>
-		</trigger>
 		<input ref="string">
 			<label>string question</label>
 			<hint>can be short or very long</hint>
@@ -208,6 +204,10 @@
 				</group>
 			</group>
 		</group>
+		<trigger ref="trigger">
+			<label>trigger question</label>
+			<hint>need to push button</hint>
+		</trigger>
 		<input ref="regex">
 			<label>regex question</label>
 			<hint>email validator</hint>
@@ -232,7 +232,7 @@
 			<label>video question</label>
 		</upload>
 		<input ref="output">
-			<label>output question. is your email still <output value="/widgets/regex"/>? was your integer answer <output value="/widgets/calculate"/>?</label>
+			<label>review question. is your email still <output value="/widgets/regex"/>? was your integer answer <output value="/widgets/calculate"/>?</label>
 			<hint>long hint: there is an upcoming repeat. lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</hint>
 		</input>
 		<group>
