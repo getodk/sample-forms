@@ -82,7 +82,7 @@
 			<bind nodeset="/widgets/simid" type="string" jr:preload="property" jr:preloadParams="simserial"/>
 			<bind nodeset="/widgets/phonenumber" type="string" jr:preload="property" jr:preloadParams="phonenumber"/>
 			<bind nodeset="/widgets/string" type="string"/>
-			<bind nodeset="/widgets/int" type="int" constraint=". &lt; 10" jr:constraintMsg="number cannot be above 10"/>
+			<bind nodeset="/widgets/int" type="int" constraint=". &lt; 10" jr:constraintMsg="number must be less than 10"/>
 			<bind nodeset="/widgets/decimal" type="decimal" constraint=". &gt; 10.51 and . &lt; 18.39" jr:constraintMsg="number must be between 10.51 and 18.39"/>
 			<bind nodeset="/widgets/date" type="date" constraint=". &gt;= today()" jr:constraintMsg="only future dates allowed"/>
 			<bind nodeset="/widgets/select" type="select" constraint="not(selected(., 'c') and selected(., 'd'))" jr:constraintMsg="option c and d cannot be selected together"/>
