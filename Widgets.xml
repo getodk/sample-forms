@@ -6,7 +6,7 @@
 			<itext>
 				<translation lang="english">
 					<text id="hello">
-						<value>language question</value>
+						<value>i speak english</value>
 					</text>
 					<text id="hint">
 						<value>menu button to change languages</value>
@@ -108,12 +108,12 @@
 	</h:head>
 	<h:body>     
 		<input ref="string">
-			<label>string question</label>
+			<label ref="jr:itext('hello')"/>
 			<hint>can be short or very long</hint>
 		</input>
 		<input ref="int">
 			<label>integer question</label>
-			<hint>try entering a number &gt; 10</hint>
+			<hint ref="jr:itext('hint')"/>
 		</input>
 		<input ref="decimal">
 			<label>decimal question</label>
