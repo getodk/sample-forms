@@ -4,7 +4,7 @@
 		<h:title>Geo Tagger</h:title>
 		<model>
 			<instance>
-				<geotagger xmlns="geotagger">
+				<geotagger xmlns="http://open-data-kit.googlecode.com/svn/resources/forms/Geo%20Tagger.xml">
 					<timestamp />
 					<device_id/>
 					<subscriber_id/>
@@ -29,7 +29,7 @@
 			<label>Where are you?</label>
 		</input>
 		<input ref="string">
-			<label>Any thoughts?</label>
+			<label>Any other thoughts?</label>
 		</input>
 	</h:body>
 </h:html>
