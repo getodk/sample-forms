@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <h:html xmlns="http://www.w3.org/2002/xforms" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:jr="http://openrosa.org/javarosa">
 	<h:head>
-		<h:title>Starter Form</h:title>
+		<h:title>Basic Form</h:title>
 		<model>
 			<instance>
 				<!-- submitted data and defaults go here -->
-				<data xmlns="starter_form">
+				<data xmlns="basic_form">
 					<string_data/>
 				</data>
 			</instance> 
