@@ -108,12 +108,12 @@
 	</h:head>
 	<h:body>     
 		<input ref="string">
-			<label ref="jr:itext('hello')"/>
+			<label>string question</label>
 			<hint>can be short or very long</hint>
 		</input>
 		<input ref="int">
 			<label>integer question</label>
-			<hint ref="jr:itext('hint')"/>
+			<hint>try entering a number &gt; 10</hint>
 		</input>
 		<input ref="decimal">
 			<label>decimal question</label>
