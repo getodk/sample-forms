@@ -8,7 +8,7 @@
 
     <model>
       <instance>
-        <imci xmlns="http://dtree.org/e-imci">
+        <imci xmlns="imci">
         <Meta>
 		  <formName>IMCI</formName>
 		  <formVersion>0.0.1</formVersion>

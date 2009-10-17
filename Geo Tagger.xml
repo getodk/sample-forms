@@ -4,7 +4,7 @@
 		<h:title>Geo Tagger</h:title>
 		<model>
 			<instance>
-				<geotagger xmlns="http://open-data-kit.googlecode.com/svn/resources/forms/Geo%20Tagger.xml">
+				<geotagger xmlns="geo_tagger">
 					<timestamp />
 					<device_id/>
 					<subscriber_id/>

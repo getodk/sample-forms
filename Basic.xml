@@ -5,7 +5,7 @@
 		<model>
 			<instance>
 				<!-- submitted data and defaults go here -->
-				<data xmlns="http://open-data-kit.googlecode.com/svn/resources/forms/Basic.xml">
+				<data xmlns="basic">
 					<string_data/>
 				</data>
 			</instance> 

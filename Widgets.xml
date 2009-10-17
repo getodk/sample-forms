@@ -38,7 +38,7 @@
 				</translation>
 			</itext>
 			<instance>
-				<widgets xmlns="http://open-data-kit.googlecode.com/svn/resources/forms/Widgets.xml">
+				<widgets xmlns="widgets">
 					<start/>
 					<end/>
 					<today/>
