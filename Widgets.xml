@@ -38,7 +38,7 @@
 				</translation>
 			</itext>
 			<instance>
-				<widgets xmlns="widgets">
+				<widgets id="widgets">
 					<start/>
 					<end/>
 					<today/>

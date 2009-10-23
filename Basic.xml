@@ -5,7 +5,7 @@
 		<model>
 			<instance>
 				<!-- submitted data and defaults go here -->
-				<data xmlns="basic">
+				<data id="basic">
 					<string_data/>
 				</data>
 			</instance> 

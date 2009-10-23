@@ -4,7 +4,7 @@
 		<h:title>Geo Tagger</h:title>
 		<model>
 			<instance>
-				<geotagger xmlns="geo_tagger">
+				<geotagger id="geo_tagger" >
 					<timestamp />
 					<device_id/>
 					<subscriber_id/>
@@ -13,7 +13,7 @@
 					<string/>
 				</geotagger>
 			</instance>
-			<bind nodeset="/geotagger/timestamp" type="dateTime" jr:preload="timestamp" jr:preloadParams="now"/>
+			<bind nodeset="/geotagger/timestamp" type="dateTime" jr:preload="timestamp" jr:preloadParams="start"/>
 			<bind nodeset="/geotagger/device_id" type="string" jr:preload="property" jr:preloadParams="deviceid"/>
 			<bind nodeset="/geotagger/subscriber_id" type="string" jr:preload="property" jr:preloadParams="subscriberid"/>
 			<bind nodeset="/geotagger/geopoint" type="geopoint"/>

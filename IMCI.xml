@@ -8,7 +8,7 @@
 
     <model>
       <instance>
-        <imci xmlns="imci">
+        <imci id="imci">
         <Meta>
 		  <formName>IMCI</formName>
 		  <formVersion>0.0.1</formVersion>
