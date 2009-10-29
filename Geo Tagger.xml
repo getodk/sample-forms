@@ -4,32 +4,28 @@
 		<h:title>Geo Tagger</h:title>
 		<model>
 			<instance>
-				<geotagger id="geo_tagger" >
-					<timestamp />
-					<device_id/>
-					<subscriber_id/>
-					<image/>
-					<geopoint/>
-					<string/>
+				<geotagger id="geo_tagger">
+					<DeviceId/>
+					<Image/>
+					<Location/>
+					<Description/>
 				</geotagger>
 			</instance>
-			<bind nodeset="/geotagger/timestamp" type="dateTime" jr:preload="timestamp" jr:preloadParams="start"/>
-			<bind nodeset="/geotagger/device_id" type="string" jr:preload="property" jr:preloadParams="deviceid"/>
-			<bind nodeset="/geotagger/subscriber_id" type="string" jr:preload="property" jr:preloadParams="subscriberid"/>
-			<bind nodeset="/geotagger/geopoint" type="geopoint"/>
-			<bind nodeset="/geotagger/image" type="binary"/>
-			<bind nodeset="/geotagger/string" type="string"/>
+			<bind nodeset="/geotagger/DeviceId" type="string" jr:preload="property" jr:preloadParams="deviceid"/>
+			<bind nodeset="/geotagger/Image" type="binary"/>
+			<bind nodeset="/geotagger/Location" type="geopoint"/>
+			<bind nodeset="/geotagger/Description" type="string"/>
 		</model>
 	</h:head>
 	<h:body>
-		<upload ref="image" mediatype="image/*">
-			<label>What do you see?</label>
+		<upload ref="Image" mediatype="image/*">
+			<label>Please capture an image.</label>
 		</upload>
-		<input ref="geopoint">
-			<label>Where are you?</label>
+		<input ref="Location">
+			<label>Now, capture your location.</label>
 		</input>
-		<input ref="string">
-			<label>Any other thoughts?</label>
+		<input ref="Description">
+			<label>Describe the image and where you are.</label>
 		</input>
 	</h:body>
 </h:html>
