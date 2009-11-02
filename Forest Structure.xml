@@ -404,139 +404,402 @@
 					</text>
 				</translation>
 				<translation lang="Swahili">
-					<text id="ID"><value>Swahili</value></text>
-					<text id="yes"><value>Ndiyo</value></text>
-					<text id="no"><value>Hapana</value></text>
-					<text id="plot_id"><value>Kitambulisho cha ploti</value></text>
-					<text id="plot_id_hint"><value>mwaka,mwezi,siku +numba ya utambulisho ya UM + namba ya ploti</value></text>
-					<text id="data_collected_by"><value>takwimu zimekusanywa na</value></text>
-					<text id="data_entered_by"><value>takwimu zimeingizwa na </value></text>
-					<text id="date"><value>tarehe</value></text>
-					<text id="un_country_code"><value>nchi</value></text>
-					<text id="gps_coordinates"><value>majira ya nukta ya GPS</value></text>
-					<text id="gps_coordinates_hint"><value>tafadhali simama katikati ya ploti kupata majira ya nukta</value></text>
-					<text id="estimated_distance_to_road_km"><value>kadiria umbali kutoka barabarani ( kwa kilometa)</value></text>
-					<text id="estimated_distance_to_water_km"><value>Kadiria umbali kutoka kwenye maji ( kwa kilometa)</value></text>
-					<text id="estimated_distance_to_settlement_km"><value>Kadiria umbali kutoka kwenye makazi ( kwa kilometa)</value></text>
-					<text id="land_cover_use_description"><value>kifuniko ardhi /tumia maelezo</value></text>
-					<text id="vegetation"><value>uoto</value></text>
-					<text id="habitat"><value>Makazi </value></text>
-					<text id="human_land_cover_use"><value>sehemu inayokaliwa/ inayotumiwa na watu</value></text>
-					<text id="topography"><value>sura ya nchi</value></text>
-					<text id="water_regime"><value>mwenendo wa maji</value></text>
-					<text id="soil"><value>udongo</value></text>
-					<text id="canopy_cover"><value>eneo lenye kivuli</value></text>
-					<text id="dominance_canopy"><value>Kivuli tawala</value></text>
-					<text id="canopy_height"><value>urefu wa kivuli</value></text>
-					<text id="dominance_understory"><value>mimea midogo ndani ya msitu</value></text>
-					<text id="understory_type"><value>aina ya mimea midogo ndani ya msitu</value></text>
-					<text id="evidence_of_logging"><value>ushahidi wa uvunaji mbao</value></text>
-					<text id="evidence_of_logging_description"><value>elezea ushahidi wa kuwepo kwa uvunaji mbao</value></text>
-					<text id="evidence_of_fire"><value>ushahidi wa kuwepo uchomaji moto</value></text>
-					<text id="evidence_of_fire_description"><value>ushahidi wa kuwepo machungio ya mifugo</value></text>
-					<text id="evidence_of_grazing"><value>ushahidi wa uchungaji wa mifugo/ malisho</value></text>
-					<text id="evidence_of_grazing_description"><value>eleza ushahidi wa kuwepo kwa uchungaji wa mifugo</value></text>
-					<text id="general_description_notable_features"><value>maelezo ya jumla na mwonekano wa mahali</value></text>
-					<text id="tallest_tree_measurement"><value>upimaji wa mti mrefu</value></text>
-					<text id="tallest_tree_dbh_cm"><value>DBH ya mti (sm)</value></text>
-					<text id="tree_dbh_hint"><value>chukua taarifa ya miti hai yenye DBH >sm5</value></text>
-					<text id="tallest_tree_h_m"><value>urefu wa mti (m)</value></text>
-					<text id="tallest_tree_dbh_cm_1"><value>DBH ya mti 1 (sm)</value></text>
-					<text id="tallest_tree_h_m_1"><value>urefu wa mti 1 (m)</value></text>
-					<text id="tallest_tree_dbh_cm_2"><value>DBH ya mti 2 (sm)</value></text>
-					<text id="tallest_tree_h_m_2"><value>urefu wa mti 2 (m)</value></text>
-					<text id="tallest_tree_dbh_cm_3"><value>DBH ya mti 3 (sm)</value></text>
-					<text id="tallest_tree_h_m_3"><value>urefu wa mti 3 (m)</value></text>
-					<text id="plot_photo_north"><value>piga picha kuelekea kaskazini</value></text>
-					<text id="plot_photo_south"><value>piga picha kuelekea kusini</value></text>
-					<text id="plot_photo_east"><value>piga picha kuelekea mashariki</value></text>
-					<text id="plot_photo_west"><value>piga picha kuelekea magharibi</value></text>
-					<text id="plot_photo_up"><value>piga picha kuelekea juu</value></text>
-					<text id="plot_photo_hint"><value>kibao chenye kutambulisha ploti lazima kionekane kwenye picha</value></text>
-					<text id="tree_measurement"><value>kipimo cha mti</value></text>
-					<text id="tree_number"><value>namba ya mti</value></text>
-					<text id="tree_dbh_cm"><value>DBH ya mti (sm)</value></text>
-					<text id="tree_number_1"><value>namba ya mti 1</value></text>
-					<text id="tree_dbh_cm_1"><value>DBH ya mti 1 (sm)</value></text>
-					<text id="tree_number_2"><value>namba ya mti 2</value></text>
-					<text id="tree_dbh_cm_2"><value>DBH ya mti 2 (sm)</value></text>
-					<text id="tree_number_3"><value>namba ya mti 3</value></text>
-					<text id="tree_dbh_cm_3"><value>DBH ya mti 3 (sm)</value></text>
-					<text id="tree_number_4"><value>namba ya mti 4</value></text>
-					<text id="tree_dbh_cm_4"><value>DBH ya mti 4 (sm)</value></text>
-					<text id="tree_number_5"><value>namba ya mti 5</value></text>
-					<text id="tree_dbh_cm_5"><value>DBH ya mti 5 (sm)</value></text>
-					<text id="forest"><value>msitu</value></text>
-					<text id="woodland"><value>Eneo lenye miti iliyotawanyika na mchanganyiko wa nyasi</value></text>
-					<text id="shrub_bushland"><value>kichaka </value></text>
-					<text id="grassland"><value>mbuga</value></text>
-					<text id="forested_wetland"><value>ardhi oevu yenye msitu</value></text>
-					<text id="noforested_wetland"><value>ardhi oevu isiyokuwa na msitu(matete,vifundo)</value></text>
-					<text id="clearing"><value>kusafisha</value></text>
-					<text id="bamboo"><value>mwanzi</value></text>
-					<text id="bare_soil_long"><value>udongo wazi (bichi, tambarare yenye chumvi kavu)</value></text>
-					<text id="bare_rock"><value>mwamba wazi (isio na mimea)</value></text>
-					<text id="closed_tropical_high_forest"><value>msitu mnene wa kitropikia uliofunga (eneo la kivuli &gt;50%, miti mirefu &gt;m15)</value></text>
-					<text id="open_tropical_high_forest"><value>msitu mnene wa kitropikia ulio wazi (eneo la kivuli &lt;50%, miti mirefu &gt;m15)</value></text>
-					<text id="closed_young_secondary_forest"><value>msitu mchanga uliofunga (eneo la kivuli &gt;50%, miti mifupi &lt; m15)</value></text>
-					<text id="open_young_secondary_forest"><value>msitu mchanga ulio wazi (eneo la kivuli &lt;50%, miti mifupi &lt; m15)</value></text>
-					<text id="woodland_long"><value>Eneo la miti iliyotawanyika yenye nyasi chini yake</value></text>
-					<text id="shrub_bushland_long"><value>kichaka (miti michache kwenye kichaka kinene)</value></text>
-					<text id="grassland_long"><value>nyika (nusu kipenyo zaidi ya mita 20 bila miti)</value></text>
-					<text id="montane_grassland_long"><value>nyika za uwanda wa juu (nusu kipenyo zaidi ya mita 20 bila miti)</value></text>
-					<text id="swamp_long"><value>eneo tengefu (msitu unaotunza maji kwa kipindi fulani cha mwaka)</value></text>
-					<text id="fern_cover_radius_20m"><value>eneo lenye mimea jamii ya ukindu lenye duara la nusu kipenyo zaidi ya mita 20</value></text>
-					<text id="pure_stands_of_bamboo"><value>sehemu yenye mianzi pekee</value></text>
-					<text id="bamboo_mixed_with_forest"><value>miti ya mianzi iliyochanganyika na misitu</value></text>
-					<text id="bamboo_mixed_with_grassland"><value>miti ya mianzi iliyochanganyika na nyika</value></text>
-					<text id="other_describe"><value>aina nyingine (elezea)</value></text>
-					<text id="other_habitat_description"><value>elezea uoto makazi wa aina nyingine</value></text>
-					<text id="cultibation_with_tree_crops"><value>kilimo chenye miti ya mazao/ mazao ya kudumu</value></text>
-					<text id="cultibation_with_herbaceous_crops"><value>kilimo chenye asili ya majani/ nyasi/ mazao ya msimu</value></text>
-					<text id="mixed_cropping"><value>kilimo mseto</value></text>
-					<text id="cultivation_with_scattered_natural_vegetation"><value>kilimo kwenye uoto wa asili uliotawanyika</value></text>
-					<text id="tree_plantation"><value>upandaji wa miti</value></text>
-					<text id="mining"><value>uchimbaji wa madini</value></text>
-					<text id="logging"><value>uchanaji wa mbao</value></text>
-					<text id="road"><value>barabara</value></text>
-					<text id="foot_path"><value>njia za miguu</value></text>
-					<text id="rail"><value>reli</value></text>
-					<text id="bridge"><value>daraja</value></text>
-					<text id="intersection"><value>njia panda</value></text>
-					<text id="residential_dense_village_town"><value>Eneo la Makazi (penye mkusanyiko mkubwa , kijiji/mji)</value></text>
-					<text id="residential_scattered_household"><value>Eneo la makazi -penye mtawanyiko wa kaya</value></text>
-					<text id="bare_soil"><value>udongo wazi</value></text>
-					<text id="plain"><value>Tambarare</value></text>
-					<text id="steep_slope"><value>Mteremko mkali</value></text>
-					<text id="valley_bottom_riverline"><value>sakafu ya mto</value></text>
-					<text id="crest_hilltop"><value>kilele</value></text>
-					<text id="dry_ground"><value>ardhi kavu</value></text>
-					<text id="permanently_inundated"><value>kuwepo maji muda wote</value></text>
-					<text id="seasonally_inundated"><value>kuwepo maji kwa vipindi</value></text>
-					<text id="deep_soil"><value>udongo wa kina kirefu</value></text>
-					<text id="shallow_soil_over_rock"><value>udongo wa kina kifupi (juu ya mwamba)</value></text>
-					<text id="rock_no_soil"><value>Mwamba (hakuna Udongo)</value></text>
-					<text id="no_trees"><value>hakuna miti</value></text>
-					<text id="very_open_1_15"><value>wazi sana kwa asilimia 1-15 (1-15%)</value></text>
-					<text id="open_15_65"><value>wazi kwa asilimia 15-65 (15-65%)</value></text>
-					<text id="closed_gt_65"><value>imefunga kwa asilimia 65 (65%)</value></text>
-					<text id="none"><value>hakuna</value></text>
-					<text id="no_canopy"><value>hakuna kivuli</value></text>
-					<text id="low_lt_10m"><value>chini ya mita 10 (&lt;10)</value></text>
-					<text id="medium_10_25m"><value>wastani wa mita 10-25</value></text>
-					<text id="high_gt_25m"><value>juu ya m 25 (&gt;25m)</value></text>
-					<text id="mixed"><value>mchabganyiko</value></text>
-					<text id="dominance_monospecific"><value>tawala </value></text>
-					<text id="undefined"><value>isiyoelezeka</value></text>
-					<text id="wood"><value>mbao</value></text>
-					<text id="palm"><value>mchikichi</value></text>
-					<text id="non_woody_grass"><value>nyasi, isiyo miti</value></text>
-					<text id="non_woody_fern"><value>jamii ya mimea ya ukindu,isiyo miti</value></text>
-					<text id="non_woody_shrub"><value>kichaka, isiyo miti</value></text>
-					<text id="woody_liana"><value>kamba nene mti</value></text>
-					<text id="herbaceous_liana"><value>kamba nyembamba</value></text>
-					<text id="non_woody_undefined"><value>isiyo miti isiyoelezeka</value></text>
-					<text id="other"><value>mengineyo</value></text>
+					<text id="yes">
+						<value>Ndiyo</value>
+					</text>
+					<text id="no">
+						<value>Hapana</value>
+					</text>
+					<text id="plot_id">
+						<value>Kitambulisho cha ploti</value>
+					</text>
+					<text id="plot_id_hint">
+						<value>mwaka,mwezi,siku +numba ya utambulisho ya UM + namba ya ploti</value>
+					</text>
+					<text id="data_collected_by">
+						<value>takwimu zimekusanywa na</value>
+					</text>
+					<text id="data_entered_by">
+						<value>takwimu zimeingizwa na </value>
+					</text>
+					<text id="date">
+						<value>tarehe</value>
+					</text>
+					<text id="un_country_code">
+						<value>nchi</value>
+					</text>
+					<text id="gps_coordinates">
+						<value>majira ya nukta ya GPS</value>
+					</text>
+					<text id="gps_coordinates_hint">
+						<value>tafadhali simama katikati ya ploti kupata majira ya nukta</value>
+					</text>
+					<text id="estimated_distance_to_road_km">
+						<value>kadiria umbali kutoka barabarani (kwa kilometa)</value>
+					</text>
+					<text id="estimated_distance_to_water_km">
+						<value>Kadiria umbali kutoka kwenye maji (kwa kilometa)</value>
+					</text>
+					<text id="estimated_distance_to_settlement_km">
+						<value>Kadiria umbali kutoka kwenye makazi (kwa kilometa)</value>
+					</text>
+					<text id="land_cover_use_description">
+						<value>kifuniko ardhi /tumia maelezo</value>
+					</text>
+					<text id="vegetation">
+						<value>uoto</value>
+					</text>
+					<text id="habitat">
+						<value>Makazi </value>
+					</text>
+					<text id="human_land_cover_use">
+						<value>sehemu inayokaliwa/ inayotumiwa na watu</value>
+					</text>
+					<text id="topography">
+						<value>sura ya nchi</value>
+					</text>
+					<text id="water_regime">
+						<value>mwenendo wa maji</value>
+					</text>
+					<text id="soil">
+						<value>udongo</value>
+					</text>
+					<text id="canopy_cover">
+						<value>eneo lenye kivuli</value>
+					</text>
+					<text id="dominance_canopy">
+						<value>Kivuli tawala</value>
+					</text>
+					<text id="canopy_height">
+						<value>urefu wa kivuli</value>
+					</text>
+					<text id="dominance_understory">
+						<value>mimea midogo ndani ya msitu</value>
+					</text>
+					<text id="understory_type">
+						<value>aina ya mimea midogo ndani ya msitu</value>
+					</text>
+					<text id="evidence_of_logging">
+						<value>ushahidi wa uvunaji mbao</value>
+					</text>
+					<text id="evidence_of_logging_description">
+						<value>elezea ushahidi wa kuwepo kwa uvunaji mbao</value>
+					</text>
+					<text id="evidence_of_fire">
+						<value>ushahidi wa kuwepo uchomaji moto</value>
+					</text>
+					<text id="evidence_of_fire_description">
+						<value>ushahidi wa kuwepo machungio ya mifugo</value>
+					</text>
+					<text id="evidence_of_grazing">
+						<value>ushahidi wa uchungaji wa mifugo/ malisho</value>
+					</text>
+					<text id="evidence_of_grazing_description">
+						<value>eleza ushahidi wa kuwepo kwa uchungaji wa mifugo</value>
+					</text>
+					<text id="general_description_notable_features">
+						<value>maelezo ya jumla na mwonekano wa mahali</value>
+					</text>
+					<text id="tallest_tree_measurement">
+						<value>upimaji wa mti mrefu</value>
+					</text>
+					<text id="tallest_tree_dbh_cm">
+						<value>DBH ya mti (sm)</value>
+					</text>
+					<text id="tree_dbh_hint">
+						<value>chukua taarifa ya miti hai yenye DBH &gt;sm5</value>
+					</text>
+					<text id="tallest_tree_h_m">
+						<value>urefu wa mti (m)</value>
+					</text>
+					<text id="tallest_tree_dbh_cm_1">
+						<value>DBH ya mti 1 (sm)</value>
+					</text>
+					<text id="tallest_tree_h_m_1">
+						<value>urefu wa mti 1 (m)</value>
+					</text>
+					<text id="tallest_tree_dbh_cm_2">
+						<value>DBH ya mti 2 (sm)</value>
+					</text>
+					<text id="tallest_tree_h_m_2">
+						<value>urefu wa mti 2 (m)</value>
+					</text>
+					<text id="tallest_tree_dbh_cm_3">
+						<value>DBH ya mti 3 (sm)</value>
+					</text>
+					<text id="tallest_tree_h_m_3">
+						<value>urefu wa mti 3 (m)</value>
+					</text>
+					<text id="plot_photo_north">
+						<value>piga picha kuelekea kaskazini</value>
+					</text>
+					<text id="plot_photo_south">
+						<value>piga picha kuelekea kusini</value>
+					</text>
+					<text id="plot_photo_east">
+						<value>piga picha kuelekea mashariki</value>
+					</text>
+					<text id="plot_photo_west">
+						<value>piga picha kuelekea magharibi</value>
+					</text>
+					<text id="plot_photo_up">
+						<value>piga picha kuelekea juu</value>
+					</text>
+					<text id="plot_photo_hint">
+						<value>kibao chenye kutambulisha ploti lazima kionekane kwenye picha</value>
+					</text>
+					<text id="tree_measurement">
+						<value>kipimo cha mti</value>
+					</text>
+					<text id="tree_number">
+						<value>namba ya mti</value>
+					</text>
+					<text id="tree_dbh_cm">
+						<value>DBH ya mti (sm)</value>
+					</text>
+					<text id="tree_number_1">
+						<value>namba ya mti 1</value>
+					</text>
+					<text id="tree_dbh_cm_1">
+						<value>DBH ya mti 1 (sm)</value>
+					</text>
+					<text id="tree_number_2">
+						<value>namba ya mti 2</value>
+					</text>
+					<text id="tree_dbh_cm_2">
+						<value>DBH ya mti 2 (sm)</value>
+					</text>
+					<text id="tree_number_3">
+						<value>namba ya mti 3</value>
+					</text>
+					<text id="tree_dbh_cm_3">
+						<value>DBH ya mti 3 (sm)</value>
+					</text>
+					<text id="tree_number_4">
+						<value>namba ya mti 4</value>
+					</text>
+					<text id="tree_dbh_cm_4">
+						<value>DBH ya mti 4 (sm)</value>
+					</text>
+					<text id="tree_number_5">
+						<value>namba ya mti 5</value>
+					</text>
+					<text id="tree_dbh_cm_5">
+						<value>DBH ya mti 5 (sm)</value>
+					</text>
+					<text id="forest">
+						<value>msitu</value>
+					</text>
+					<text id="woodland">
+						<value>msitu wazi</value>
+					</text>
+					<text id="shrub_bushland">
+						<value>kichaka </value>
+					</text>
+					<text id="grassland">
+						<value>mdambi</value>
+					</text>
+					<text id="forested_wetland">
+						<value>tindiga oevu yenye msitu</value>
+					</text>
+					<text id="noforested_wetland">
+						<value>tindiga oevu isiyokuwa na msitu(matete,vifundo)</value>
+					</text>
+					<text id="clearing">
+						<value>kusafisha</value>
+					</text>
+					<text id="bamboo">
+						<value>mwanzi</value>
+					</text>
+					<text id="bare_soil_long">
+						<value>udongo wazi (bichi, tambarare yenye chumvi kavu)</value>
+					</text>
+					<text id="bare_rock">
+						<value>mwamba wazi (isio na mimea)</value>
+					</text>
+					<text id="closed_tropical_high_forest">
+						<value>msitu mnene wa kitropikia uliofunga (eneo la kivuli &gt;50%, miti mirefu &gt;m15)</value>
+					</text>
+					<text id="open_tropical_high_forest">
+						<value>msitu mnene wa kitropikia ulio wazi (eneo la kivuli &lt;50%, miti mirefu &gt;m15)</value>
+					</text>
+					<text id="closed_young_secondary_forest">
+						<value>msitu mchanga uliofunga (eneo la kivuli &gt;50%, miti mifupi &lt; m15)</value>
+					</text>
+					<text id="open_young_secondary_forest">
+						<value>msitu mchanga ulio wazi (eneo la kivuli &lt;50%, miti mifupi &lt; m15)</value>
+					</text>
+					<text id="woodland_long">
+						<value>Eneo la miti iliyotawanyika yenye nyasi chini yake</value>
+					</text>
+					<text id="shrub_bushland_long">
+						<value>kichaka (miti michache kwenye kichaka kinene)</value>
+					</text>
+					<text id="grassland_long">
+						<value>nyika (nusu kipenyo zaidi ya mita 20 bila miti)</value>
+					</text>
+					<text id="montane_grassland_long">
+						<value>nyika za uwanda wa juu (nusu kipenyo zaidi ya mita 20 bila miti)</value>
+					</text>
+					<text id="swamp_long">
+						<value>eneo tengefu (msitu unaotunza maji kwa kipindi fulani cha mwaka)</value>
+					</text>
+					<text id="fern_cover_radius_20m">
+						<value>eneo lenye mimea jamii ya ukindu lenye duara la nusu kipenyo zaidi ya mita 20</value>
+					</text>
+					<text id="pure_stands_of_bamboo">
+						<value>sehemu yenye mianzi pekee</value>
+					</text>
+					<text id="bamboo_mixed_with_forest">
+						<value>miti ya mianzi iliyochanganyika na misitu</value>
+					</text>
+					<text id="bamboo_mixed_with_grassland">
+						<value>miti ya mianzi iliyochanganyika na nyika</value>
+					</text>
+					<text id="other_describe">
+						<value>aina nyingine (elezea)</value>
+					</text>
+					<text id="other_habitat_description">
+						<value>elezea uoto makazi wa aina nyingine</value>
+					</text>
+					<text id="cultibation_with_tree_crops">
+						<value>kilimo chenye miti ya mazao/ mazao ya kudumu</value>
+					</text>
+					<text id="cultibation_with_herbaceous_crops">
+						<value>kilimo chenye asili ya majani/ nyasi/ mazao ya msimu</value>
+					</text>
+					<text id="mixed_cropping">
+						<value>kilimo mseto</value>
+					</text>
+					<text id="cultivation_with_scattered_natural_vegetation">
+						<value>kilimo kwenye uoto wa asili uliotawanyika</value>
+					</text>
+					<text id="tree_plantation">
+						<value>upandaji wa miti</value>
+					</text>
+					<text id="mining">
+						<value>uchimbaji wa madini</value>
+					</text>
+					<text id="logging">
+						<value>uchanaji wa mbao</value>
+					</text>
+					<text id="road">
+						<value>barabara</value>
+					</text>
+					<text id="foot_path">
+						<value>njia za miguu</value>
+					</text>
+					<text id="rail">
+						<value>reli</value>
+					</text>
+					<text id="bridge">
+						<value>daraja</value>
+					</text>
+					<text id="intersection">
+						<value>njia panda</value>
+					</text>
+					<text id="residential_dense_village_town">
+						<value>Eneo la Makazi (penye mkusanyiko mkubwa , kijiji/mji)</value>
+					</text>
+					<text id="residential_scattered_household">
+						<value>Eneo la makazi -penye mtawanyiko wa kaya</value>
+					</text>
+					<text id="bare_soil">
+						<value>udongo wazi</value>
+					</text>
+					<text id="plain">
+						<value>Tambarare</value>
+					</text>
+					<text id="steep_slope">
+						<value>Mteremko mkali</value>
+					</text>
+					<text id="valley_bottom_riverline">
+						<value>sakafu ya mto</value>
+					</text>
+					<text id="crest_hilltop">
+						<value>kilele</value>
+					</text>
+					<text id="dry_ground">
+						<value>ardhi kavu</value>
+					</text>
+					<text id="permanently_inundated">
+						<value>kuwepo maji muda wote</value>
+					</text>
+					<text id="seasonally_inundated">
+						<value>kuwepo maji kwa vipindi</value>
+					</text>
+					<text id="deep_soil">
+						<value>udongo wa kina kirefu</value>
+					</text>
+					<text id="shallow_soil_over_rock">
+						<value>udongo wa kina kifupi (juu ya mwamba)</value>
+					</text>
+					<text id="rock_no_soil">
+						<value>Mwamba (hakuna Udongo)</value>
+					</text>
+					<text id="no_trees">
+						<value>hakuna miti</value>
+					</text>
+					<text id="very_open_1_15">
+						<value>wazi sana kwa asilimia 1-15 (1-15%)</value>
+					</text>
+					<text id="open_15_65">
+						<value>wazi kwa asilimia 15-65 (15-65%)</value>
+					</text>
+					<text id="closed_gt_65">
+						<value>imefunga kwa asilimia 65 (65%)</value>
+					</text>
+					<text id="none">
+						<value>hakuna</value>
+					</text>
+					<text id="no_canopy">
+						<value>hakuna kivuli</value>
+					</text>
+					<text id="low_lt_10m">
+						<value>chini ya mita 10 (&lt;10)</value>
+					</text>
+					<text id="medium_10_25m">
+						<value>wastani wa mita 10-25</value>
+					</text>
+					<text id="high_gt_25m">
+						<value>juu ya m 25 (&gt;25m)</value>
+					</text>
+					<text id="mixed">
+						<value>mchabganyiko</value>
+					</text>
+					<text id="dominance_monospecific">
+						<value>tawala </value>
+					</text>
+					<text id="undefined">
+						<value>isiyoelezeka</value>
+					</text>
+					<text id="wood">
+						<value>mbao</value>
+					</text>
+					<text id="palm">
+						<value>mchikichi</value>
+					</text>
+					<text id="non_woody_grass">
+						<value>nyasi, isiyo miti</value>
+					</text>
+					<text id="non_woody_fern">
+						<value>jamii ya mimea ya ukindu,isiyo miti</value>
+					</text>
+					<text id="non_woody_shrub">
+						<value>kichaka, isiyo miti</value>
+					</text>
+					<text id="woody_liana">
+						<value>kamba nene mti</value>
+					</text>
+					<text id="herbaceous_liana">
+						<value>kamba nyembamba</value>
+					</text>
+					<text id="non_woody_undefined">
+						<value>isiyo miti isiyoelezeka</value>
+					</text>
+					<text id="other">
+						<value>mengineyo</value>
+					</text>
 				</translation>
 			</itext>
 			<instance>
