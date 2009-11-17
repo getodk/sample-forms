@@ -4,7 +4,7 @@
 		<h:title>Geo Tagger</h:title>
 		<model>
 			<instance>
-				<geotagger id="geo_tagger" xmlns="test" >
+				<geotagger id="geo_tagger" >
 					<DeviceId/>
 					<Image/>
 					<Location/>

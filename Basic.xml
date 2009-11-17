@@ -6,16 +6,16 @@
 			<instance>
 				<!-- submitted data and defaults go here -->
 				<data id="basic">
-					<string_data/>
+					<StringData/>
 				</data>
 			</instance> 
 			<!-- add properties to the questions, like data types, skip logic, and constraints -->
-			<bind nodeset="/data/string_data" type="string" />
+			<bind nodeset="/data/StringData" type="string" />
 		</model>
 	</h:head>
 	<h:body>   
 		<!-- define the questions that the user will fill out -->
-		<input ref="string_data">
+		<input ref="StringData">
 			<label>please enter a string</label>
 		</input>
 	</h:body>
