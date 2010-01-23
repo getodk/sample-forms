@@ -312,33 +312,31 @@
 					<EvidenceOfGrazing/>
 					<EvidenceOfGrazingDescription/>
 					<GeneralDescriptionNotableFeatures/>
+					<!-- 
 					<TallestTreeCount>3</TallestTreeCount>
 					<TallestTreeMeasurement jr:template="">
 						<TallestTreeDBH/>
 						<TallestTreeH/>
 					</TallestTreeMeasurement> 
-					<!-- 
-					
+					-->
 					<TallestTreeDBH1/>
 					<TallestTreeH1/>
 					<TallestTreeDBH2/>
 					<TallestTreeH2/>
 					<TallestTreeDBH3/>
 					<TallestTreeH3/>
-					-->
 					<!-- TODO: detect direction from compass -->
 					<PlotPhotoNorth/>
 					<PlotPhotoSouth/>
 					<PlotPhotoEast/>
 					<PlotPhotoWest/>
 					<PlotPhotoUp/>
-					
+					<!--
 					<TreeMeasurement jr:template="">
 						<TreeNumber/>
 						<TreeDBH/>
 					</TreeMeasurement> 
-					<!-- 
-					
+					-->
 					<TreeNumber1/>
 					<TreeDBH1/>
 					<TreeNumber2/>
@@ -349,7 +347,6 @@
 					<TreeDBH4/>
 					<TreeNumber5/>
 					<TreeDBH5/>
-					-->
 				</Data>
 			</instance>
 			<!-- add properties to the questions, like data types, skip logic, and constraints -->
@@ -385,28 +382,25 @@
 			<bind nodeset="EvidenceOfGrazing" type="select1" required="false()"/>
 			<bind nodeset="EvidenceOfGrazingDescription" type="string" required="false()" relevant="selected(../EvidenceOfGrazing, 'Y')"/>
 			<bind nodeset="GeneralDescriptionNotableFeatures" type="string" required="false()"/>
+			<!--
 			<bind nodeset="TallestTreeMeasurement/TallestTreeDBH" type="integer" required="false()"/>
 			<bind nodeset="TallestTreeMeasurement/TallestTreeH" type="decimal" required="false()"/>
-			
-			<!--
+			-->
 			<bind nodeset="TallestTreeDBH1" type="integer" required="false()"/>
 			<bind nodeset="TallestTreeH1" type="decimal" required="false()"/>
 			<bind nodeset="TallestTreeDBH2" type="integer" required="false()"/>
 			<bind nodeset="TallestTreeH2" type="decimal" required="false()"/>
 			<bind nodeset="TallestTreeDBH3" type="integer" required="false()"/>
 			<bind nodeset="TallestTreeH3" type="decimal" required="false()"/>
-			-->
-			
 			<bind nodeset="PlotPhotoNorth" type="binary" required="false()"/>
 			<bind nodeset="PlotPhotoSouth" type="binary" required="false()"/>
 			<bind nodeset="PlotPhotoEast" type="binary" required="false()"/>
 			<bind nodeset="PlotPhotoWest" type="binary" required="false()"/>
 			<bind nodeset="PlotPhotoUp" type="binary" required="false()"/>
-			
+			<!--
 			<bind nodeset="TreeMeasurement/TreeNumber" type="integer" required="false()"/>
 			<bind nodeset="TreeMeasurement/TreeDBH" type="decimal" required="false()"/>
-			
-			<!--
+			-->
 			<bind nodeset="TreeNumber1" type="integer" required="false()"/>
 			<bind nodeset="TreeDBH1" type="decimal" required="false()"/>
 			<bind nodeset="TreeNumber2" type="integer" required="false()"/>
@@ -416,9 +410,7 @@
 			<bind nodeset="TreeNumber4" type="integer" required="false()"/>
 			<bind nodeset="TreeDBH4" type="decimal" required="false()"/>
 			<bind nodeset="TreeNumber5" type="integer" required="false()"/>
-			<bind nodeset="TreeDBH5" type="decimal" required="false()"/>
-			-->
-			
+			<bind nodeset="TreeDBH5" type="decimal" required="false()"/>			
 		</model>
 	</h:head>
 	<h:body>
@@ -897,28 +889,6 @@
 		<input ref="GeneralDescriptionNotableFeatures">
 			<label ref="jr:itext('general_description_notable_features')"/>
 		</input>
-		<!--
-		<input ref="TallestTreeDBH1">
-			<label ref="jr:itext('tallest_tree_dbh_cm_1')"/>
-			<hint ref="jr:itext('tree_dbh_hint')"/>
-		</input>
-		<input ref="TallestTreeH1">
-			<label ref="jr:itext('tallest_tree_h_m_1')"/>
-		</input>
-		<input ref="TallestTreeDBH2">
-			<label ref="jr:itext('tallest_tree_dbh_cm_2')"/>
-			<hint ref="jr:itext('tree_dbh_hint')"/>
-		</input>
-		<input ref="TallestTreeH2">
-			<label ref="jr:itext('tallest_tree_h_m_2')"/>
-		</input>
-		<input ref="TallestTreeDBH3">
-			<label ref="jr:itext('tallest_tree_dbh_cm_3')"/>
-			<hint ref="jr:itext('tree_dbh_hint')"/>
-		</input>
-		<input ref="TallestTreeH3">
-			<label ref="jr:itext('tallest_tree_h_m_3')"/>
-		</input> -->
 		<upload ref="PlotPhotoNorth" mediatype="image/*">
 			<label ref="jr:itext('plot_photo_north')"/>
 			<hint ref="jr:itext('plot_photo_hint')"/>
@@ -939,7 +909,27 @@
 			<label ref="jr:itext('plot_photo_up')"/>
 			<hint ref="jr:itext('plot_photo_hint')"/>
 		</upload>
-		<!--
+		<input ref="TallestTreeDBH1">
+			<label ref="jr:itext('tallest_tree_dbh_cm_1')"/>
+			<hint ref="jr:itext('tree_dbh_hint')"/>
+		</input>
+		<input ref="TallestTreeH1">
+			<label ref="jr:itext('tallest_tree_h_m_1')"/>
+		</input>
+		<input ref="TallestTreeDBH2">
+			<label ref="jr:itext('tallest_tree_dbh_cm_2')"/>
+			<hint ref="jr:itext('tree_dbh_hint')"/>
+		</input>
+		<input ref="TallestTreeH2">
+			<label ref="jr:itext('tallest_tree_h_m_2')"/>
+		</input>
+		<input ref="TallestTreeDBH3">
+			<label ref="jr:itext('tallest_tree_dbh_cm_3')"/>
+			<hint ref="jr:itext('tree_dbh_hint')"/>
+		</input>
+		<input ref="TallestTreeH3">
+			<label ref="jr:itext('tallest_tree_h_m_3')"/>
+		</input> 
 		<input ref="TreeNumber1">
 			<label ref="jr:itext('tree_number_1')"/>
 		</input>
@@ -974,7 +964,8 @@
 		<input ref="TreeDBH5">
 			<label ref="jr:itext('tree_dbh_cm_5')"/>
 			<hint ref="jr:itext('tree_dbh_hint')"/>
-		</input> -->
+		</input> 
+		<!--
 		<group>
 			<label ref="jr:itext('tallest_tree_measurement')"/>
 			<repeat nodeset="/Data/TallestTreeMeasurement" jr:noAddRemove="true()" jr:count="/Data/TallestTreeCount">
@@ -999,5 +990,6 @@
 				</input>
 			</repeat>
 		</group> 
+		-->
 	</h:body>
 </h:html>

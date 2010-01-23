@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 <h:html xmlns="http://www.w3.org/2002/xforms" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:jr="http://openrosa.org/javarosa">
 	<h:head>
-		<h:title>Geo Tagger</h:title>
+		<h:title>Geo Tagger v2</h:title>
 		<model>
 			<instance>
-				<geotagger id="geo_tagger" >
+				<geotagger id="geo_tagger_v2" >
 					<DeviceId/>
 					<Image/>
 					<Location/>
 					<Description/>
 				</geotagger>
 			</instance>
-			<bind nodeset="/geotagger/DeviceId" type="string" jr:preload="property" jr:preloadParams="deviceid"/>
+			<bind nodeset="/geotagger/Device" type="string" jr:preload="property" jr:preloadParams="deviceid"/>
 			<bind nodeset="/geotagger/Image" type="binary"/>
 			<bind nodeset="/geotagger/Location" type="geopoint"/>
 			<bind nodeset="/geotagger/Description" type="string"/>
@@ -19,13 +19,13 @@
 	</h:head>
 	<h:body>
 		<upload ref="Image" mediatype="image/*">
-			<label>Please capture an image.</label>
+			<label>Capture the image.</label>
 		</upload>
 		<input ref="Location">
-			<label>Now, capture your location.</label>
+			<label>Capture the location.</label>
 		</input>
 		<input ref="Description">
-			<label>Describe the image and where you are.</label>
+			<label>Describe the image and location.</label>
 		</input>
 	</h:body>
 </h:html>
