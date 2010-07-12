@@ -353,13 +353,13 @@
       
       <!-- INTRO/DEMOGRAPHIC QUESTIONS -->
       
-      <bind nodeset="preamble/chief_complaint" constraint="not(selected(., 'none') and count-selected(.) > 1)"
+      <bind nodeset="preamble/chief_complaint" constraint="not(selected(., 'none') and count-selected(.) &gt; 1)"
         jr:constraintMsg="'Other/None of the above' cannot be selected with other choices" />
       <bind nodeset="preamble/other_complaint" relevant="count-selected(../chief_complaint) = 0 or
                                                          (count-selected(../chief_complaint) = 1 and selected(../chief_complaint, 'none'))" />
-      <bind nodeset="tmp/sentinel/valid_complaint" relevant="count-selected(/imci/preamble/chief_complaint) > 0 and not(selected(/imci/preamble/chief_complaint, 'none'))" />
+      <bind nodeset="tmp/sentinel/valid_complaint" relevant="count-selected(/imci/preamble/chief_complaint) &gt; 0 and not(selected(/imci/preamble/chief_complaint, 'none'))" />
 
-      <bind nodeset="preamble/info/serious" relevant="count-selected(/imci/preamble/danger_signs) > 0" />
+      <bind nodeset="preamble/info/serious" relevant="count-selected(/imci/preamble/danger_signs) &gt; 0" />
 
       <bind nodeset="preamble/cough_doublecheck" relevant="not(selected(../chief_complaint, 'cough'))" />
       <bind nodeset="tmp/normalized/has_cough" calculate="selected(/imci/preamble/chief_complaint, 'cough') or /imci/preamble/cough_doublecheck = 'yes'" />
@@ -371,37 +371,37 @@
       <bind nodeset="preamble/info/first_visit_only" relevant="/imci/preamble/visit_type != 'first'" />
       <bind nodeset="tmp/sentinel/first_visit" relevant="/imci/preamble/visit_type = 'first'" />
 
-      <bind nodeset="preamble/temperature" type="decimal" constraint=". >= 32.0 and . <= 44.0" relevant="../temp_type = 'therm'" required="true()"
+      <bind nodeset="preamble/temperature" type="decimal" constraint=". &gt;= 32.0 and . &lt;= 44.0" relevant="../temp_type = 'therm'" required="true()"
         jr:constraintMsg="Temperature must be between 32 and 44 degrees" />
-      <bind nodeset="tmp/normalized/has_fever" calculate="selected(/imci/preamble/chief_complaint, 'fever') or /imci/preamble/temp_type = 'fever' or /imci/preamble/temperature >= 37.4" />
+      <bind nodeset="tmp/normalized/has_fever" calculate="selected(/imci/preamble/chief_complaint, 'fever') or /imci/preamble/temp_type = 'fever' or /imci/preamble/temperature &gt;= 37.4" />
       
       <bind nodeset="preamble/age" type="int" required="true()" />
-      <bind nodeset="preamble/age_unit" constraint="../age >= 0 and ../age < if(. = 'years', 20, 240)" jr:constraintMsg="Age must be less than 20 years / 240 months" />
+      <bind nodeset="preamble/age_unit" constraint="../age &gt;= 0 and ../age &lt; if(. = 'years', 20, 240)" jr:constraintMsg="Age must be less than 20 years / 240 months" />
       <bind nodeset="tmp/normalized/age" calculate="if(/imci/preamble/age_unit = 'years', /imci/preamble/age,
                                                     if(/imci/preamble/age_unit = 'months', /imci/preamble/age div 12, ''))" />
-      <bind nodeset="preamble/info/too_young" relevant="/imci/tmp/normalized/age < 2 div 12" />
-      <bind nodeset="preamble/too_old_use_anyway" relevant="/imci/tmp/normalized/age >= 6.0" />
-      <bind nodeset="tmp/sentinel/age_ok" relevant="/imci/tmp/normalized/age >= 2 div 12 and (/imci/tmp/normalized/age < 6.0 or /imci/preamble/too_old_use_anyway = 'yes')" />
+      <bind nodeset="preamble/info/too_young" relevant="/imci/tmp/normalized/age &lt; 2 div 12" />
+      <bind nodeset="preamble/too_old_use_anyway" relevant="/imci/tmp/normalized/age &gt;= 6.0" />
+      <bind nodeset="tmp/sentinel/age_ok" relevant="/imci/tmp/normalized/age &gt;= 2 div 12 and (/imci/tmp/normalized/age &lt; 6.0 or /imci/preamble/too_old_use_anyway = 'yes')" />
                                                     
-      <bind nodeset="preamble/weight" type="int" constraint=". >= 5 and . <= 50" jr:constraintMsg="Weight must be between 5 and 50kg" />
-      <bind nodeset="preamble/too_heavy_use_anyway" relevant="../weight >= 19" />
+      <bind nodeset="preamble/weight" type="int" constraint=". &gt;= 5 and . &lt;= 50" jr:constraintMsg="Weight must be between 5 and 50kg" />
+      <bind nodeset="preamble/too_heavy_use_anyway" relevant="../weight &gt;= 19" />
       
-      <bind nodeset="tmp/sentinel/do_protocol" relevant="(count-selected(/imci/preamble/chief_complaint) > 0 and not(selected(/imci/preamble/chief_complaint, 'none'))) and
+      <bind nodeset="tmp/sentinel/do_protocol" relevant="(count-selected(/imci/preamble/chief_complaint) &gt; 0 and not(selected(/imci/preamble/chief_complaint, 'none'))) and
                                                          /imci/preamble/visit_type = 'first' and
-                                                         (/imci/tmp/normalized/age >= 2 div 12 and (/imci/tmp/normalized/age < 6.0 or /imci/preamble/too_old_use_anyway = 'yes')) and
-                                                         (not(/imci/preamble/weight) or /imci/preamble/weight < 19 or /imci/preamble/too_heavy_use_anyway = 'yes')" />
+                                                         (/imci/tmp/normalized/age &gt;= 2 div 12 and (/imci/tmp/normalized/age &lt; 6.0 or /imci/preamble/too_old_use_anyway = 'yes')) and
+                                                         (not(/imci/preamble/weight) or /imci/preamble/weight &lt; 19 or /imci/preamble/too_heavy_use_anyway = 'yes')" />
                                                 
       <!-- COUGH CLASSIFICATION -->
                                                 
       <bind nodeset="cough" relevant="/imci/tmp/normalized/has_cough" />
                                                          
-      <bind nodeset="cough/breath_rate" type="int" constraint=". >= 3 and . <= 200" relevant="../breath_rate_type = 'measure'" required="true()"
+      <bind nodeset="cough/breath_rate" type="int" constraint=". &gt;= 3 and . &lt;= 200" relevant="../breath_rate_type = 'measure'" required="true()"
         jr:constraintMsg="Breating rate must be between 3 and 200 breaths per minute" />
-      <bind nodeset="tmp/normalized/fast_breath" calculate="/imci/cough/breath_rate_type = 'fast' or /imci/cough/breath_rate >= if(../age < 1.0, 50, 40)" />
+      <bind nodeset="tmp/normalized/fast_breath" calculate="/imci/cough/breath_rate_type = 'fast' or /imci/cough/breath_rate &gt;= if(../age &lt; 1.0, 50, 40)" />
       
       <bind nodeset="tmp/normalized/classification/cough" calculate="
         if(/imci/tmp/normalized/has_cough,
-          if(/imci/cough/indrawing = 'yes' or /imci/cough/stridor = 'yes' or count-selected(/imci/preamble/danger_signs) > 0, 'severe-pneumonia',
+          if(/imci/cough/indrawing = 'yes' or /imci/cough/stridor = 'yes' or count-selected(/imci/preamble/danger_signs) &gt; 0, 'severe-pneumonia',
           if(/imci/tmp/normalized/fast_breath, 'pneumonia',
           if(/imci/cough/length = 'over30', 'persistent-cold', 'cold'))),
         '')" />
@@ -462,7 +462,7 @@
             ''))),
         ../../classification/diarrhea)" />
         
-      <bind nodeset="tmp/normalized/has_cholera" calculate="../diagnosis/dehydration = 'severe' and ../age >= 2.0 and /imci/tmp/const/cholera_risk" />
+      <bind nodeset="tmp/normalized/has_cholera" calculate="../diagnosis/dehydration = 'severe' and ../age &gt;= 2.0 and /imci/tmp/const/cholera_risk" />
       <bind nodeset="tmp/normalized/treatment/hydration_plan" calculate="
         if(/imci/tmp/normalized/diagnosis/dehydration = 'none', 'A',
         if(/imci/tmp/normalized/diagnosis/dehydration = 'some', 'B',
@@ -480,7 +480,7 @@
       
       <bind nodeset="tmp/normalized/classification/fever" calculate="
         if(/imci/tmp/normalized/has_fever,
-          if(/imci/fever/stiff_neck = 'yes' or count-selected(/imci/preamble/danger_signs) > 0, 'febrile',
+          if(/imci/fever/stiff_neck = 'yes' or count-selected(/imci/preamble/danger_signs) &gt; 0, 'febrile',
           if(/imci/tmp/const/high_malaria_risk or not(/imci/tmp/normalized/measles_risk) and not(/imci/fever/runny_nose), 'malaria', 'fever-only'))
         , '')" />
       <!-- todo: include measles classifications in algorithm? -->
@@ -521,107 +521,107 @@
       
       <bind nodeset="tmp/normalized/has_severe" calculate="../diagnosis/cough = 'severe-pneumonia' or ../diagnosis/fever = 'febrile' or ../diagnosis/ear = 'mastoiditis' or /imci/other_severe = 'yes'" />
       
-      <bind nodeset="interlude/breastfeeding" relevant="/imci/tmp/normalized/age <= 2.0" />
-      <bind nodeset="interlude/other_feed" relevant="/imci/tmp/normalized/age <= 2.0" />
-      <bind nodeset="interlude/info/feed_other" relevant="../../other_feed = 'no' and /imci/tmp/normalized/age > 0.5" />
+      <bind nodeset="interlude/breastfeeding" relevant="/imci/tmp/normalized/age &lt;= 2.0" />
+      <bind nodeset="interlude/other_feed" relevant="/imci/tmp/normalized/age &lt;= 2.0" />
+      <bind nodeset="interlude/info/feed_other" relevant="../../other_feed = 'no' and /imci/tmp/normalized/age &gt; 0.5" />
       <bind nodeset="interlude/info/keep_feeding" relevant="../../feeding_change = 'yes'" />
       <bind nodeset="interlude/info/treat_problems" relevant="../../other_problems = 'yes'" />
       
       <!-- DOSINGS FOR ALL DRUGS BASED ON AGE/WEIGHT -->
       
       <bind nodeset="tmp/dosings/alu" calculate="
-        if(/imci/preamble/weight >= 5 and /imci/preamble/weight < 25,
-          if(/imci/preamble/weight < 15, 'v-whole-tab', 'v-2-tabs'),
-        if(/imci/tmp/normalized/age >= 0.25 and /imci/tmp/normalized/age <= 8.0,
-          if(/imci/tmp/normalized/age <= 3.0, 'v-whole-tab', 'v-2-tabs'),
+        if(/imci/preamble/weight &gt;= 5 and /imci/preamble/weight &lt; 25,
+          if(/imci/preamble/weight &lt; 15, 'v-whole-tab', 'v-2-tabs'),
+        if(/imci/tmp/normalized/age &gt;= 0.25 and /imci/tmp/normalized/age &lt;= 8.0,
+          if(/imci/tmp/normalized/age &lt;= 3.0, 'v-whole-tab', 'v-2-tabs'),
         '[amount unavailable for age/weight]'))" />
       <bind nodeset="tmp/dosings/amoxycillin/tablet" calculate="
-        if(/imci/preamble/weight >= 4 and /imci/preamble/weight < 19,
-          if(/imci/preamble/weight < 10, 'v-half-tab', 'v-whole-tab'),
-        if(/imci/tmp/normalized/age >= 0.16 and /imci/tmp/normalized/age <= 5.0,
-          if(/imci/tmp/normalized/age <= 1.0, 'v-half-tab', 'v-whole-tab'),
+        if(/imci/preamble/weight &gt;= 4 and /imci/preamble/weight &lt; 19,
+          if(/imci/preamble/weight &lt; 10, 'v-half-tab', 'v-whole-tab'),
+        if(/imci/tmp/normalized/age &gt;= 0.16 and /imci/tmp/normalized/age &lt;= 5.0,
+          if(/imci/tmp/normalized/age &lt;= 1.0, 'v-half-tab', 'v-whole-tab'),
         '[amount unavailable for age/weight]'))" />
       <bind nodeset="tmp/dosings/amoxycillin/syrup" calculate="
-        if(/imci/preamble/weight >= 4 and /imci/preamble/weight < 19,
-          if(/imci/preamble/weight < 10, 'v-5ml', 'v-10ml'),
-        if(/imci/tmp/normalized/age >= 0.16 and /imci/tmp/normalized/age <= 5.0,
-          if(/imci/tmp/normalized/age <= 1.0, 'v-5ml', 'v-10ml'),
+        if(/imci/preamble/weight &gt;= 4 and /imci/preamble/weight &lt; 19,
+          if(/imci/preamble/weight &lt; 10, 'v-5ml', 'v-10ml'),
+        if(/imci/tmp/normalized/age &gt;= 0.16 and /imci/tmp/normalized/age &lt;= 5.0,
+          if(/imci/tmp/normalized/age &lt;= 1.0, 'v-5ml', 'v-10ml'),
         '[amount unavailable for age/weight]'))" />
       <bind nodeset="tmp/dosings/cotrimoxazole/adult" calculate="
-        if(/imci/preamble/weight >= 4 and /imci/preamble/weight < 19,
-          if(/imci/preamble/weight < 10, 'v-half-tab', 'v-whole-tab'),
-        if(/imci/tmp/normalized/age >= 0.16 and /imci/tmp/normalized/age <= 5.0,
-          if(/imci/tmp/normalized/age <= 1.0, 'v-half-tab', 'v-whole-tab'),
+        if(/imci/preamble/weight &gt;= 4 and /imci/preamble/weight &lt; 19,
+          if(/imci/preamble/weight &lt; 10, 'v-half-tab', 'v-whole-tab'),
+        if(/imci/tmp/normalized/age &gt;= 0.16 and /imci/tmp/normalized/age &lt;= 5.0,
+          if(/imci/tmp/normalized/age &lt;= 1.0, 'v-half-tab', 'v-whole-tab'),
         '[amount unavailable for age/weight]'))" />
       <bind nodeset="tmp/dosings/cotrimoxazole/ped" calculate="
-        if(/imci/preamble/weight >= 4 and /imci/preamble/weight < 19,
-          if(/imci/preamble/weight < 10, 'v-2-tabs', 'v-4-tabs'),
-        if(/imci/tmp/normalized/age >= 0.16 and /imci/tmp/normalized/age <= 5.0,
-          if(/imci/tmp/normalized/age <= 1.0, 'v-2-tabs', 'v-4-tabs'),
+        if(/imci/preamble/weight &gt;= 4 and /imci/preamble/weight &lt; 19,
+          if(/imci/preamble/weight &lt; 10, 'v-2-tabs', 'v-4-tabs'),
+        if(/imci/tmp/normalized/age &gt;= 0.16 and /imci/tmp/normalized/age &lt;= 5.0,
+          if(/imci/tmp/normalized/age &lt;= 1.0, 'v-2-tabs', 'v-4-tabs'),
         '[amount unavailable for age/weight]'))" />
       <bind nodeset="tmp/dosings/cotrimoxazole/syrup" calculate="
-        if(/imci/preamble/weight >= 4 and /imci/preamble/weight < 19,
-          if(/imci/preamble/weight < 10, 'v-5ml', 'v-10ml'),
-        if(/imci/tmp/normalized/age >= 0.16 and /imci/tmp/normalized/age <= 5.0,
-          if(/imci/tmp/normalized/age <= 1.0, 'v-5ml', 'v-10ml'),
+        if(/imci/preamble/weight &gt;= 4 and /imci/preamble/weight &lt; 19,
+          if(/imci/preamble/weight &lt; 10, 'v-5ml', 'v-10ml'),
+        if(/imci/tmp/normalized/age &gt;= 0.16 and /imci/tmp/normalized/age &lt;= 5.0,
+          if(/imci/tmp/normalized/age &lt;= 1.0, 'v-5ml', 'v-10ml'),
         '[amount unavailable for age/weight]'))" />
       <bind nodeset="tmp/dosings/erythromycin" calculate="
-        if(/imci/preamble/weight >= 4 and /imci/preamble/weight < 19,
-          if(/imci/preamble/weight < 6, 'v-quarter-tab',
-          if(/imci/preamble/weight < 10, 'v-half-tab', 
+        if(/imci/preamble/weight &gt;= 4 and /imci/preamble/weight &lt; 19,
+          if(/imci/preamble/weight &lt; 6, 'v-quarter-tab',
+          if(/imci/preamble/weight &lt; 10, 'v-half-tab', 
             'v-whole-tab')),
-        if(/imci/tmp/normalized/age >= 0.16 and /imci/tmp/normalized/age <= 5.0,
-          if(/imci/tmp/normalized/age <= 0.34, 'v-quarter-tab',
-          if(/imci/tmp/normalized/age <= 1.0, 'v-half-tab', 
+        if(/imci/tmp/normalized/age &gt;= 0.16 and /imci/tmp/normalized/age &lt;= 5.0,
+          if(/imci/tmp/normalized/age &lt;= 0.34, 'v-quarter-tab',
+          if(/imci/tmp/normalized/age &lt;= 1.0, 'v-half-tab', 
             'v-whole-tab')),
         '[amount unavailable for age/weight]'))" />
       <bind nodeset="tmp/dosings/nalidixic_acid" calculate="  
-        if(/imci/preamble/weight >= 4 and /imci/preamble/weight < 19,
-          if(/imci/preamble/weight < 6, 'v-quarter-tab',
-          if(/imci/preamble/weight < 10, 'v-half-tab', 
+        if(/imci/preamble/weight &gt;= 4 and /imci/preamble/weight &lt; 19,
+          if(/imci/preamble/weight &lt; 6, 'v-quarter-tab',
+          if(/imci/preamble/weight &lt; 10, 'v-half-tab', 
             'v-whole-tab')),
-        if(/imci/tmp/normalized/age >= 0.16 and /imci/tmp/normalized/age <= 5.0,
-          if(/imci/tmp/normalized/age <= 0.34, 'v-quarter-tab',
-          if(/imci/tmp/normalized/age <= 1.0, 'v-half-tab', 
+        if(/imci/tmp/normalized/age &gt;= 0.16 and /imci/tmp/normalized/age &lt;= 5.0,
+          if(/imci/tmp/normalized/age &lt;= 0.34, 'v-quarter-tab',
+          if(/imci/tmp/normalized/age &lt;= 1.0, 'v-half-tab', 
             'v-whole-tab')),
         '[amount unavailable for age/weight]'))" />        
       <bind nodeset="tmp/dosings/paracetamol/ped" calculate="
-        if(/imci/preamble/weight >= 4 and /imci/preamble/weight < 19,
-          if(/imci/preamble/weight < 14, 'v-whole-tab', 'v-2.5-tabs'),
-        if(/imci/tmp/normalized/age >= 0.16 and /imci/tmp/normalized/age <= 5.0,
-          if(/imci/tmp/normalized/age <= 3.0, 'v-whole-tab', 'v-2.5-tabs'),
+        if(/imci/preamble/weight &gt;= 4 and /imci/preamble/weight &lt; 19,
+          if(/imci/preamble/weight &lt; 14, 'v-whole-tab', 'v-2.5-tabs'),
+        if(/imci/tmp/normalized/age &gt;= 0.16 and /imci/tmp/normalized/age &lt;= 5.0,
+          if(/imci/tmp/normalized/age &lt;= 3.0, 'v-whole-tab', 'v-2.5-tabs'),
         '[amount unavailable for age/weight]'))" />
       <bind nodeset="tmp/dosings/paracetamol/adult" calculate="
-        if(/imci/preamble/weight >= 4 and /imci/preamble/weight < 19,
-          if(/imci/preamble/weight < 14, 'v-quarter-tab', 'v-half-tab'),
-        if(/imci/tmp/normalized/age >= 0.16 and /imci/tmp/normalized/age <= 5.0,
-          if(/imci/tmp/normalized/age <= 3.0, 'v-quarter-tab', 'v-half-tab'),
+        if(/imci/preamble/weight &gt;= 4 and /imci/preamble/weight &lt; 19,
+          if(/imci/preamble/weight &lt; 14, 'v-quarter-tab', 'v-half-tab'),
+        if(/imci/tmp/normalized/age &gt;= 0.16 and /imci/tmp/normalized/age &lt;= 5.0,
+          if(/imci/tmp/normalized/age &lt;= 3.0, 'v-quarter-tab', 'v-half-tab'),
         '[amount unavailable for age/weight]'))" />
       <bind nodeset="tmp/dosings/procaine_penicillin" calculate="
-        if(/imci/preamble/weight >= 4 and /imci/preamble/weight < 19,
-          if(/imci/preamble/weight < 10, 'v-1ml-inj', 'v-2ml-inj'),
-        if(/imci/tmp/normalized/age >= 0.16 and /imci/tmp/normalized/age <= 5.0,
-          if(/imci/tmp/normalized/age <= 1.0, 'v-1ml-inj', 'v-2ml-inj'),
+        if(/imci/preamble/weight &gt;= 4 and /imci/preamble/weight &lt; 19,
+          if(/imci/preamble/weight &lt; 10, 'v-1ml-inj', 'v-2ml-inj'),
+        if(/imci/tmp/normalized/age &gt;= 0.16 and /imci/tmp/normalized/age &lt;= 5.0,
+          if(/imci/tmp/normalized/age &lt;= 1.0, 'v-1ml-inj', 'v-2ml-inj'),
         '[amount unavailable for age/weight]'))" />
       <bind nodeset="tmp/dosings/quinine/injection" calculate="
-        if(/imci/preamble/weight >= 4 and /imci/preamble/weight < 19,
-          if(/imci/preamble/weight < 6, 'v-1.0ml',
-          if(/imci/preamble/weight < 8, 'v-1.5ml', 
-          if(/imci/preamble/weight < 10, 'v-2.0ml', 
-          if(/imci/preamble/weight < 14, 'v-2.5ml', 
+        if(/imci/preamble/weight &gt;= 4 and /imci/preamble/weight &lt; 19,
+          if(/imci/preamble/weight &lt; 6, 'v-1.0ml',
+          if(/imci/preamble/weight &lt; 8, 'v-1.5ml', 
+          if(/imci/preamble/weight &lt; 10, 'v-2.0ml', 
+          if(/imci/preamble/weight &lt; 14, 'v-2.5ml', 
             'v-3.0ml')))),
-        if(/imci/tmp/normalized/age >= 0.16 and /imci/tmp/normalized/age <= 5.0,
-          if(/imci/tmp/normalized/age <= 0.34, 'v-1.0ml',
-          if(/imci/tmp/normalized/age <= 0.75, 'v-1.5ml', 
-          if(/imci/tmp/normalized/age <= 1.0, 'v-2.0ml', 
-          if(/imci/tmp/normalized/age <= 3.0, 'v-2.5ml', 
+        if(/imci/tmp/normalized/age &gt;= 0.16 and /imci/tmp/normalized/age &lt;= 5.0,
+          if(/imci/tmp/normalized/age &lt;= 0.34, 'v-1.0ml',
+          if(/imci/tmp/normalized/age &lt;= 0.75, 'v-1.5ml', 
+          if(/imci/tmp/normalized/age &lt;= 1.0, 'v-2.0ml', 
+          if(/imci/tmp/normalized/age &lt;= 3.0, 'v-2.5ml', 
             'v-3.0ml')))),
         '[amount unavailable for age/weight]'))" />
       <bind nodeset="tmp/dosings/quinine/tablet" calculate="
-        if(/imci/preamble/weight >= 4 and /imci/preamble/weight < 19,
-          if(/imci/preamble/weight < 11, 'v-quarter-tab', 'v-half-tab'),
-        if(/imci/tmp/normalized/age >= 0.16 and /imci/tmp/normalized/age <= 5.0,
-          if(/imci/tmp/normalized/age <= 1.0, 'v-quarter-tab', 'v-half-tab'),
+        if(/imci/preamble/weight &gt;= 4 and /imci/preamble/weight &lt; 19,
+          if(/imci/preamble/weight &lt; 11, 'v-quarter-tab', 'v-half-tab'),
+        if(/imci/tmp/normalized/age &gt;= 0.16 and /imci/tmp/normalized/age &lt;= 5.0,
+          if(/imci/tmp/normalized/age &lt;= 1.0, 'v-quarter-tab', 'v-half-tab'),
         '[amount unavailable for age/weight]'))" />
       
       <!-- TREATMENT: MALARIA QUININE -->
@@ -960,7 +960,7 @@
 
       <!-- PAINKILLER -->
       <bind nodeset="dosing/painkiller" relevant="/imci/tmp/normalized/diagnosis/ear = 'mastoiditis' or /imci/tmp/normalized/diagnosis/ear = 'acute' or
-                                                  (/imci/preamble/temp_type = 'fever' or /imci/preamble/temperature >= 38.5)" />
+                                                  (/imci/preamble/temp_type = 'fever' or /imci/preamble/temperature &gt;= 38.5)" />
       <bind nodeset="dosing/painkiller/info_choose_other" relevant="/imci/dosing/painkiller/choice = 'other'" />
       <bind nodeset="tmp/normalized/treatment/painkiller/amount" calculate="
         if(/imci/dosing/painkiller/choice = 'paracet-adult', /imci/tmp/dosings/paracetamol/adult,
@@ -1338,8 +1338,8 @@
             <value form="long">SORRY: this system is not yet suitable for follow-up visits. Please use standard procedures.</value>
           </text>
           <text id="m-refer-urgently">
-            <value form="short">urgently to hospital! <output value="if(/imci/tmp/normalized/diagnosis/dehydration = 'severe', concat('Give frequent sips of ORS on the way.', if(/imci/tmp/normalized/age < 2.0, ' Tell mother to continue breastfeeding.', '')), '')" /></value>
-            <value form="long">REFER: urgently to hospital! <output value="if(/imci/tmp/normalized/diagnosis/dehydration = 'severe', concat('Give frequent sips of ORS on the way.', if(/imci/tmp/normalized/age < 2.0, ' Tell mother to continue breastfeeding.', '')), '')" /></value>
+            <value form="short">urgently to hospital! <output value="if(/imci/tmp/normalized/diagnosis/dehydration = 'severe', concat('Give frequent sips of ORS on the way.', if(/imci/tmp/normalized/age &lt; 2.0, ' Tell mother to continue breastfeeding.', '')), '')" /></value>
+            <value form="long">REFER: urgently to hospital! <output value="if(/imci/tmp/normalized/diagnosis/dehydration = 'severe', concat('Give frequent sips of ORS on the way.', if(/imci/tmp/normalized/age &lt; 2.0, ' Tell mother to continue breastfeeding.', '')), '')" /></value>
           </text>
           <text id="m-return-immediately-if">
             <value form="short">Tell mother to return immediately if child is not able to drink/breastfeed, becomes sicker, or...</value>
@@ -2134,13 +2134,13 @@
           <text id="m-refer-urgently">
             <value form="short"><output value="
               if(/imci/tmp/normalized/diagnosis/dehydration = 'severe', 
-                if(/imci/tmp/normalized/age < 2.0,
+                if(/imci/tmp/normalized/age &lt; 2.0,
                   'toa rufaa kwenda hospitali haraka. mtoto apewe ORS mara kwa mara njiani. mwambie mama aendelee kumnyonyesha mtoto',
                   'Mpe rufaa haraka kwenda hspitali. Toa ORS ili mtoto anywe kidogo kidogo akiwa njiani.'),
                 'haraka kwenda hospitali')" /></value>
             <value form="long"><output value="
               if(/imci/tmp/normalized/diagnosis/dehydration = 'severe', 
-                if(/imci/tmp/normalized/age < 2.0,
+                if(/imci/tmp/normalized/age &lt; 2.0,
                   'toa rufaa kwenda hospitali haraka. mtoto apewe ORS mara kwa mara njiani. mwambie mama aendelee kumnyonyesha mtoto',
                   'Mpe rufaa haraka kwenda hspitali. Toa ORS ili mtoto anywe kidogo kidogo akiwa njiani.'),
                 'haraka kwenda hospitali')" /></value>
