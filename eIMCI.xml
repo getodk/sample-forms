@@ -1,18 +1,15 @@
 
  <!--
-      -----------------------------------------------------------------------------------------
       eIMCI
       Created by Dimagi based on eIMCI from Mtwara study
       Modified in July 2010 by Tom Routen for NIH study
       Reference document: Management of Childhood Illnesses from MOH, Tanzania, from PDF file named: "Chartbooklet Arusha 06 09 2007 English"
-      -----------------------------------------------------------------------------------------
       -->
 
 
 <h:html xmlns="http://www.w3.org/2002/xforms"
         xmlns:h="http://www.w3.org/1999/xhtml"
         xmlns:ev="http://www.w3.org/2001/xml-events"
-        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
         xmlns:xsd="http://www.w3.org/2001/XMLSchema"
         xmlns:jr="http://openrosa.org/javarosa">
   <h:head>
@@ -320,6 +317,7 @@
              <cough/>
              <measles/>
              <diarrhea/>
+			 <ear/>
             <diazepam>
                       <info/>
             </diazepam>
@@ -491,12 +489,12 @@
 
 
       <!--  Meta Block -->
-      <bind id="hidden1" nodeset="/brac/Meta/DeviceID" type="xsd:string" jr:preload="property" jr:preloadParams="DeviceID" />
-      <bind id="hidden4" nodeset="/brac/Meta/username" type="xsd:string" jr:preload="context" jr:preloadParams="UserName" />
-      <bind id="hidden5" nodeset="/brac/Meta/chw_id" type="xsd:string" jr:preload="context" jr:preloadParams="UserID" />
-      <bind id="hidden2" nodeset="/brac/Meta/TimeStart" type="xsd:dateTime" jr:preload="timestamp" jr:preloadParams="start" />
-      <bind id="hidden3" nodeset="/brac/Meta/TimeEnd" type="xsd:dateTime" jr:preload="timestamp" jr:preloadParams="end" />
-      <bind id="hidden6" nodeset="/brac/Meta/uid" type="xsd:string" jr:preload="uid" jr:preloadParams="general" />
+      <bind id="hidden1" nodeset="/imci/Meta/DeviceID" type="xsd:string" jr:preload="property" jr:preloadParams="DeviceID" />
+      <bind id="hidden4" nodeset="/imci/Meta/username" type="xsd:string" jr:preload="context" jr:preloadParams="UserName" />
+      <bind id="hidden5" nodeset="/imci/Meta/chw_id" type="xsd:string" jr:preload="context" jr:preloadParams="UserID" />
+      <bind id="hidden2" nodeset="/imci/Meta/TimeStart" type="xsd:dateTime" jr:preload="timestamp" jr:preloadParams="start" />
+      <bind id="hidden3" nodeset="/imci/Meta/TimeEnd" type="xsd:dateTime" jr:preload="timestamp" jr:preloadParams="end" />
+      <bind id="hidden6" nodeset="/imci/Meta/uid" type="xsd:string" jr:preload="uid" jr:preloadParams="general" />
 
 	  <bind nodeset="notice" required="true()"/>
 
@@ -1489,9 +1487,7 @@
 
 
       <!--
-      -----------------------------------------------------------------------------------------
       ENGLISH text
-      -----------------------------------------------------------------------------------------
       -->
       <itext>
         <translation lang="English">
@@ -2482,9 +2478,7 @@
           </text>
         </translation>
          <!--
-      -----------------------------------------------------------------------------------------
       SWAHILI text
-      -----------------------------------------------------------------------------------------
       -->
         <translation lang="Swahili">
           <text id="c-100mg-tablet">
