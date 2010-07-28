@@ -1,22 +1,45 @@
 <?xml version="1.0"?>
 <h:html xmlns="http://www.w3.org/2002/xforms" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:jr="http://openrosa.org/javarosa">
 	<h:head>
-		<h:title>Basic</h:title>
+		<h:title>Debug</h:title>
 		<model>
 			<instance>
-				<!-- submitted data and defaults go here -->
-				<data id="basic">
-					<StringData/>
+				<data id="debug">
+					<select1/>
+					<string1/>
+					<string2/>
+					<trigger/>
 				</data>
-			</instance> 
-			<!-- add properties to the questions, like data types, skip logic, and constraints -->
-			<bind nodeset="/data/StringData" type="string" />
+			</instance>
+			<bind nodeset="/data/string1" constraint=". != ''" type="string"/>
+			<bind nodeset="/data/string2"/>
+			<bind nodeset="/data/trigger" required="true()"/>
 		</model>
 	</h:head>
-	<h:body>   
-		<!-- define the questions that the user will fill out -->
-		<input ref="StringData">
-			<label>please enter a string</label>
+	<h:body>
+			<select1 ref="select1">
+				<label>three select options</label>
+				<item>
+					<label>value value</label>
+					<value>1</value>
+				</item>
+				<item>
+					<label>value/</label>
+					<value/>
+				</item>
+			   <item>
+			   	<label>value /value</label>
+			   		<value></value>
+			   </item>
+			</select1>
+		<input ref="string1">
+			<label>string1 widget cannot be empty</label>
 		</input>
+		<input ref="string2">
+			<label>string2 widget</label>
+		</input>
+		<trigger ref="trigger">
+			<label>trigger widget is required</label>
+		</trigger>
 	</h:body>
 </h:html>

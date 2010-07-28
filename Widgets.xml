@@ -61,6 +61,8 @@
 						<repeat_count>3</repeat_count>
 						<repeat_b jr:template="">
 							<item_string_b>this is a really long string where you can put lots of information to prepare a user for anything you would like.</item_string_b>
+							<language_b/>
+							
 						</repeat_b>
 						<item_decimal>1234567890.1234567890</item_decimal>
 					</repeat_a>
@@ -95,7 +97,7 @@
 			<bind nodeset="/widgets/image" type="binary"/>
 			<bind nodeset="/widgets/audio" type="binary"/>
 			<bind nodeset="/widgets/video" type="binary"/>                        
-			<bind nodeset="/widgets/trigger" constraint=". != ''" />
+			<bind nodeset="/widgets/trigger" />
 			<bind nodeset="/widgets/calculate" calculate="if(../int &gt; '5', 'greater than five', 'less than or equal to five')"/>
 			<bind nodeset="/widgets/output" type="string" readonly="true()" relevant="selected(/widgets/branch, 'n')"/>
 			<bind nodeset="/widgets/repeat_a"/>
@@ -252,6 +254,19 @@
 						<input ref="item_string_b">
 							<label>child name</label>
 						</input>
+							<group>
+								<label>section a</label>
+								<group>
+									<label>section b</label>
+									<group>
+										<label>section c</label>
+										<input ref="language_b">
+											<label ref="jr:itext('hello')"/>
+											<hint ref="jr:itext('hint')"/>
+										</input>
+									</group>
+								</group>
+							</group>
 					</repeat>
 				</group>
 				<input ref="item_decimal">
