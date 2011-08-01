@@ -91,7 +91,7 @@
 				</translation>
 			</itext>
 			<instance>
-				<HouseholdSurvey xmlns="HouseholdSurvey1">
+				<HouseholdSurvey id="HouseholdSurvey1">
 					<StartTime/>
 					<EndTime/>
 					<DeviceID/>
@@ -131,7 +131,7 @@
 			<bind nodeset="/HouseholdSurvey/HeadOfHouseholdName" required="true()" type="string"/>
 			<bind nodeset="/HouseholdSurvey/HeadOfHouseholdAge" required="true()" type="int" constraint=". &gt;= 0 and . &lt; 120" jr:constraintMsg="Age must be between 0 and 120."/>
 			<bind nodeset="/HouseholdSurvey/HeadOfHouseholdGender" type="string"/>
-			<bind nodeset="/HouseholdSurvey/HeadOfHouseholdGenderText" calculate="if(../HeadOfHouseholdGender = 'm', 'a man', 'a woman')"/>
+			<bind nodeset="/HouseholdSurvey/HeadOfHouseholdGenderText" calculate="if(../HeadOfHouseholdGender = 'm', 'a man', 'a woman')" type="string"/>
 			<bind nodeset="/HouseholdSurvey/HeadOfHouseholdConfirmation" type="string" required="true()" constraint=". != 'no'" jr:constraintMsg="Acknowledge before continuing."/>
 			<bind nodeset="/HouseholdSurvey/ChildrenOfHousehold"/>
 			<bind nodeset="/HouseholdSurvey/ChildrenOfHousehold/ChildName" type="string"/>

@@ -11,7 +11,7 @@
 					<Description/>
 				</geotagger>
 			</instance>
-			<bind nodeset="/geotagger/Device" type="string" jr:preload="property" jr:preloadParams="deviceid"/>
+			<bind nodeset="/geotagger/DeviceId" type="string" jr:preload="property" jr:preloadParams="deviceid"/>
 			<bind nodeset="/geotagger/Image" type="binary"/>
 			<bind nodeset="/geotagger/Location" type="geopoint"/>
 			<bind nodeset="/geotagger/Description" type="string"/>
