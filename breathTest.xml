@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<h:html xmlns="http://www.w3.org/2002/xforms"
+        xmlns:h="http://www.w3.org/1999/xhtml"
+        xmlns:ev="http://www.w3.org/2001/xml-events"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:jr="http://openrosa.org/javarosa">
+  <h:head>
+    <h:title>Breath Test Form</h:title> 
+    <model>
+      <instance>
+        <form id="breathTest">
+		    <difficulty/>
+			<breathCount/>
+        </form>
+      </instance>
+	  <bind nodeset="/form/difficulty" type="string" />
+      <bind nodeset="/form/breathCount" type="int" />
+      <itext>
+        <translation lang="English">
+          <text id="breathCountMsg">
+            <value form="short">Breath count</value>
+            <value form="long">Enter the number of breaths taken over one minute</value>
+            <value form="buttonText">Launch BreathCounter</value>
+            <value form="noAppErrorString">BreathCounter is not installed! Please proceed to manually time and count breaths.</value>
+          </text>
+		</translation>
+	  </itext>
+    </model>
+  </h:head>
+  <h:body>
+    <select1 ref="/form/difficulty" >
+	 <label>Is the child having difficulty breathing?</label>
+	 <item><label>Yes</label><value>true</value></item>
+	 <item><label>No</label><value>false</value></item>
+	</select1>
+    <input appearance="ex:change.uw.android.BREATHCOUNT" ref="/form/breathCount" >
+	  <label ref="jr:itext('breathCountMsg')"/>
+	</input>
+  </h:body>
+</h:html>
+
