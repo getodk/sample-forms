@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>GME Geo Tagger B1</name>
+    <Folder>
+      <!-- Placemark is needed to build the data store -->
+      <Placemark>
+        <ExtendedData>
+          <Data name="/data/meta/InstanceId"/>
+          <Data name="/data/DeviceId"/>
+          <Data name="/data/Image"/>
+          <Data name="/data/Location"/>
+          <Data name="/data/Description"/>
+        </ExtendedData>
+        <!-- Replace with a polygon to set the zoom level -->
+        <Point>
+          <coordinates>0,0,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+  </Document>
+</kml>
