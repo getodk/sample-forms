@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:jr="http://openrosa.org/javarosa" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<h:head>
+		<h:title>GME Geo Tagger B1</h:title>
+		<model>
+			<instance>
+				<!-- gme_table_id is the asset id of the vector table in gme -->
+				<data id="gme-geo-tagger-b1" gme_table_id="08065948958396504284-03555630768578562747" >
+					<meta>
+						<InstanceId/>
+					</meta>
+					<DeviceId/>
+					<Image/>
+					<Location/>
+					<Description/>
+					<!-- Forms with repeats will not be submitted to GME -->
+				</data>
+			</instance>
+			<bind calculate="concat('uuid:', uuid())" nodeset="/data/meta/InstanceId" readonly="true()" type="string"/>
+			<bind jr:preload="property" jr:preloadParams="deviceid" nodeset="/data/DeviceId" type="string"/>
+			<bind nodeset="/data/Image" type="binary"/>
+			<!-- Locations are required for GME posts to work -->
+			<!-- If there are multiple locations, the first will be used -->
+			<bind nodeset="/data/Location" type="geopoint"/>
+			<bind nodeset="/data/Description" type="string"/>
+		</model>
+	</h:head>
+	<h:body>
+		<upload mediatype="image/*" ref="Image">
+			<label>Capture the image.</label>
+		</upload>
+		<input ref="Location">
+			<label>Capture the location.</label>
+		</input>
+		<input ref="Description">
+			<label>Describe the image and location.</label>
+		</input>
+	</h:body>
+</h:html>
