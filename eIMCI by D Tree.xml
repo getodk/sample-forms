@@ -18,7 +18,7 @@
     <model>
       <instance>
         <imci xmlns="http://dtree.org/e-imci" id="imci">
-        <Meta>
+        <meta>
 		  <formName>eIMCI</formName>
 		  <formVersion>0.0.1</formVersion>
 		  <DeviceID />
@@ -26,7 +26,7 @@
 		  <TimeEnd />
 		  <username />
 		  <chw_id />
-		  <uid /></Meta>
+		  <uid /></meta>
 		  <visit_type>first</visit_type>
 		  
 		  <notice/>
@@ -489,12 +489,12 @@
 
 
       <!--  Meta Block -->
-      <bind id="hidden1" nodeset="/imci/Meta/DeviceID" type="xsd:string" jr:preload="property" jr:preloadParams="DeviceID" />
-      <bind id="hidden4" nodeset="/imci/Meta/username" type="xsd:string" jr:preload="context" jr:preloadParams="UserName" />
-      <bind id="hidden5" nodeset="/imci/Meta/chw_id" type="xsd:string" jr:preload="context" jr:preloadParams="UserID" />
-      <bind id="hidden2" nodeset="/imci/Meta/TimeStart" type="xsd:dateTime" jr:preload="timestamp" jr:preloadParams="start" />
-      <bind id="hidden3" nodeset="/imci/Meta/TimeEnd" type="xsd:dateTime" jr:preload="timestamp" jr:preloadParams="end" />
-      <bind id="hidden6" nodeset="/imci/Meta/uid" type="xsd:string" jr:preload="uid" jr:preloadParams="general" />
+      <bind id="hidden1" nodeset="/imci/meta/DeviceID" type="xsd:string" jr:preload="property" jr:preloadParams="DeviceID" />
+      <bind id="hidden4" nodeset="/imci/meta/username" type="xsd:string" jr:preload="context" jr:preloadParams="UserName" />
+      <bind id="hidden5" nodeset="/imci/meta/chw_id" type="xsd:string" jr:preload="context" jr:preloadParams="UserID" />
+      <bind id="hidden2" nodeset="/imci/meta/TimeStart" type="xsd:dateTime" jr:preload="timestamp" jr:preloadParams="start" />
+      <bind id="hidden3" nodeset="/imci/meta/TimeEnd" type="xsd:dateTime" jr:preload="timestamp" jr:preloadParams="end" />
+      <bind id="hidden6" nodeset="/imci/meta/uid" type="xsd:string" jr:preload="uid" jr:preloadParams="general" />
 
 	  <bind nodeset="notice" required="true()"/>
 
