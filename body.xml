@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <h:head>
+    <h:title>body</h:title>
+    <model>
+      <itext>
+        <translation default="true()" lang="default">
+          <text id="/body/select_multiple_body_parts:label">
+            <value form="image">jr://images/body.svg</value>
+            <value>Select multiple body parts</value>
+          </text>
+          <text id="/body/select_one_body_part:label">
+            <value form="image">jr://images/body.svg</value>
+            <value>Select one body part</value>
+          </text>
+        </translation>
+      </itext>
+      <instance>
+        <body id="body">
+          <select_one_body_part/>
+          <select_multiple_body_parts/>
+          <meta>
+            <instanceID/>
+          </meta>
+        </body>
+      </instance>
+      <bind nodeset="/body/select_one_body_part" type="select1"/>
+      <bind nodeset="/body/select_multiple_body_parts" type="select"/>
+      <bind calculate="concat('uuid:', uuid())" nodeset="/body/meta/instanceID" readonly="true()" type="string"/>
+    </model>
+  </h:head>
+  <h:body>
+    <select1 appearance="Image-map" ref="/body/select_one_body_part">
+      <label ref="jr:itext('/body/select_one_body_part:label')"/>
+      <item>
+        <label>Head</label>
+        <value>head</value>
+      </item>
+      <item>
+        <label>Neck</label>
+        <value>neck</value>
+      </item>
+      <item>
+        <label>Lungs</label>
+        <value>lungs</value>
+      </item>
+      <item>
+        <label>Left proximal arm</label>
+        <value>left_proximal_arm</value>
+      </item>
+      <item>
+        <label>Left distal arm</label>
+        <value>left_distal_arm</value>
+      </item>
+      <item>
+        <label>Right proximal arm</label>
+        <value>right_proximal_arm</value>
+      </item>
+      <item>
+        <label>Right distal arm</label>
+        <value>right_distal_arm</value>
+      </item>
+      <item>
+        <label>Left proximal leg</label>
+        <value>left_proximal_leg</value>
+      </item>
+      <item>
+        <label>Left distal leg</label>
+        <value>left_distal_leg</value>
+      </item>
+      <item>
+        <label>Right proximal leg</label>
+        <value>right_proximal_leg</value>
+      </item>
+      <item>
+        <label>Right distal leg</label>
+        <value>right_distal_leg</value>
+      </item>
+    </select1>
+    <select appearance="Image-map" ref="/body/select_multiple_body_parts">
+      <label ref="jr:itext('/body/select_multiple_body_parts:label')"/>
+      <item>
+        <label>Head</label>
+        <value>head</value>
+      </item>
+      <item>
+        <label>Neck</label>
+        <value>neck</value>
+      </item>
+      <item>
+        <label>Lungs</label>
+        <value>lungs</value>
+      </item>
+      <item>
+        <label>Left proximal arm</label>
+        <value>left_proximal_arm</value>
+      </item>
+      <item>
+        <label>Left distal arm</label>
+        <value>left_distal_arm</value>
+      </item>
+      <item>
+        <label>Right proximal arm</label>
+        <value>right_proximal_arm</value>
+      </item>
+      <item>
+        <label>Right distal arm</label>
+        <value>right_distal_arm</value>
+      </item>
+      <item>
+        <label>Left proximal leg</label>
+        <value>left_proximal_leg</value>
+      </item>
+      <item>
+        <label>Left distal leg</label>
+        <value>left_distal_leg</value>
+      </item>
+      <item>
+        <label>Right proximal leg</label>
+        <value>right_proximal_leg</value>
+      </item>
+      <item>
+        <label>Right distal leg</label>
+        <value>right_distal_leg</value>
+      </item>
+    </select>
+  </h:body>
+</h:html>
