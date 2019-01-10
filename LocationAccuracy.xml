@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<h:html xmlns:h="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:jr="http://openrosa.org/javarosa" xmlns:odk="http://www.opendatakit.org/xforms" xmlns:orx="http://openrosa.org/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<h:head>
+		<h:title>Location Example</h:title>
+		<model>
+			<instance>
+				<LocationExample id="build_Location-Example_1547127779">
+					<gps_location />
+					<manual_location />
+					<meta>
+						<instanceID />
+					</meta>
+				</LocationExample>
+			</instance>
+			<bind nodeset="/LocationExample/gps_location" type="geopoint" />
+			<bind nodeset="/LocationExample/manual_location" relevant="not(boolean( /LocationExample/gps_location )) or number( /LocationExample/gps_location )&gt;15" type="geopoint" />
+			<bind calculate="concat('uuid:', uuid())" nodeset="/LocationExample/meta/instanceID" readonly="true()" type="string" />
+		</model>
+	</h:head>
+	<h:body>
+		<input appearance="maps" ref="/LocationExample/gps_location">
+			<label>GPS location</label>
+			<hint>GPS must have a clear view of the sky!</hint>
+		</input>
+		<input appearance="placement-map" ref="/LocationExample/manual_location">
+			<label>Manual location</label>
+			<hint>Use this when GPS signal is not available or poor</hint>
+		</input>
+	</h:body>
+</h:html>
