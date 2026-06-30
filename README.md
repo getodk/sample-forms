@@ -1,11 +1,10 @@
-# sample-forms
+# Sample Forms
 
-This project is __*infrequently maintained*__
+A repository of example xforms for use in ODK Collect and ODK Web Forms.
 
-It contains example ODK Collect forms. 
+## Relevant links
 
-There are many new features now available for which we do not have example forms.
+- [ODK](https://getodk.org/)
+- [Documentation](https://docs.getodk.org/)
+- [User forum](https://forum.getodk.org/)
 
-User documentation is [here](https://opendatakit.org/help/)
-
-The Google group for user questions is: [opendatakit@](https://groups.google.com/forum/#!forum/opendatakit)
